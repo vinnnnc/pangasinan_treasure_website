@@ -4,15 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pangasinan Treasure</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/images/optionweblogo.png"
+    />
     <link rel="stylesheet" href="/assets/css/styles.css" />
-    <link rel="stylesheet" href="/assets/css/nav.css" />
   </head>
 
   <body>
     <header>
       <nav>
         <div class="nav-container">
-          <a href="#home" id="brand">Pangasinan<br />Treasure</a>
+          <a href="index.html" id="brand">Pangasinan<br />Treasure</a>
           <div class="nav-search">
             <input type="text" placeholder="Search.." id="search-bar" />
             <a href="#search" id="search-btn">
@@ -33,10 +37,22 @@
     </header>
     <main>
       <section id="announcements">
-        <div class="container"></div>
+        <div class="container">
+          <div class="slider-wrapper">
+            <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
+            <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
+            <div class="slides-container" id="slides-container">
+              <a href="#" class="slide">Announcement 1</a>
+              <a href="#" class="slide">Announcement 2</a>
+              <a href="#" class="slide">Announcement 3</a>
+              <a href="#" class="slide">Announcement 4</a>
+            </div>
+          </div>
+        </div>
       </section>
       <section>
         <div class="container">
+          <h3 class="section-title">Categories</h3>
           <div id="category-container">
             <a href="#" class="category">
               <img src="assets/images/shopping-cart.svg" />
@@ -73,11 +89,17 @@
           </div>
         </div>
         <div class="container">
-          <div id="featured"></div>
+          <h3 class="section-title">Featured</h3>
+          <div class="featured">
+            <a href="#" class="featured-item featured-item-1"></a>
+            <a href="#" class="featured-item featured-item-2"></a>
+            <a href="#" class="featured-item featured-item-3"></a>
+          </div>
         </div>
         <div class="container">
+          <h3 class="section-title">For You</h3>
           <div id="products">
-            <a href="" class="product">
+            <a href="product.html" class="product">
               <div class="product-image">
                 <img src="/assets/images/products/product-1.jpg" />
               </div>
@@ -90,11 +112,7 @@
                 </h5>
                 <h4 class="product-price">₱ 299.99</h4>
                 <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
+                  <span class="star"></span>
                   <span class="product-rating">5.0</span>
                 </div>
               </div>
@@ -112,136 +130,45 @@
                 </h5>
                 <h4 class="product-price">₱ 299.99</h4>
                 <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="product-rating">5.0</span>
-                </div>
-              </div>
-            </a>
-            <a href="" class="product">
-              <div class="product-image">
-                <img src="/assets/images/products/product-1.jpg" />
-              </div>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <h4 class="product-price">₱ 299.99</h4>
-                <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="product-rating">5.0</span>
-                </div>
-              </div>
-            </a>
-            <a href="" class="product">
-              <div class="product-image">
-                <img src="/assets/images/products/product-1.jpg" />
-              </div>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <h4 class="product-price">₱ 299.99</h4>
-                <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="product-rating">5.0</span>
-                </div>
-              </div>
-            </a>
-            <a href="" class="product">
-              <div class="product-image">
-                <img src="/assets/images/products/product-1.jpg" />
-              </div>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <h4 class="product-price">₱ 299.99</h4>
-                <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="product-rating">5.0</span>
-                </div>
-              </div>
-            </a>
-            <a href="" class="product">
-              <div class="product-image">
-                <img src="/assets/images/products/product-1.jpg" />
-              </div>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <h4 class="product-price">₱ 299.99</h4>
-                <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="product-rating">5.0</span>
-                </div>
-              </div>
-            </a>
-            <a href="" class="product">
-              <div class="product-image">
-                <img src="/assets/images/products/product-1.jpg" />
-              </div>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <h4 class="product-price">₱ 299.99</h4>
-                <div class="ratings">
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
-                  <span class="star checked-star"></span>
+                  <span class="star"></span>
                   <span class="product-rating">5.0</span>
                 </div>
               </div>
             </a>
           </div>
+          <button onclick="" id="show-more-btn"><h4>Show More</h4></button>
         </div>
       </section>
     </main>
     <footer>
-      <div class="container">
-        <div class="footer-end">
-          <p>Copyright © 2024 Pangasinan Treasure. All Rights Reserved.</p>
-          <p>Site by Developer Thrill</p>
+      <section>
+        <div class="footer-container">
+          <section>
+            <a href="#about" class="footer-company-logo">
+              <img src="assets/images/companylogo.png" alt="Developer Thrill" />
+            </a>
+          </section>
+          <section>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
+              eius quas deleniti debitis, pariatur tenetur quos esse? Earum
+              ratione amet, impedit natus assumenda sunt quasi at mollitia ab
+              maxime tempore! Atque veritatis odit unde ipsam qui, quae quas
+              maiores expedita ad animi quisquam obcaecati, beatae, nisi placeat
+              molestiae. Nobis dolorem similique expedita ad officia, ab
+              assumenda necessitatibus maxime nulla! Delectus.
+            </p>
+          </section>
         </div>
-      </div>
+      </section>
+      <section>
+        <div class="footer-container">
+          <div class="footer-end">
+            <p>Copyright © 2024 Pangasinan Treasure. All Rights Reserved.</p>
+          </div>
+        </div>
+      </section>
     </footer>
+    <script src="/assets/script/script.js"></script>
   </body>
 </html>
