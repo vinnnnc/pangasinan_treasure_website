@@ -12,6 +12,7 @@
 }
 
 button {
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
 }
 
@@ -39,7 +40,7 @@ html {
   width: 12px;
   height: 25px;
   margin-right: 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   transform: translate(0, 5px);
   background: var(--secondary-color);
 }
@@ -161,7 +162,7 @@ header a:has(img):hover {
 
 /* ----Main---- */
 main {
-  min-height: 50vh;
+  min-height: 100vh;
 }
 
 .container {
@@ -276,7 +277,7 @@ main {
   padding: 1rem;
   background-color: var(--secondary-bg-color);
   text-decoration: none;
-  color: var(--accent-color);
+  color: var(--secondary-color);
   transition: 150ms;
   border: 2px solid var(--secondary-bg-color);
 }
@@ -327,11 +328,14 @@ main {
 
 .featured-item {
   transition: 150ms;
+  background-position: center;
   border: 2px solid var(--secondary-bg-color);
+  background-size: 100%;
 }
 
 .featured-item:hover {
   border-color: var(--primary-color);
+  background-size: 110%;
 }
 
 /* ----Products---- */
@@ -360,7 +364,18 @@ main {
   border-color: var(--primary-color);
 }
 
+.sale-text {
+  color: var(--secondary-bg-color);
+  background-color: var(--primary-color);
+  height: 30px;
+  line-height: 30px;
+  padding: 0 5px;
+}
 .product-image {
+  background-image: url(/assets/images/products/product-1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 190px;
   display: flex;
   /* justify-content: center; */
@@ -373,6 +388,13 @@ main {
 
 .product-details {
   padding: 10px 6px;
+}
+.product-details section {
+  margin-top: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .product-name {
@@ -388,10 +410,11 @@ main {
 .product-price {
   /* position: absolute;
   bottom: 30px; */
-  margin: 5px 0;
+  height: fit-content;
 }
 
 .ratings {
+  height: fit-content;
   margin: 10px 0;
   font-weight: 700;
   font-size: 0.8rem;
@@ -400,7 +423,7 @@ main {
 }
 
 .product-rating {
-  margin: 0 5px;
+  margin-right: 10px;
   transform: translate(0, 1px);
 }
 
@@ -412,7 +435,7 @@ main {
   color: #ffee33;
   width: 20px;
   height: 20px;
-  transform: translate(-3px, 0);
+  /* transform: translate(-3px, 0); */
 }
 
 .unchecked-star {
