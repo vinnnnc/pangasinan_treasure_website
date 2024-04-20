@@ -9,7 +9,7 @@
 }
 
 .product-view {
-  padding: 90px 0 10px 0;
+  padding: 10px 0;
   background-color: var(--secondary-bg-color);
 }
 
@@ -199,7 +199,7 @@
 }
 
 .order-buttons * {
-  display: inline;
+  display: inline-block;
   vertical-align: middle;
 }
 
@@ -232,12 +232,6 @@
 
 #quantity-num {
   margin: 0 20px 0 15px;
-}
-
-#quantity-num-input::-webkit-inner-spin-button,
-#quantity-num-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 .product-details-container {
@@ -292,7 +286,6 @@
   }
 
   .product-view {
-    padding-top: 80px;
     padding-bottom: 0;
   }
 

@@ -16,6 +16,10 @@ button {
   cursor: pointer;
 }
 
+main {
+  padding-top: 80px;
+}
+
 body {
   overflow: scroll;
   width: 100%;
@@ -174,7 +178,6 @@ main {
 /* ----Announcements---- */
 
 .slider-wrapper {
-  margin-top: 80px;
   position: relative;
   overflow: hidden;
   height: 500px;

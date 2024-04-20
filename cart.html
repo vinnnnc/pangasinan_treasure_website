@@ -10,6 +10,7 @@
       href="/assets/images/optionweblogo.png"
     />
     <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/cart.css" />
   </head>
 
   <body>
@@ -24,7 +25,7 @@
             </a>
           </div>
           <div class="nav-right">
-            <a href="#cart" id="cart-btn"
+            <a href="cart.html" id="cart-btn"
               ><img src="/assets/images/shopping-cart.svg" alt="cart"
             /></a>
             <a href="#profile" id="profile-btn" class="logged-out"
@@ -36,109 +37,118 @@
       </nav>
     </header>
     <main>
-      <section id="announcements">
-        <div class="container">
-          <div class="slider-wrapper">
-            <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
-            <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
-            <div class="slides-container" id="slides-container">
-              <a href="#" class="slide">Announcement 1</a>
-              <a href="#" class="slide">Announcement 2</a>
-              <a href="#" class="slide">Announcement 3</a>
-              <a href="#" class="slide">Announcement 4</a>
-            </div>
-          </div>
-        </div>
-      </section>
       <section>
         <div class="container">
-          <h3 class="section-title">Categories</h3>
-          <div id="category-container">
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-            <a href="#" class="category">
-              <img src="assets/images/shopping-cart.svg" />
-              <span>category</span>
-            </a>
-          </div>
-        </div>
-        <div class="container">
-          <h3 class="section-title">Featured</h3>
-          <div class="featured">
-            <a href="#" class="featured-item featured-item-1"></a>
-            <a href="#" class="featured-item featured-item-2"></a>
-            <a href="#" class="featured-item featured-item-3"></a>
-          </div>
-        </div>
-        <div class="container">
-          <h3 class="section-title">For You</h3>
-          <div id="products">
-            <a href="product.html" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star"></span>
-                    <span class="product-rating">5.0</span>
+          <h3 class="section-title">Cart</h3>
+          <div class="cart-container">
+            <table class="cart-table">
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th></th>
+              </tr>
+              <tr>
+                <th>
+                  <input type="checkbox" id="cart-product-1" />
+                </th>
+                <th></th>
+                <th>
+                  <h3>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Vel, earum architecto neque rerum delectus ex facilis
+                    cupiditate voluptates repudiandae itaque labore reiciendis
+                    odit dolorem temporibus molestias adipisci! Laborum, porro
+                    iure!
+                  </h3>
+                  <h5>Boneless Bangus</h5>
+                </th>
+                <th>₱ 299.99</th>
+                <th>
+                  <div class="cart-quantity">
+                    <button
+                      class="cart-quantity-btn"
+                      id="cart-quantity-subtract-btn"
+                      aria-label="Decrease"
+                    >
+                      &minus;
+                    </button>
+                    <input
+                      class="cart-product-quantity"
+                      type="text"
+                      aria-valuenow="1"
+                      role="spinbutton"
+                      value="1"
+                    />
+                    <button
+                      class="cart-quantity-btn"
+                      id="cart-quantity-add-btn"
+                      aria-label="Increase"
+                    >
+                      &plus;
+                    </button>
                   </div>
-                </section>
-              </div>
-            </a>
-            <a href="" class="product">
-              <span class="product-image" id="product-image"></span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star"></span>
-                    <span class="product-rating">5.0</span>
+                </th>
+                <th>₱ 299.99</th>
+                <th>
+                  <a href="" title="Delete">
+                    <img src="/assets/images/delete.svg" />
+                  </a>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <input type="checkbox" id="cart-product-1" />
+                </th>
+                <th></th>
+                <th>
+                  <h3>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Vel, earum architecto neque rerum delectus ex facilis
+                    cupiditate voluptates repudiandae itaque labore reiciendis
+                    odit dolorem temporibus molestias adipisci! Laborum, porro
+                    iure!
+                  </h3>
+                  <h5>Boneless Bangus</h5>
+                </th>
+                <th>₱ 299.99</th>
+                <th>
+                  <div class="cart-quantity">
+                    <button
+                      class="cart-quantity-btn"
+                      id="cart-quantity-subtract-btn"
+                      aria-label="Decrease"
+                    >
+                      &minus;
+                    </button>
+                    <input
+                      class="cart-product-quantity"
+                      type="text"
+                      aria-valuenow="2"
+                      role="spinbutton"
+                      value="2"
+                    />
+                    <button
+                      class="cart-quantity-btn"
+                      id="cart-quantity-add-btn"
+                      aria-label="Increase"
+                    >
+                      &plus;
+                    </button>
                   </div>
-                </section>
-              </div>
-            </a>
+                </th>
+                <th>₱ 599.98</th>
+                <th>
+                  <a href="" title="Delete">
+                    <img src="/assets/images/delete.svg" />
+                  </a>
+                </th>
+              </tr>
+            </table>
           </div>
-          <button onclick="" id="show-more-btn"><h4>Show More</h4></button>
         </div>
       </section>
     </main>
