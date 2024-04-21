@@ -11,31 +11,22 @@
     />
     <link rel="stylesheet" href="/assets/css/styles.css" />
     <link rel="stylesheet" href="/assets/css/viewproduct.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+      });
+    </script>
   </head>
 
   <body>
-    <header>
-      <nav>
-        <div class="nav-container">
-          <a href="index.html" id="brand">Pangasinan<br />Treasure</a>
-          <div class="nav-search">
-            <input type="text" placeholder="Search.." id="search-bar" />
-            <a href="search.html" id="search-btn">
-              <img src="/assets/images/search.svg" alt="search-icon" />
-            </a>
-          </div>
-          <div class="nav-right">
-            <a href="#cart" id="cart-btn"
-              ><img src="/assets/images/shopping-cart.svg" alt="cart"
-            /></a>
-            <a href="#profile" id="profile-btn" class="logged-out"
-              ><img src="/assets/images/user.svg" alt="profile" />
-              <span>Log In</span>
-            </a>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <img
+      class="pangasinan-image"
+      src="/assets/images/pangasinan_bg.svg"
+      alt="pangasinan"
+    />
+    <div id="header"></div>
     <main>
       <section class="product-view">
         <div class="container product-view-container">
@@ -94,8 +85,8 @@
               </button>
             </div>
             <span class="variant-name">Boneless Bangus</span>
+            <h4>Quantity</h4>
             <div class="product-view-quantity">
-              <h4>Quantity</h4>
               <div class="order-buttons">
                 <section>
                   <button class="product-view-btn" id="quantity-subtract-btn">
@@ -368,7 +359,7 @@
       <section>
         <div class="footer-container">
           <section>
-            <a href="#about" class="footer-company-logo">
+            <a href="about.html" class="footer-company-logo">
               <img src="assets/images/companylogo.png" alt="Developer Thrill" />
             </a>
           </section>

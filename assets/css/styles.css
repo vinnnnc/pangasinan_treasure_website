@@ -11,6 +11,17 @@
   --min-page-width: 1080px;
 }
 
+.pangasinan-image {
+  position: fixed;
+  z-index: -1;
+  height: 150%;
+  /* width: 100%; */
+  top: -25%;
+  filter: invert(19%) sepia(20%) saturate(6546%) hue-rotate(202deg)
+    brightness(99%) contrast(94%);
+  opacity: 10%;
+}
+
 button {
   font-family: "Poppins", sans-serif;
   cursor: pointer;
@@ -165,9 +176,9 @@ header a:has(img):hover {
 }
 
 /* ----Main---- */
-main {
-  min-height: 100vh;
-}
+/* main {
+  min-height: 70vh;
+} */
 
 .container {
   max-width: var(--max-page-width);
@@ -261,7 +272,7 @@ main {
 #category-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1px;
+  gap: 2px;
   margin: 10px 0;
   justify-content: center;
 }
@@ -282,11 +293,13 @@ main {
   text-decoration: none;
   color: var(--secondary-color);
   transition: 150ms;
-  border: 2px solid var(--secondary-bg-color);
+  /* border: 2px solid var(--secondary-bg-color); */
+  outline: 2px solid rgba(4, 21, 98, 0);
 }
 
 .category:hover {
-  border-color: var(--primary-color);
+  /* border-color: var(--primary-color); */
+  outline-color: rgba(4, 21, 98, 1);
 }
 
 .category img {
@@ -330,15 +343,18 @@ main {
 }
 
 .featured-item {
-  transition: 150ms;
+  transition: background-size 150ms, outline-color 150ms;
   background-position: center;
-  border: 2px solid var(--secondary-bg-color);
+  /* border: 2px solid var(--secondary-bg-color); */
+  outline: 2px solid rgba(4, 21, 98, 0);
   background-size: 100%;
 }
 
 .featured-item:hover {
-  border-color: var(--primary-color);
+  /* border-color: var(--primary-color); */
+  outline-color: rgba(4, 21, 98, 1);
   background-size: 110%;
+  z-index: 1;
 }
 
 /* ----Products---- */
@@ -360,14 +376,17 @@ main {
   color: var(--primary-color);
   position: relative;
   transition: 150ms;
-  border: 2px solid var(--secondary-bg-color);
+  /* border: 2px solid var(--secondary-bg-color); */
+  outline: 2px solid rgba(4, 21, 98, 0);
 }
 
 .product:hover {
-  border-color: var(--primary-color);
+  /* border-color: var(--primary-color); */
+  outline-color: rgba(17, 70, 143, 1);
 }
 
 .sale-text {
+  visibility: visible;
   color: var(--secondary-bg-color);
   background-color: var(--primary-color);
   height: 30px;
@@ -457,11 +476,13 @@ main {
   border: none;
   margin: 20px auto;
   transition: 150ms;
-  border: 2px solid var(--secondary-bg-color);
+  /* border: 2px solid var(--secondary-bg-color); */
+  outline: 2px solid rgba(4, 21, 98, 0);
 }
 
 #show-more-btn:hover {
-  border-color: var(--primary-color);
+  /* border-color: var(--primary-color); */
+  outline-color: rgba(4, 21, 98, 1);
 }
 
 @media only screen and (max-width: 480px) {
