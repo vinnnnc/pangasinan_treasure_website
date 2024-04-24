@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pangasinan Treasure</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/images/optionweblogo.png"
+    />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
+    <link rel="stylesheet" href="/assets/css/profile.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+      });
+    </script>
+  </head>
+
+  <body onload="loadPayment()">
+    <img
+      class="pangasinan-image"
+      src="/assets/images/pangasinan_bg.svg"
+      alt="pangasinan"
+    />
+    <div id="header"></div>
+    <main>
+      <section>
+        <h3 class="section-title">Profile</h3>
+        <div class="profile-container">
+          <div class="container">
+            <div class="profile-card">
+              <section class="left-section">
+                <span class="profile-picture">
+                  <img src="/assets/images/user.svg" alt="Profile" />
+                </span>
+                <div class="account-management">
+                  <a href="javascript:loadEditProfile()" class="active">
+                    <h4>Manage My Account</h4>
+                  </a>
+                  <a href="javascript:loadAddress()">
+                    <h5>Address Book</h5>
+                  </a>
+                  <a href="javascript:loadPayment()">
+                    <h5>Payment Options</h5>
+                  </a>
+                  <a href="javascript:loadOrders()">
+                    <h4>My Orders</h4>
+                  </a>
+                  <a href="javascript:loadReturns()">
+                    <h5>My Returns</h5>
+                  </a>
+                  <a href="javascript:loadCancellations()">
+                    <h5>My Cancellations</h5>
+                  </a>
+                </div>
+                <div class="my-orders"></div>
+              </section>
+              <hr />
+              <section class="right-section"></section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div id="footer"></div>
+    <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/profile.js"></script>
+  </body>
+</html>

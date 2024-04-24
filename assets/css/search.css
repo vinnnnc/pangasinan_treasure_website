@@ -1,14 +1,3 @@
-/* ----Variables---- */
-:root {
-  --primary-color: #041562;
-  --secondary-color: #11468f;
-  --accent-color: #da1212;
-  --primary-bg-color: #eeeeee;
-  --secondary-bg-color: #ffffff;
-  --max-page-width: 1200px;
-  --min-page-width: 1080px;
-}
-
 #search-filter {
   height: 20vh;
   background-color: var(--secondary-bg-color);

@@ -1,0 +1,11 @@
+:root {
+  --primary-color: #19202f;
+  --secondary-color: #bbe1ff;
+  /* --bg-1-color: #ffffff; */
+  --bg-color: #f5f5f5;
+  --text-color: #28242c;
+  --accent-color: #ff2454;
+  --max-page-width: 1200px;
+  --filter-white: invert(100%) sepia(100%) saturate(1%) brightness(100%)
+    contrast(100%);
+}

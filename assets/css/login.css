@@ -1,14 +1,3 @@
-/* ----Variables---- */
-:root {
-  --primary-color: #041562;
-  --secondary-color: #11468f;
-  --accent-color: #da1212;
-  --primary-bg-color: #eeeeee;
-  --secondary-bg-color: #ffffff;
-  --max-page-width: 1200px;
-  --min-page-width: 1080px;
-}
-
 .login-container {
   margin-top: 70px;
   margin-bottom: 80px;
@@ -46,8 +35,8 @@ form {
   color: var(--secondary-color);
 }
 
-input[type="text"],
-input[type="password"] {
+.login-container input[type="text"],
+.login-container input[type="password"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

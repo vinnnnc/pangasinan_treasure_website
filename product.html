@@ -10,6 +10,8 @@
       href="/assets/images/optionweblogo.png"
     />
     <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
     <link rel="stylesheet" href="/assets/css/viewproduct.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -34,29 +36,29 @@
             <img src="/assets/images/products/product-6.jpg" alt="bangus" />
           </div>
           <div class="product-view-gallery">
-            <span>
+            <span class="outline-hover">
               <img src="/assets/images/products/product-6.jpg" alt="bangus" />
             </span>
-            <span>
+            <span class="outline-hover">
               <img src="/assets/images/products/product-5.jpg" alt="bangus" />
             </span>
-            <span>
+            <span class="outline-hover">
               <img src="/assets/images/products/product-7.jpg" alt="bangus" />
             </span>
-            <span>
+            <span class="outline-hover">
               <img src="/assets/images/products/product-7.jpg" alt="bangus" />
             </span>
-            <span>
+            <span class="outline-hover">
               <img src="/assets/images/products/product-7.jpg" alt="bangus" />
             </span>
           </div>
           <div class="product-view-details">
-            <h2 id="product-view-name">
+            <span id="product-view-name">
               Boneless Bangus Lorem ipsum dolor, sit amet consectetur
               adipisicing elit. Officia aliquam nam alias doloremque, quaerat
               sunt sed, cum placeat excepturi dicta id fuga aliquid error
               necessitatibus. Est iusto odio aliquid eligendi.
-            </h2>
+            </span>
             <div class="ratings">
               <span class="star checked-star"></span>
               <span class="star checked-star"></span>
@@ -68,31 +70,38 @@
               </span>
             </div>
             <span class="product-view-price">
-              <h2 id="product-view-price">₱ 299.99</h2>
+              <span id="product-view-price">₱ 299.99</span>
               <p class="product-view-sale-text sale-text">Save up to ₱9!</p>
             </span>
             <div class="product-view-stock">
-              <h4>Variants</h4>
-              <h5 id="product-view-stock">10 left</h5>
+              <span>Variants&ThickSpace;&ThickSpace;&ThickSpace;|</span>
+              <span id="product-view-stock">10 left</span>
             </div>
-            <div class="product-view-variants">
-              <button class="product-view-btn" id="variant-btn-2">1</button>
+            <div class="product-view-variants" id="product-view-variants">
+              <!-- <button class="product-view-btn" id="variant-btn-2">1</button>
               <button
                 class="product-view-btn variant-unchecked"
                 id="variant-btn-1"
               >
                 2
-              </button>
+              </button> -->
             </div>
-            <span class="variant-name">Boneless Bangus</span>
-            <h4>Quantity</h4>
+            <span class="variant-name" id="variant-name">Boneless Bangus</span>
+            <span>Quantity</span>
             <div class="product-view-quantity">
               <div class="order-buttons">
                 <section>
                   <button class="product-view-btn" id="quantity-subtract-btn">
                     &minus;
                   </button>
-                  <p id="quantity-num">1</p>
+                  <input
+                    type="number"
+                    id="quantity-num"
+                    value="1"
+                    min="1"
+                    max="50"
+                    title="quantity"
+                  />
                   <button class="product-view-btn" id="quantity-add-btn">
                     &plus;
                   </button>
@@ -108,9 +117,9 @@
               </div>
             </div>
             <div class="product-view-shop">
-              <h5>Sold by</h5>
+              <span>Sold by</span>
               <span>
-                <h3>Shop Name</h3>
+                <span class="shop-name" id="shop-name">Shop ni Juan</span>
                 <section>
                   <a href="#shop" class="shop-btn" id="visit-shop-btn">
                     Visit Shop
@@ -127,121 +136,25 @@
       </section>
       <section>
         <div class="container">
-          <h3 class="section-title">More From Shop</h3>
+          <span class="section-title">More From Shop</span>
           <div id="products" class="shop">
             <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star checked-star"></span>
-                    <span class="product-rating">5.0</span>
-                  </div>
-                </section>
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
               </div>
-            </a>
-            <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
               <div class="product-details">
-                <h5 class="product-name">
+                <span class="product-name">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Voluptates officiis sit, enim esse illo ad eligendi dolore.
                   Nam perferendis recusandae, quo perspiciatis voluptatum
                   laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
+                </span>
                 <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star checked-star"></span>
-                    <span class="product-rating">5.0</span>
-                  </div>
-                </section>
-              </div>
-            </a>
-            <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star checked-star"></span>
-                    <span class="product-rating">5.0</span>
-                  </div>
-                </section>
-              </div>
-            </a>
-            <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star checked-star"></span>
-                    <span class="product-rating">5.0</span>
-                  </div>
-                </section>
-              </div>
-            </a>
-            <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
-                  <div class="ratings">
-                    <span class="star checked-star"></span>
-                    <span class="product-rating">5.0</span>
-                  </div>
-                </section>
-              </div>
-            </a>
-            <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
-              <div class="product-details">
-                <h5 class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
-                <section>
-                  <h4 class="product-price">₱ 299.99</h4>
+                  <span class="product-price">₱ 299.99</span>
                   <div class="ratings">
                     <span class="star checked-star"></span>
                     <span class="product-rating">5.0</span>
@@ -254,7 +167,7 @@
       </section>
       <section>
         <div class="container">
-          <h3 class="section-title">Product Details</h3>
+          <span class="section-title">Product Details</span>
           <div class="product-details-container">
             <p>
               Our fresh (and truly XL-sized) dagupan bangus offers tasty flavor
@@ -273,36 +186,14 @@
       </section>
       <section>
         <div class="container">
-          <h3 class="section-title">Reviews</h3>
+          <span class="section-title">Reviews</span>
           <div class="review-container">
             <div class="review">
               <section class="review-profile-section">
-                <img src="/assets/images/user.svg" alt="user" />
-                <h5>Juan DC.</h5>
-              </section>
-              <section class="review-rating-section">
-                <div class="ratings">
-                  <span class="star"></span>
-                  <span class="star"></span>
-                  <span class="star"></span>
-                  <span class="star"></span>
-                  <span class="star unchecked-star"></span>
-                  <span class="product-rating" id="product-view-rating">
-                    4.0
-                  </span>
+                <div class="review-img">
+                  <img src="/assets/images/user.svg" alt="user" />
                 </div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                  et assumenda tempora, provident ipsam laboriosam optio iste
-                  aperiam commodi eos quia modi fugiat. Obcaecati ipsum illum
-                  corrupti nulla voluptatum in!
-                </p>
-              </section>
-            </div>
-            <div class="review">
-              <section class="review-profile-section">
-                <img src="/assets/images/user.svg" alt="user" />
-                <h5>Juan DC.</h5>
+                <span>Juan DC.</span>
               </section>
               <section class="review-rating-section">
                 <div class="ratings">
@@ -328,21 +219,25 @@
       </section>
       <section>
         <div class="container">
-          <h3 class="section-title">For You</h3>
+          <span class="section-title">For You</span>
           <div id="products">
-            <a href="" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
               <div class="product-details">
-                <h5 class="product-name">
+                <span class="product-name">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Voluptates officiis sit, enim esse illo ad eligendi dolore.
                   Nam perferendis recusandae, quo perspiciatis voluptatum
                   laboriosam modi necessitatibus sit quidem nemo repellat!
-                </h5>
+                </span>
                 <section>
-                  <h4 class="product-price">₱ 299.99</h4>
+                  <span class="product-price">₱ 299.99</span>
                   <div class="ratings">
                     <span class="star checked-star"></span>
                     <span class="product-rating">5.0</span>
@@ -351,7 +246,6 @@
               </div>
             </a>
           </div>
-          <button onclick="" id="show-more-btn"><h4>Show More</h4></button>
         </div>
       </section>
     </main>
@@ -385,5 +279,6 @@
       </section>
     </footer>
     <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/view_product.js"></script>
   </body>
 </html>

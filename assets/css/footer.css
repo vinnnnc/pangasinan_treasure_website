@@ -1,0 +1,56 @@
+/* ----Footer---- */
+footer {
+  background-color: var(--secondary-color);
+  /* height: 500px; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  /* position: relative; */
+  margin-top: 30px;
+}
+
+section:has(.footer-end) {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
+
+footer section {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-container {
+  padding: 5px;
+  display: flex;
+  height: 100%;
+  width: var(--max-page-width);
+}
+
+.footer-end {
+  text-align: center;
+  color: white;
+  font-size: 0.8rem;
+  width: 100%;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+}
+
+.footer-company-logo img {
+  height: 100px;
+  transform: translate(-10px, 0);
+}
+
+.footer-company-logo {
+  /* display: flex;
+    text-decoration: none;
+    color: var(--primary-bg-color); */
+  padding: 20px;
+}
+
+@media only screen and (max-width: 480px) {
+  .footer-container {
+    flex-direction: column;
+  }
+}

@@ -10,6 +10,8 @@
       href="/assets/images/optionweblogo.png"
     />
     <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
       $(function () {
@@ -27,73 +29,96 @@
     />
     <div id="header"></div>
     <main>
-      <section id="announcements">
+      <div id="announcements">
         <div class="container">
           <div class="slider-wrapper">
             <button class="slide-arrow" id="slide-arrow-prev">&#8249;</button>
             <button class="slide-arrow" id="slide-arrow-next">&#8250;</button>
-            <div class="slides-container" id="slides-container">
-              <a href="#" class="slide">Announcement 1</a>
-              <a href="#" class="slide">Announcement 2</a>
-              <a href="#" class="slide">Announcement 3</a>
-              <a href="#" class="slide">Announcement 4</a>
+            <div id="slides-container" class="slide-1">
+              <div class="slide" id="slide-1">
+                <a href="#" class="announcement-content"></a>
+              </div>
+              <div class="slide" id="slide-2">
+                <a href="#" class="announcement-content"></a>
+              </div>
+              <div class="slide" id="slide-3">
+                <a href="#" class="announcement-content"></a>
+              </div>
+            </div>
+            <div class="slider-page">
+              <span id="page-1" class="slider-active"></span>
+              <span id="page-2"></span>
+              <span id="page-3"></span>
             </div>
           </div>
         </div>
-      </section>
-      <section>
+      </div>
+      <div>
         <div class="container">
-          <h3 class="section-title">Categories</h3>
+          <span class="section-title">Categories</span>
           <div id="category-container">
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category outline-hover">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
-            <a href="#" class="category">
+            <a href="search.html" class="category">
               <img src="assets/images/shopping-cart.svg" />
               <span>category</span>
             </a>
           </div>
         </div>
         <div class="container">
-          <h3 class="section-title">Featured</h3>
+          <span class="section-title">Featured</span>
           <div class="featured">
-            <a href="#" class="featured-item featured-item-1"></a>
-            <a href="#" class="featured-item featured-item-2"></a>
-            <a href="#" class="featured-item featured-item-3"></a>
+            <a
+              href="product.html"
+              class="outline-hover featured-item featured-item-1"
+            ></a>
+            <a
+              href="product.html"
+              class="outline-hover featured-item featured-item-2"
+            ></a>
+            <a
+              href="product.html"
+              class="outline-hover featured-item featured-item-3"
+            ></a>
           </div>
         </div>
         <div class="container">
-          <h3 class="section-title">For You</h3>
+          <span class="section-title">For You</span>
           <div id="products">
             <a href="product.html" class="product">
-              <span class="product-image">
-                <p class="sale-text">Save up to ₱9!</p>
-              </span>
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
               <div class="product-details">
                 <h5 class="product-name">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -101,17 +126,23 @@
                   Nam perferendis recusandae, quo perspiciatis voluptatum
                   laboriosam modi necessitatibus sit quidem nemo repellat!
                 </h5>
-                <section>
+                <div class="product-footer">
                   <h4 class="product-price">₱ 299.99</h4>
                   <div class="ratings">
                     <span class="star"></span>
                     <span class="product-rating">5.0</span>
                   </div>
-                </section>
+                </div>
               </div>
             </a>
-            <a href="" class="product">
-              <span class="product-image" id="product-image"></span>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
               <div class="product-details">
                 <h5 class="product-name">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -119,21 +150,24 @@
                   Nam perferendis recusandae, quo perspiciatis voluptatum
                   laboriosam modi necessitatibus sit quidem nemo repellat!
                 </h5>
-                <section>
+                <div class="product-footer">
                   <h4 class="product-price">₱ 299.99</h4>
                   <div class="ratings">
                     <span class="star"></span>
                     <span class="product-rating">5.0</span>
                   </div>
-                </section>
+                </div>
               </div>
             </a>
           </div>
-          <button onclick="" id="show-more-btn"><h4>Show More</h4></button>
+          <button onclick="" id="show-more-btn" class="outline-hover">
+            <h4>Show More</h4>
+          </button>
         </div>
-      </section>
+      </div>
     </main>
     <div id="footer"></div>
     <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/announcement_slider.js"></script>
   </body>
 </html>

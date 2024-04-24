@@ -10,6 +10,8 @@
       href="/assets/images/optionweblogo.png"
     />
     <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
     <link rel="stylesheet" href="/assets/css/cart.css" />
   </head>
 
@@ -27,7 +29,7 @@
           <div class="cart-container">
             <table class="cart-table">
               <tr>
-                <th></th>
+                <th><input type="checkbox" id="cart-product-1" /></th>
                 <th></th>
                 <th></th>
                 <th>Price</th>
@@ -78,7 +80,7 @@
                 </th>
                 <th>₱ 299.99</th>
                 <th>
-                  <a href="" title="Delete">
+                  <a href="" title="Delete" class="delete-cart">
                     <img src="/assets/images/delete.svg" />
                   </a>
                 </th>
@@ -126,12 +128,29 @@
                 </th>
                 <th>₱ 599.98</th>
                 <th>
-                  <a href="" title="Delete">
+                  <a href="" title="Delete" class="delete-cart">
                     <img src="/assets/images/delete.svg" />
                   </a>
                 </th>
               </tr>
             </table>
+            <div class="to-checkout">
+              <h3>Order Summary</h3>
+              <div class="subtotal-1">
+                <h5>Subtotal</h5>
+                <h4>₱ 1,798.96</h4>
+              </div>
+
+              <div class="shipping-fee">
+                <h5>Shipping Fee</h5>
+                <h4>₱ 50.00</h4>
+              </div>
+              <div class="subtotal-2">
+                <h5>Subtotal</h5>
+                <h4>₱ 1,848.96</h4>
+              </div>
+              <button id="checkout-btn">Check Out</button>
+            </div>
           </div>
         </div>
       </section>
