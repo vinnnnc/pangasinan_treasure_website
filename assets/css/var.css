@@ -1,10 +1,19 @@
 :root {
-  --primary-color: #19202f;
-  --secondary-color: #bbe1ff;
+  --primary-color: #bbe1ff;
+  --filter-primary: invert(81%) sepia(18%) saturate(640%) hue-rotate(179deg)
+    brightness(102%) contrast(103%);
+  /* 19202f */
+  --secondary-color: #19202f;
+  --filter-secondary: invert(8%) sepia(63%) saturate(478%) hue-rotate(182deg)
+    brightness(98%) contrast(91%);
+  /* bbe1ff */
   /* --bg-1-color: #ffffff; */
   --bg-color: #f5f5f5;
   --text-color: #28242c;
+  /* 28242c */
   --accent-color: #ff2454;
+  --filter-accent: invert(34%) sepia(68%) saturate(6633%) hue-rotate(334deg)
+    brightness(103%) contrast(101%);
   --max-page-width: 1200px;
   --filter-white: invert(100%) sepia(100%) saturate(1%) brightness(100%)
     contrast(100%);

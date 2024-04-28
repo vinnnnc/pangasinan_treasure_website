@@ -1,6 +1,6 @@
 #search-filter {
-  height: 20vh;
-  background-color: var(--secondary-bg-color);
+  height: 200px;
+  background-color: white;
 }
 
 .pagination_section {
@@ -19,11 +19,12 @@
   height: 50px;
   line-height: 50px;
   transition: 150ms;
+  border-radius: 3px;
 }
 
 .pagination_section a.page-active {
   background-color: var(--secondary-color);
-  color: var(--secondary-bg-color);
+  color: white;
 }
 
 .pagination_section a:hover {

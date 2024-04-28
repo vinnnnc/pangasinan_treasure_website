@@ -26,68 +26,110 @@
     <div id="header"></div>
     <main>
       <section>
-        <div class="login-container">
-          <div class="login-card">
-            <h3 class="section-title">Welcome to Pangasinan Treasure!</h3>
-            <form action="action_page.php" method="post">
-              <h4>Log In</h4>
-              <div class="card-container">
-                <label for="uname"><b>Username</b></label>
-                <input
-                  type="text"
-                  placeholder="Enter Username"
-                  name="uname"
-                  required
-                />
-
-                <label for="psw"><b>Password</b></label>
-                <input
-                  type="password"
-                  placeholder="Enter Password"
-                  name="psw"
-                  required
-                />
-
-                <button type="submit">Login</button>
-                <label>
-                  <input type="checkbox" checked="checked" name="remember" />
-                  Remember me
-                </label>
+        <div class="container">
+          <div class="login-container">
+            <img
+              src="/assets/images/pangasinan_bg.svg"
+              alt=""
+              id="pangasinan-bg"
+            />
+            <div class="login-brand">
+              <img src="/assets/images/weblogo.png" alt="" />
+              Tag Line Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              At consequuntur quo ex dicta quos eaque debitis dolor sit
+              temporibus quae. Minima, veniam sit minus sunt optio iure
+              explicabo amet fugiat.
+            </div>
+            <div class="login-signup-window">
+              <div class="login-window">
+                <div class="login-card">
+                  <span>Log In</span>
+                  <form action="action_page.php" method="post">
+                    <div class="card-container">
+                      <label for="uname"><b>Username</b></label>
+                      <input
+                        type="text"
+                        placeholder="Enter Username"
+                        name="uname"
+                        required
+                      />
+                      <label for="psw"><b>Password</b></label>
+                      <input
+                        type="password"
+                        placeholder="Enter Password"
+                        name="psw"
+                        required
+                      />
+                      <button type="submit">Login</button>
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked="checked"
+                          name="remember"
+                        />
+                        Remember me
+                      </label>
+                      <a href="#" class="login-signup-btn" id="signup-btn"
+                        >Create an account</a
+                      >
+                    </div>
+                  </form>
+                </div>
+                <div class="signup-card">
+                  <span>Create an Account</span>
+                  <form action="action_page.php" method="post">
+                    <div class="card-container">
+                      <label for="uname"><b>Username</b></label>
+                      <input
+                        type="text"
+                        placeholder="Enter Username"
+                        name="uname"
+                        required
+                      />
+                      <label for="email"><b>E-mail</b></label>
+                      <input
+                        type="email"
+                        placeholder="Enter e-mail"
+                        name="email"
+                        required
+                      />
+                      <label for="psw"><b>Password</b></label>
+                      <input
+                        type="password"
+                        placeholder="Enter Password"
+                        name="psw"
+                        required
+                      />
+                      <label for="psw"><b>Re-enter Password</b> </label>
+                      <input
+                        type="password"
+                        placeholder="Re-enter Password"
+                        name="psw"
+                        required
+                      />
+                      <button type="submit">Create Account</button>
+                      <!-- <label>
+                      <input
+                        type="checkbox"
+                        checked="checked"
+                        name="remember"
+                      />
+                      Remember me
+                    </label> -->
+                      <a href="#" class="login-signup-btn" id="login-btn">
+                        Log In
+                      </a>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </section>
     </main>
-    <footer>
-      <section>
-        <div class="footer-container">
-          <section>
-            <a href="about.html" class="footer-company-logo">
-              <img src="assets/images/companylogo.png" alt="Developer Thrill" />
-            </a>
-          </section>
-          <section>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-              eius quas deleniti debitis, pariatur tenetur quos esse? Earum
-              ratione amet, impedit natus assumenda sunt quasi at mollitia ab
-              maxime tempore! Atque veritatis odit unde ipsam qui, quae quas
-              maiores expedita ad animi quisquam obcaecati, beatae, nisi placeat
-              molestiae. Nobis dolorem similique expedita ad officia, ab
-              assumenda necessitatibus maxime nulla! Delectus.
-            </p>
-          </section>
-        </div>
-      </section>
-      <section>
-        <div class="footer-container">
-          <div class="footer-end">
-            <p>Copyright © 2024 Pangasinan Treasure. All Rights Reserved.</p>
-          </div>
-        </div>
-      </section>
-    </footer>
+    <div id="footer"></div>
     <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/login.js"></script>
   </body>
 </html>

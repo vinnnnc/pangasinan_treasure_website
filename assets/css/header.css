@@ -1,20 +1,46 @@
 /* ----Header---- */
 header {
   background-color: var(--primary-color);
-  height: 80px;
+  height: 100px;
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 100;
 }
 
+.top-header {
+  line-height: 1rem;
+  color: white;
+  height: 20px;
+  background-color: var(--secondary-color);
+  text-align: right;
+}
+
+.top-container {
+  max-width: var(--max-page-width);
+  margin: auto;
+}
+
+.top-header a {
+  text-decoration: none;
+  color: white;
+  font-size: 0.8rem;
+  margin: 0 10px;
+  transition: 150ms;
+}
+
+.top-header a:hover {
+  /* opacity: 80%; */
+  color: var(--accent-color);
+}
+
 nav {
   /* background-color: var(--secondary-color); */
-  height: 100%;
+  height: 80px;
   display: flex;
   /* border-bottom: 1px solid var(--primary-color); */
-  /* overflow: hidden; */
-  box-shadow: 0 -5px 10px black;
+
+  box-shadow: 0 5px 2px var(--accent-color);
 }
 
 header a:has(img) {
@@ -23,13 +49,17 @@ header a:has(img) {
   transition: 150ms;
 }
 
+.btn-shadow {
+  transition: 150ms;
+}
+
 .btn-shadow:hover {
-  filter: drop-shadow(0 0 10px rgb(255 255 255/ 1));
+  filter: var(--filter-accent);
 }
 
 #profile-btn {
-  background-color: var(--secondary-color);
-  border: 3px solid var(--accent-color);
+  background-color: white;
+  border: 2px solid var(--secondary-color);
   height: 30px;
   width: 30px;
   margin: 0 10px;
@@ -38,6 +68,11 @@ header a:has(img) {
   display: flex;
   position: relative;
   justify-content: center;
+  transition: 150ms;
+}
+
+#profile-btn:hover {
+  border-color: var(--accent-color);
 }
 
 .logged-out:hover img {
@@ -52,6 +87,10 @@ header a:has(img) {
   transition: 150ms;
   color: black;
   opacity: 0%;
+}
+
+a.hidden {
+  display: none;
 }
 
 .logged-out:hover span {
@@ -71,7 +110,6 @@ header a:has(img) {
   line-height: 1.5rem;
   display: flex;
   align-items: center;
-  /* flex-direction: column; */
 }
 
 .brand {
@@ -113,6 +151,7 @@ header a:has(img) {
   margin: auto;
   display: flex;
   align-items: center;
+  /* overflow: hidden; */
 }
 
 .nav-search {
@@ -127,13 +166,24 @@ header a:has(img) {
   width: 100%;
   border: none;
   padding: 10px 10px;
-  outline: none;
+  border-radius: 3px;
+  outline: 2px solid var(--secondary-color);
 }
 
 #search-btn img,
 #cart-btn img {
-  filter: var(--filter-white);
+  filter: var(--filter-secondary);
+  margin: 10px;
 }
+
+/* 
+#cart-btn {
+  color: var(--secondary-color);
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
 
 /* @media only screen and (max-width: 480px) {
   #brand {

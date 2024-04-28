@@ -33,6 +33,38 @@ class ProductVariant {
   }
 }
 
+class Product {
+  static ratingCount = 0;
+  static ratingAverage = 0;
+  static ratingSum = 0;
+  constructor(id, name, rating = [], sold, variant, shop) {
+    this.id = id;
+    this.name = name;
+    this.rating = rating;
+    this.sold = sold;
+    this.variant = variant;
+    this.shop = shop;
+  }
+  getId() {
+    return this.id;
+  }
+  getName() {
+    return this.name;
+  }
+  getRating() {
+    return this.rating;
+  }
+  getSold() {
+    return this.sold;
+  }
+  getVariant() {
+    return this.variant;
+  }
+  getShop() {
+    return this.shop;
+  }
+}
+
 // Buttons
 const addQuantityBtn = document.getElementById("quantity-add-btn");
 const subtractQuantityBtn = document.getElementById("quantity-subtract-btn");
@@ -71,14 +103,6 @@ addVariant("variant001", "Boneless Bangus", 150.5, 10);
 addVariant("variant001", "Bangus V2", 192.5, 5);
 // ----------------------------
 
-productViewName.innerHTML = productName;
-productViewPrice.innerHTML = productPrice;
-productViewRating.innerHTML = productRating;
-// productViewVariants.innerHTML = totalVariants;
-productViewStock.innerHTML = productStock;
-// productViewQuantity.innerHTML = productQuantity;
-productViewShop.innerHTML = productShop;
-
 function addVariantButton(variantId, checked, index) {
   const button = document.createElement("button");
   if (checked) button.className = "product-view-btn variant-btn";
@@ -98,8 +122,16 @@ productVariants.forEach((element, index) => {
 const variantButtons = document.getElementsByClassName("variant-btn");
 
 // set first variant
-productViewStock.innerText = `${productVariants[0].getStockCount()} left`;
-productViewPrice.innerText = `₱ ${productVariants[0].getPrice()}`;
+setProductView(productName, productRating, productShop, productVariants[0]);
+
+function setProductView(name, rating, shop, variant) {
+  productViewName.innerHTML = name;
+  productViewRating.innerHTML = rating;
+  productViewShop.innerHTML = shop;
+  productViewPrice.innerHTML = variant.getPrice().toFixed(2);
+  productViewVariantName.innerHTML = variant.getName();
+  productViewStock.innerHTML = variant.getStockCount();
+}
 
 for (let i = 0; i < variantButtons.length; i++) {
   variantButtons[i].addEventListener("click", () => {
@@ -109,18 +141,13 @@ for (let i = 0; i < variantButtons.length; i++) {
     variantButtons[i].classList.remove("variant-unchecked");
     productViewVariantName.innerText = productVariants[i].getName();
     productViewStock.innerText = `${productVariants[i].getStockCount()} left`;
-    productViewPrice.innerText = `₱ ${productVariants[i].getPrice()}`;
+    productViewPrice.innerText = `₱ ${productVariants[i]
+      .getPrice()
+      .toFixed(2)}`;
+    setProductView(productName, productRating, productShop, productVariants[i]);
     productViewQuantity.value = 1;
   });
 }
-
-// element.addEventListener("click", () => {
-//   console.log(`Clicked variant button ${variantName}`);
-//   variantButtons.forEach((index) => {
-//     variantButtons[index].classList.add("variant-unchecked");
-//   });
-//   element.classList.remove("variant-unchecked");
-// });
 
 function setQuantity(num) {
   productViewQuantity.value = num;
