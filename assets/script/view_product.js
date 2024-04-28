@@ -99,8 +99,9 @@ function addVariant(id, name, price, stock) {
   let variant = new ProductVariant(id, name, price, stock);
   productVariants.push(variant);
 }
-addVariant("variant001", "Boneless Bangus", 150.5, 10);
-addVariant("variant001", "Bangus V2", 192.5, 5);
+addVariant("variant001", "Class A", 299.99, 100);
+addVariant("variant001", "Class B", 190.0, 50);
+addVariant("variant001", "Class C", 150.0, 120);
 // ----------------------------
 
 function addVariantButton(variantId, checked, index) {
@@ -123,14 +124,13 @@ const variantButtons = document.getElementsByClassName("variant-btn");
 
 // set first variant
 setProductView(productName, productRating, productShop, productVariants[0]);
-
 function setProductView(name, rating, shop, variant) {
   productViewName.innerHTML = name;
   productViewRating.innerHTML = rating;
   productViewShop.innerHTML = shop;
-  productViewPrice.innerHTML = variant.getPrice().toFixed(2);
+  productViewPrice.innerHTML = `₱ ${variant.getPrice().toFixed(2)}`;
   productViewVariantName.innerHTML = variant.getName();
-  productViewStock.innerHTML = variant.getStockCount();
+  productViewStock.innerHTML = `${variant.getStockCount()} left`;
 }
 
 for (let i = 0; i < variantButtons.length; i++) {
@@ -139,11 +139,11 @@ for (let i = 0; i < variantButtons.length; i++) {
       variantButtons[i].classList.add("variant-unchecked");
     }
     variantButtons[i].classList.remove("variant-unchecked");
-    productViewVariantName.innerText = productVariants[i].getName();
-    productViewStock.innerText = `${productVariants[i].getStockCount()} left`;
-    productViewPrice.innerText = `₱ ${productVariants[i]
-      .getPrice()
-      .toFixed(2)}`;
+    // productViewVariantName.innerText = productVariants[i].getName();
+    // productViewStock.innerText = `${productVariants[i].getStockCount()} left`;
+    // productViewPrice.innerText = `₱ ${productVariants[i]
+    //   .getPrice()
+    //   .toFixed(2)}`;
     setProductView(productName, productRating, productShop, productVariants[i]);
     productViewQuantity.value = 1;
   });
@@ -176,4 +176,29 @@ subtractQuantityBtn.addEventListener("click", () => {
 productViewQuantity.addEventListener("focusout", () => {
   productQuantity = productViewQuantity.value;
   setQuantity(productQuantity);
+});
+
+// Product Gallery
+const productGalleryImages = document.querySelectorAll(".gallery-img");
+const productImage = document.getElementById("product-view-image");
+let mainImage = productImage.src;
+
+productGalleryImages.forEach((element) => {
+  element.addEventListener("mouseover", () => {
+    productImage.src = element.src;
+    console.log(element.firstChild);
+  });
+  element.addEventListener("mouseout", () => {
+    productImage.src = mainImage;
+    console.log(element.firstChild);
+  });
+  element.addEventListener("click", () => {
+    productImage.src = element.src;
+    mainImage = element.src;
+    productGalleryImages.forEach((element) => {
+      element.parentElement.classList.remove("gallery-active");
+    });
+    element.parentElement.classList.add("gallery-active");
+    console.log(element.firstChild);
+  });
 });

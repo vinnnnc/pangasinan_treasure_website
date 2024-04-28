@@ -17,6 +17,22 @@
   margin: 0 20px;
 }
 
+.gallery-active {
+  outline-color: var(--accent-color) !important;
+}
+
+.product-view-sale-text {
+  font-size: 1rem;
+  /* visibility: visible; */
+  color: white;
+  background-color: var(--secondary-color);
+  height: 30px;
+  line-height: 30px;
+  padding: 0 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
 .shop-name {
   color: white;
 }
@@ -33,7 +49,7 @@
 }
 
 .shop-btn:hover {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: var(--secondary-color);
 }
 
@@ -94,6 +110,9 @@
 .product-view-image img {
   align-self: center;
   margin: auto;
+  object-fit: cover;
+  display: block;
+  height: 100%;
   width: auto;
 }
 
@@ -152,12 +171,12 @@
   width: 50px;
   border: none;
   transition: 150ms;
-  outline: 2px solid var(--secondary-color);
+  /* outline: 2px solid var(--secondary-color); */
 }
 
 .product-view-btn:hover {
-  outline-color: var(--secondary-color);
-  background-color: var(--primary-color);
+  /* outline-color: var(--secondary-color); */
+  background-color: var(--accent-color);
   color: var(--secondary-color);
 }
 
@@ -183,17 +202,23 @@
 .variant-unchecked {
   color: var(--secondary-color);
   background-color: white;
-  outline: 2px solid var(--secondary-color);
+  border: 2px solid var(--secondary-color);
   transition: 150ms;
 }
 
 .variant-unchecked:hover {
   color: var(--secondary-color);
-  background-color: var(--primary-color) !important;
+  background-color: var(--accent-color) !important;
+  border-color: #0000;
   /* outline-color: var(--accent-color); */
+}
+.variant-btn {
+  /* border: 2px solid var(--secondary-color); */
+  border: 2px solid var(--secondary-color);
 }
 
 .variant-btn:hover {
+  border-color: #0000;
   /* outline: 2px solid var(--accent-color); */
 }
 

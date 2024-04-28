@@ -1,0 +1,68 @@
+<div class="dashboard-container">
+  <div class="breadcrumb-text">Orders <span>&#8250;</span> Orders</div>
+  <div class="dashboard-body">
+    <div class="form-container">
+      <div class="dashboard-title">Filter</div>
+      <div class="input">
+        <label for="order-number">Order Number</label>
+        <input type="text" placeholder="Order Number" name="order-number" />
+        <label for="customer-name">Customer Name</label>
+        <input type="text" placeholder="Customer Name" name="customer-name" />
+        <label for="product-name">Product Name</label>
+        <input type="text" placeholder="Product Name" name="product-name" />
+        <button class="reset-btn">
+          <img src="/assets/images/icons/rotate-right-solid.svg" alt="reset" />
+        </button>
+      </div>
+    </div>
+  </div>
+  <table class="order-table">
+    <tr>
+      <th>Select</th>
+      <th>Product</th>
+      <th></th>
+      <th>Total Amount</th>
+      <th>Delivery</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+    <tr class="order-top-row">
+      <td colspan="7">
+        <div class="order-top">
+          <div>
+            <img src="/assets/images/user.svg" alt="user" class="user-icon" />
+            <span class="order-user">Juan Dela Cruz</span>
+            <span class="order-item-count">(1 item)</span>
+          </div>
+          <div>
+            <span class="order-number">Order Number:</span>
+            <span class="order-date">12 April 2024</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" /></td>
+      <td>
+        <img src="/assets/images/products/product-6.jpg" alt="product" />
+        <div>
+          <div>Bangus</div>
+          <div>Boneless Bangus</div>
+        </div>
+      </td>
+      <td>x5</td>
+      <td>₱1650.50</td>
+      <td>
+        <div>Standard</div>
+        <div>COD</div>
+      </td>
+      <td>Pending</td>
+      <td><button class="pack-btn">Pack</button></td>
+    </tr>
+  </table>
+  <div class="pagination_section">
+    <a href="#"> &lt; </a>
+    <a href="#" title="Page 1" class="page-active"> 1 </a>
+    <a href="#"> &gt; </a>
+  </div>
+</div>

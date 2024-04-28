@@ -1,0 +1,66 @@
+<div class="dashboard-container">
+  <div class="breadcrumb-text">
+    Products <span>&#8250;</span> Add New Product
+  </div>
+  <div class="dashboard-body">
+    <div class="form-container">
+      <form action="" id="add-product">
+        <div class="dashboard-title">Basic Information</div>
+        <div class="input">
+          <label for="product-name">Product Name</label>
+          <input type="text" name="product-name" placeholder="Product Name" />
+        </div>
+        <div class="input">
+          <label for="product-category">Category</label>
+          <input type="text" name="product-category" placeholder="Category" />
+        </div>
+        <div class="input">
+          <label for="product-description">Description</label>
+          <input
+            type="text"
+            name="product-description"
+            placeholder="Description"
+          />
+        </div>
+        <div class="input">
+          <label for="product-gallery"
+            >Upload Picture/s (maximum of 5 images):</label
+          >
+          <input
+            type="file"
+            id="product-gallery"
+            name="product-gallery"
+            accept="image/png, image/jpeg"
+          />
+          <div class="gallery-preview">
+            <p>No files currently selected for upload</p>
+          </div>
+        </div>
+        <div class="dashboard-title">Price & Stock</div>
+        <div class="input">
+          <table id="product-variants">
+            <tr>
+              <th>Availability</th>
+              <th>Variant</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Delete</th>
+            </tr>
+          </table>
+        </div>
+        <div class="dashboard-title">Delivery</div>
+        <div class="input">
+          <label for="product-weight">Package Weight (kg)</label>
+          <input type="number" name="product-weight" />
+        </div>
+        <div class="input">
+          <label for="product-dimensions">Package Dimensions (cm)</label>
+          <input type="number" name="length" placeholder="Length" />
+          <input type="number" name="width" placeholder="Width" />
+          <input type="number" name="height" placeholder="Height" />
+        </div>
+        <button type="submit" id="add-product-btn">Add Product</button>
+      </form>
+    </div>
+  </div>
+</div>

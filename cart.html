@@ -113,42 +113,42 @@
               </div>
               <button id="checkout-btn">Check Out</button>
             </div>
-            <div class="checkout-panel">
+            <div class="checkout-panel hide-panel">
               <button type="button" class="close-checkout-btn" title="Close">
                 &#10005;
               </button>
               <div class="checkout-container">
                 <div class="place-order-container">
-                  <span>Payment Method</span>
-                  <button>GCash</button>
-                  <button>Cash on Delivery</button>
-                  <button>View all Methods</button>
+                  <span class="panel-title">Payment Method</span>
+                  <button class="payment-options active">GCash</button>
+                  <button class="payment-options">Cash on Delivery</button>
+                  <button class="payment-options">View all Methods</button>
                   <div class="shipping-option">
                     <span>Shipping Option</span>
-                    <span>Standard</span>
-                    <button>Change</button>
+                    <span id="shipping-option">Standard</span>
+                    <button class="change-shipping-btn">Change</button>
                   </div>
                   <div class="checkout-subtotal-1">
                     <span>Subtotal</span>
-                    <span>12302</span>
+                    <span>₱ 1,798.96</span>
                   </div>
                   <div class="checkout-shipping-fee">
-                    <span>Subtotal</span>
-                    <span>12302</span>
+                    <span>Shipping Fee</span>
+                    <span>₱ 50.00</span>
                   </div>
                   <div class="checkout-subtotal-2">
                     <span>Subtotal</span>
-                    <span>12302</span>
+                    <span>₱ 1,848.96</span>
                   </div>
                 </div>
                 <div class="shipping-address-container">
-                  <span>Shipping address</span>
+                  <span class="panel-title">Shipping address</span>
                   <span>Juan Dela Cruz</span>
                   <span>0912 121 2121</span>
                   <span>
                     HOME #1100 Silinog, Calamba City, Misamis Occidental
                   </span>
-                  <button>Edit</button>
+                  <button class="edit-address-btn">Edit</button>
                 </div>
               </div>
               <button id="checkout-btn">Check Out</button>

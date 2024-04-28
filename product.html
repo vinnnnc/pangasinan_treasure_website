@@ -33,23 +33,47 @@
       <section class="product-view">
         <div class="container product-view-container">
           <div class="product-view-image">
-            <img src="/assets/images/products/product-1.jpg" alt="bangus" />
+            <img
+              src="/assets/images/products/product-1.jpg"
+              alt="gallery image"
+              id="product-view-image"
+            />
           </div>
           <div class="product-view-gallery">
-            <span class="outline-hover">
-              <img src="/assets/images/products/product-1.jpg" alt="bangus" />
+            <span class="outline-hover gallery-active">
+              <img
+                src="/assets/images/products/product-1.jpg"
+                alt="gallery image"
+                class="gallery-img"
+              />
             </span>
             <span class="outline-hover">
-              <img src="/assets/images/products/product-1.jpg" alt="bangus" />
+              <img
+                src="/assets/images/products/Picture14.jpg"
+                alt="gallery image"
+                class="gallery-img"
+              />
             </span>
             <span class="outline-hover">
-              <img src="/assets/images/products/product-1.jpg" alt="bangus" />
+              <img
+                src="/assets/images/products/Picture13.jpg"
+                alt="gallery image"
+                class="gallery-img"
+              />
             </span>
             <span class="outline-hover">
-              <img src="/assets/images/products/product-1.jpg" alt="bangus" />
+              <img
+                src="/assets/images/products/Picture12.jpg"
+                alt="gallery image"
+                class="gallery-img"
+              />
             </span>
             <span class="outline-hover">
-              <img src="/assets/images/products/product-1.jpg" alt="bangus" />
+              <img
+                src="/assets/images/products/Picture18.jpg"
+                alt="gallery image"
+                class="gallery-img"
+              />
             </span>
           </div>
           <div class="product-view-details">
@@ -71,9 +95,7 @@
             </div>
             <span class="product-view-price">
               <span id="product-view-price">₱ 299.99</span>
-              <span class="product-view-sale-text sale-text">
-                Save up to ₱9!
-              </span>
+              <span class="product-view-sale-text"> Save up to ₱9! </span>
             </span>
             <div class="product-view-stock">
               <span>Variants&ThickSpace;&ThickSpace;&ThickSpace;|</span>
@@ -109,10 +131,20 @@
                   </button>
                 </section>
                 <section>
-                  <button class="product-view-btn" id="buy-now-btn">
+                  <button
+                    class="product-view-btn"
+                    id="buy-now-btn"
+                    onclick="location.href='cart.html'"
+                    type="button"
+                  >
                     Buy Now
                   </button>
-                  <button class="product-view-btn" id="add-cart-btn">
+                  <button
+                    class="product-view-btn"
+                    id="add-cart-btn"
+                    onclick="location.href='cart.html'"
+                    type="button"
+                  >
                     <img src="/assets/images/shopping-cart.svg" alt="cart" />
                   </button>
                 </section>
@@ -140,23 +172,101 @@
         <div class="container">
           <span class="section-title">More From Shop</span>
           <div id="products" class="shop">
-            <a href="" class="product">
+            <a href="product.html" class="product">
               <div class="product-image">
                 <img
-                  src="/assets/images/products/product-1.jpg"
+                  src="/assets/images/products/Picture10.jpg"
                   alt="product"
                 />
-                <span class="sale-text">Save up to ₱9!</span>
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
               </div>
               <div class="product-details">
-                <span class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
-                </span>
+                <span class="product-name"> Tiklis/Kaing </span>
                 <section>
-                  <span class="product-price">₱ 299.99</span>
+                  <span class="product-price">₱ 190.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture21.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Handmade Custom Furnitures </span>
+                <section>
+                  <span class="product-price">₱ 3,699.99</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture4.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name">Puto Calasiao</span>
+                <section>
+                  <span class="product-price">₱ 125.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture7.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Walis Tambo </span>
+                <section>
+                  <span class="product-price">₱ 100.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture6.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Sibuyas </span>
+                <section>
+                  <span class="product-price">₱ 350.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture5.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Asin </span>
+                <section>
+                  <span class="product-price">₱ 95.00</span>
                   <div class="ratings">
                     <span class="star checked-star"></span>
                     <span class="product-rating">5.0</span>
@@ -172,16 +282,18 @@
           <span class="section-title">Product Details</span>
           <div class="product-details-container">
             <p>
-              Our fresh (and truly XL-sized) dagupan bangus offers tasty flavor
-              and an extra crunchy outside, perfect for everyday meals. The
-              milkfish can be cooked in so many ways: daing na bangus, bangus
-              ala pobre, paksiw na bangus, sinigang na bangus, and so much more.
-              Each bite of its white meaty flesh always brings delight to your
-              taste buds!<br /><br />
-              Weight: 700-950g net<br />
-              Pre-deboning weight is ~950-1.15kg<br />
-              Deboning done by hand. Not guaranteed to be fully boneless.<br />
-              100% Guaranteed Fresh upon delivery
+              Discover the ultimate boneless bagoong perfect for any dish, and
+              it's super affordable too! Elevate your meals without breaking the
+              bank.
+
+              <br /><br />
+              Seeking the perfect balance of aroma and flavor in your boneless
+              bagoong? Look no further, because we've got exactly what you need!
+              <br /><br />
+              Look no further! Introducing Class A JB Premium Bagoong—the
+              perfect addition to your business that your customers will love
+              and crave! Always remember, when it's JB???!Bagoong yan It's the
+              quality you can trust!
             </p>
           </div>
         </div>
@@ -208,11 +320,32 @@
                     4.0
                   </span>
                 </div>
+                <p>Sarap</p>
+              </section>
+            </div>
+            <div class="review">
+              <section class="review-profile-section">
+                <div class="review-img">
+                  <img src="/assets/images/user.svg" alt="user" />
+                </div>
+                <span>Maria DC.</span>
+              </section>
+              <section class="review-rating-section">
+                <div class="ratings">
+                  <span class="star"></span>
+                  <span class="star"></span>
+                  <span class="star"></span>
+                  <span class="star"></span>
+                  <span class="star"></span>
+                  <span class="product-rating" id="product-view-rating">
+                    5.0
+                  </span>
+                </div>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                  et assumenda tempora, provident ipsam laboriosam optio iste
-                  aperiam commodi eos quia modi fugiat. Obcaecati ipsum illum
-                  corrupti nulla voluptatum in!
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                  rem laboriosam natus repudiandae aliquam sunt consequatur, cum
+                  tenetur ratione veritatis vero libero perferendis id?
+                  Reiciendis perferendis eos sunt voluptas consequuntur.
                 </p>
               </section>
             </div>
@@ -233,13 +366,588 @@
               </div>
               <div class="product-details">
                 <span class="product-name">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Voluptates officiis sit, enim esse illo ad eligendi dolore.
-                  Nam perferendis recusandae, quo perspiciatis voluptatum
-                  laboriosam modi necessitatibus sit quidem nemo repellat!
+                  JB Fish Sauce Boneless Bagoong
                 </span>
                 <section>
-                  <span class="product-price">₱ 299.99</span>
+                  <span class="product-price">₱ 110.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture10.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Tiklis/Kaing </span>
+                <section>
+                  <span class="product-price">₱ 190.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture21.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Handmade Custom Furnitures </span>
+                <section>
+                  <span class="product-price">₱ 3,699.99</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture4.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name">Puto Calasiao</span>
+                <section>
+                  <span class="product-price">₱ 125.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture7.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Walis Tambo </span>
+                <section>
+                  <span class="product-price">₱ 100.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture6.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Sibuyas </span>
+                <section>
+                  <span class="product-price">₱ 350.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture5.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Asin </span>
+                <section>
+                  <span class="product-price">₱ 95.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
+              <div class="product-details">
+                <span class="product-name">
+                  JB Fish Sauce Boneless Bagoong
+                </span>
+                <section>
+                  <span class="product-price">₱ 110.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture10.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Tiklis/Kaing </span>
+                <section>
+                  <span class="product-price">₱ 190.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture21.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Handmade Custom Furnitures </span>
+                <section>
+                  <span class="product-price">₱ 3,699.99</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture4.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name">Puto Calasiao</span>
+                <section>
+                  <span class="product-price">₱ 125.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture7.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Walis Tambo </span>
+                <section>
+                  <span class="product-price">₱ 100.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture6.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Sibuyas </span>
+                <section>
+                  <span class="product-price">₱ 350.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture5.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Asin </span>
+                <section>
+                  <span class="product-price">₱ 95.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
+              <div class="product-details">
+                <span class="product-name">
+                  JB Fish Sauce Boneless Bagoong
+                </span>
+                <section>
+                  <span class="product-price">₱ 110.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture10.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Tiklis/Kaing </span>
+                <section>
+                  <span class="product-price">₱ 190.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture21.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Handmade Custom Furnitures </span>
+                <section>
+                  <span class="product-price">₱ 3,699.99</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture4.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name">Puto Calasiao</span>
+                <section>
+                  <span class="product-price">₱ 125.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture7.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Walis Tambo </span>
+                <section>
+                  <span class="product-price">₱ 100.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture6.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Sibuyas </span>
+                <section>
+                  <span class="product-price">₱ 350.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture5.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Asin </span>
+                <section>
+                  <span class="product-price">₱ 95.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
+              <div class="product-details">
+                <span class="product-name">
+                  JB Fish Sauce Boneless Bagoong
+                </span>
+                <section>
+                  <span class="product-price">₱ 110.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture10.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Tiklis/Kaing </span>
+                <section>
+                  <span class="product-price">₱ 190.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture21.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Handmade Custom Furnitures </span>
+                <section>
+                  <span class="product-price">₱ 3,699.99</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture4.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name">Puto Calasiao</span>
+                <section>
+                  <span class="product-price">₱ 125.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture7.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Walis Tambo </span>
+                <section>
+                  <span class="product-price">₱ 100.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture6.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Sibuyas </span>
+                <section>
+                  <span class="product-price">₱ 350.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture5.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Asin </span>
+                <section>
+                  <span class="product-price">₱ 95.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/product-1.jpg"
+                  alt="product"
+                />
+                <span class="sale-text">Save up to ₱9!</span>
+              </div>
+              <div class="product-details">
+                <span class="product-name">
+                  JB Fish Sauce Boneless Bagoong
+                </span>
+                <section>
+                  <span class="product-price">₱ 110.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture10.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Tiklis/Kaing </span>
+                <section>
+                  <span class="product-price">₱ 190.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img
+                  src="/assets/images/products/Picture21.jpg"
+                  alt="product"
+                />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Handmade Custom Furnitures </span>
+                <section>
+                  <span class="product-price">₱ 3,699.99</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture4.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name">Puto Calasiao</span>
+                <section>
+                  <span class="product-price">₱ 125.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture7.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Walis Tambo </span>
+                <section>
+                  <span class="product-price">₱ 100.00</span>
+                  <div class="ratings">
+                    <span class="star checked-star"></span>
+                    <span class="product-rating">5.0</span>
+                  </div>
+                </section>
+              </div>
+            </a>
+            <a href="product.html" class="product">
+              <div class="product-image">
+                <img src="/assets/images/products/Picture6.jpg" alt="product" />
+                <!-- <span class="sale-text">Save up to ₱9!</span> -->
+              </div>
+              <div class="product-details">
+                <span class="product-name"> Sibuyas </span>
+                <section>
+                  <span class="product-price">₱ 350.00</span>
                   <div class="ratings">
                     <span class="star checked-star"></span>
                     <span class="product-rating">5.0</span>
@@ -251,35 +959,7 @@
         </div>
       </section>
     </main>
-    <footer>
-      <section>
-        <div class="footer-container">
-          <section>
-            <a href="about.html" class="footer-company-logo">
-              <img src="assets/images/companylogo.png" alt="Developer Thrill" />
-            </a>
-          </section>
-          <section>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-              eius quas deleniti debitis, pariatur tenetur quos esse? Earum
-              ratione amet, impedit natus assumenda sunt quasi at mollitia ab
-              maxime tempore! Atque veritatis odit unde ipsam qui, quae quas
-              maiores expedita ad animi quisquam obcaecati, beatae, nisi placeat
-              molestiae. Nobis dolorem similique expedita ad officia, ab
-              assumenda necessitatibus maxime nulla! Delectus.
-            </p>
-          </section>
-        </div>
-      </section>
-      <section>
-        <div class="footer-container">
-          <div class="footer-end">
-            <p>Copyright © 2024 Pangasinan Treasure. All Rights Reserved.</p>
-          </div>
-        </div>
-      </section>
-    </footer>
+    <div id="footer"></div>
     <script src="/assets/script/script.js"></script>
     <script src="/assets/script/view_product.js"></script>
   </body>

@@ -33,11 +33,14 @@ body {
 
 .login-brand {
   width: 600px;
+  text-align: center;
+  font-size: 1.5rem;
 }
 
 .login-brand img {
   width: 100%;
   filter: blur(0.5px);
+  translate: 0 -15px;
 }
 
 .login-card,
@@ -126,12 +129,12 @@ button {
   cursor: pointer;
   width: 100%;
   transition: 150ms;
-  outline: 2px solid var(--secondary-color);
+  /* outline: 2px solid var(--secondary-color); */
 }
 
 button:hover {
   color: var(--secondary-color);
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }
 
 .card-container {

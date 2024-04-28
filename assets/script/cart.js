@@ -11,3 +11,24 @@ function setEmptyCart() {
 }
 
 setEmptyCart();
+
+// Check out
+const checkoutBtn = document.getElementById("checkout-btn");
+const closeCheckoutBtn = document.querySelector(".close-checkout-btn");
+const checkoutPanel = document.querySelector(".checkout-panel");
+
+checkoutBtn.addEventListener("click", () => {
+  hidePanel();
+});
+
+closeCheckoutBtn.addEventListener("click", () => {
+  hidePanel();
+});
+
+function hidePanel() {
+  checkoutPanel.classList.toggle("hide-panel");
+  let allDivs = document.querySelectorAll("div:not(.checkout-panel > *)");
+  allDivs.forEach((element) => {
+    element.classList.toggle("disable-pointer-events");
+  });
+}

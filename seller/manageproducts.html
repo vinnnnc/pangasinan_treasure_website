@@ -1,0 +1,65 @@
+<div class="dashboard-container">
+  <div class="breadcrumb-text">
+    Products <span>&#8250;</span> Manage Products
+  </div>
+  <div class="dashboard-body">
+    <div class="form-container">
+      <div class="dashboard-title">Filter</div>
+      <div class="input">
+        <label for="product-name">Product Name</label>
+        <input type="text" placeholder="Product Name" name="product-name" />
+        <label for="category">Sort By</label>
+        <select name="category" id="category">
+          <option value="foods">Food and Beverages</option>
+          <option value="handicrafts">Handicrafts</option>
+          <option value="textiles">Mercedes</option>
+          <option value="localproduce">Textiles</option>
+          <option value="delicacies">Sweets and Delicacies</option>
+          <option value="souvenirs">Souvenirs</option>
+        </select>
+        <label for="sort">Sort By</label>
+        <select name="sort" id="sort">
+          <option value="category">Category</option>
+        </select>
+        <button class="reset-btn">
+          <img src="/assets/images/icons/rotate-right-solid.svg" alt="reset" />
+        </button>
+      </div>
+    </div>
+  </div>
+  <table class="manage-products-table">
+    <tr>
+      <th>select</th>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Active</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="checkbox" id="" />
+      </td>
+      <td>
+        <img src="/assets/images/products/product-1.jpg" alt="" />
+        <span>JB Bagoong</span>
+      </td>
+      <td>₱200.00</td>
+      <td>100</td>
+      <td>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+      </td>
+    </tr>
+  </table>
+  <div class="pagination_section">
+    <a href="#"> &lt; </a>
+    <a href="#" title="Page 1" class="page-active"> 1 </a>
+    <!-- <a href="#" title="Page 2"> 2 </a>
+      <a href="#" title="Page 3"> 3 </a>
+      <a href="#" title="Page 4"> 4 </a>
+      <a href="#" title="Page 5"> 5 </a> -->
+    <a href="#"> &gt; </a>
+  </div>
+</div>
