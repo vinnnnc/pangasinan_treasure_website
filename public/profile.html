@@ -24,7 +24,7 @@
     </script>
   </head>
 
-  <body onload="loadPayment()">
+  <body onload="loadDefault()">
     <img
       class="pangasinan-image"
       src="/assets/images/pangasinan_bg.svg"
@@ -33,7 +33,7 @@
     <div id="header"></div>
     <main>
       <section>
-        <h3 class="section-title">Profile</h3>
+        <span class="section-title">Profile</span>
         <div class="profile-container">
           <div class="container">
             <div class="profile-card">
@@ -41,27 +41,32 @@
                 <span class="profile-picture">
                   <img src="/assets/images/user.svg" alt="Profile" />
                 </span>
-                <div class="account-management">
-                  <a href="javascript:loadEditProfile()" class="active">
-                    <h4>Manage My Account</h4>
-                  </a>
-                  <a href="javascript:loadAddress()">
-                    <h5>Address Book</h5>
-                  </a>
-                  <a href="javascript:loadPayment()">
-                    <h5>Payment Options</h5>
-                  </a>
-                  <a href="javascript:loadOrders()">
-                    <h4>My Orders</h4>
-                  </a>
-                  <a href="javascript:loadReturns()">
-                    <h5>My Returns</h5>
-                  </a>
-                  <a href="javascript:loadCancellations()">
-                    <h5>My Cancellations</h5>
-                  </a>
+                <div class="profile-links">
+                  <div id="my-account-title" class="active">
+                    <span>My Account</span>
+                  </div>
+                  <div id="manage-account" class="active">
+                    <span>Manage My Account</span>
+                  </div>
+                  <div id="address-book">
+                    <span>Address Book</span>
+                  </div>
+                  <div id="payment-options">
+                    <span>Payment Options</span>
+                  </div>
+                  <div id="my-wallet">
+                    <span>My Wallet</span>
+                  </div>
+                  <div id="my-orders-title" class="orders-link">
+                    <span>My Orders</span>
+                  </div>
+                  <div id="my-orders" class="orders-link">
+                    <span>My Orders</span>
+                  </div>
+                  <div id="my-returns" class="orders-link">
+                    <span>My Returns</span>
+                  </div>
                 </div>
-                <div class="my-orders"></div>
               </section>
               <hr />
               <section class="right-section"></section>

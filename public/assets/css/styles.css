@@ -267,8 +267,10 @@ html {
 }
 
 .category img {
-  width: 30px;
-  height: 60px;
+  /* width: 30px; */
+  height: 50px;
+  margin-bottom: 10px;
+  filter: drop-shadow(2px 2px 5px var(--accent-color));
 }
 
 #announcements {
