@@ -80,28 +80,19 @@ body {
 }
 
 .login-signup-btn {
-  text-align: right;
   color: var(--accent-color);
   text-decoration: none;
   transition: 150ms;
-}
-#signup-btn {
-  position: absolute;
-  right: 20px;
-}
-#login-btn {
   margin: auto;
-  /* text-align: center; */
-  width: fit-content;
   display: block;
+  width: fit-content;
 }
 
-#signup-btn:hover,
-#login-btn:hover {
+.login-signup-btn:hover {
   color: var(--secondary-color);
 }
 
-form {
+.login-form {
   /* border: 3px solid var(--secondary-color); */
   color: var(--secondary-color);
 }

@@ -55,7 +55,7 @@ main {
 }
 
 .dropdown:nth-child(3).collapsed {
-  max-height: calc(32px * 2);
+  max-height: calc(32px * 3);
 }
 
 .dropdown:nth-child(4).collapsed {
@@ -157,10 +157,10 @@ main {
   font-weight: 700;
   background: var(--secondary-color);
 } */
-.dashboard-header input[type="text"],
-.dashboard-header select {
-  width: 300px;
-  margin: 10px;
+input,
+select {
+  /* width: 300px; */
+  /* margin: 10px; */
   border: 2px solid var(--secondary-color);
   border-radius: 3px;
 }

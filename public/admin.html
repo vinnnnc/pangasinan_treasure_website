@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Pangasinan Treasure</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/images/optionweblogo.png"
+    />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
+    <link rel="stylesheet" href="/assets/css/admin.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+      });
+    </script>
+  </head>
+
+  <body>
+    <main>
+      <section class="side-bar">
+        <img src="/assets/images/weblogo.png" alt="web_logo" id="logo" />
+        <div class="menu">
+          <div class="dropdown collapsed" id="products-dropdown">
+            <div class="dropdown-option dropdown-title">
+              <img
+                src="/assets/images/icons/chart-line-solid.svg"
+                alt="product"
+              />Dashboard
+            </div>
+            <div class="dropdown-option active" id="option-dashboard">
+              Dashboard
+            </div>
+            <div class="collapse-btn">&#8249;</div>
+          </div>
+          <div class="dropdown" id="users-dropdown">
+            <div class="dropdown-option dropdown-title">
+              <img src="/assets/images/icons/user-solid.svg" alt="orders" />
+              User Management
+            </div>
+            <div class="dropdown-option" id="option-users">Users</div>
+            <div class="collapse-btn">&#8249;</div>
+          </div>
+          <div class="dropdown" id="homepage-dropdown">
+            <div class="dropdown-option dropdown-title">
+              <img
+                src="/assets/images/icons/house-solid.svg"
+                alt="store"
+              />Homepage
+            </div>
+            <div class="dropdown-option" id="option-announcements">
+              Announcements
+            </div>
+            <div class="dropdown-option" id="option-featured">Featured</div>
+            <div class="collapse-btn">&#8249;</div>
+          </div>
+          <div class="dropdown" id="account-dropdown">
+            <div class="dropdown-option dropdown-title">
+              <img
+                src="/assets/images/icons/gear-solid.svg"
+                alt="user"
+              />Settings
+            </div>
+            <div class="dropdown-option" id="option-account-settings">
+              Account Settings
+            </div>
+            <div class="dropdown-option" id="option-admins">Administrators</div>
+            <div class="collapse-btn">&#8249;</div>
+          </div>
+        </div>
+      </section>
+      <section class="dashboard">
+        <div class="dashboard-container">
+          <div class="breadcrumb-text">
+            User Management <span>&#8250;</span> Users
+          </div>
+          <table class="user-management-table">
+            <tr>
+              <th>User</th>
+              <th>Full Name</th>
+              <th>Gender</th>
+              <th>Email Address</th>
+              <th>Type</th>
+              <th>Date Joined</th>
+              <th>Action</th>
+            </tr>
+            <tr>
+              <td>Juan01</td>
+              <td>Dela Cruz, Juan DC.</td>
+              <td>Male</td>
+              <td>juandelacruz@gmail.com</td>
+              <td>User | Seller</td>
+              <td>21, April 2020</td>
+              <td><button class="delete-btn">Delete</button></td>
+            </tr>
+            <tr>
+              <td>Juan01</td>
+              <td>Dela Cruz, Juan DC.</td>
+              <td>Male</td>
+              <td>juandelacruz@gmail.com</td>
+              <td>User | Seller</td>
+              <td>21, April 2020</td>
+              <td><button class="delete-btn">Delete</button></td>
+            </tr>
+          </table>
+          <div class="pagination_section">
+            <a href="#"> &lt; </a>
+            <a href="#" title="Page 1" class="page-active"> 1 </a>
+            <!-- <a href="#" title="Page 2"> 2 </a>
+              <a href="#" title="Page 3"> 3 </a>
+              <a href="#" title="Page 4"> 4 </a>
+              <a href="#" title="Page 5"> 5 </a> -->
+            <a href="#"> &gt; </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/admin.js"></script>
+  </body>
+</html>

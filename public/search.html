@@ -30,12 +30,90 @@
     />
     <div id="header"></div>
     <main>
-      <section id="search-filter">
-        <div class="container"></div>
+      <section>
+        <div class="container">
+          <div id="search-filter">
+            <div class="search-title">Filter</div>
+            <div class="search-filter-input">
+              <label for="category" id="filter-category">
+                Category
+                <select name="category" id="category">
+                  <option value="default">Not set</option>
+                  <option value="foods">Food and Beverages</option>
+                  <option value="handicrafts">Handicrafts</option>
+                  <option value="textiles">Textiles</option>
+                  <option value="local">Local Produce</option>
+                  <option value="delicacies">Sweets and Delicacies</option>
+                  <option value="souvenirs">Souvenirs</option>
+                  <option value="none">Not Set</option>
+                </select>
+              </label>
+              <label for="from">
+                Shipped From
+                <select name="from" id="from">
+                  <option value="default">Not set</option>
+                  <option value="">Lingayen</option>
+                  <option value="">Aguilar</option>
+                  <option value="">Dagupan</option>
+                </select>
+              </label>
+              <label for="price">
+                Price
+                <input
+                  type="number"
+                  name="min-price"
+                  value=""
+                  placeholder="Min"
+                  id="filter-minprice"
+                />
+                <input
+                  type="number"
+                  name="max-price"
+                  value=""
+                  placeholder="Max"
+                  id="filter-maxprice"
+                />
+              </label>
+              <label for="sort">
+                Sort By
+                <select name="sort" id="sort">
+                  <option value="bestmatch">Best Match</option>
+                  <option value="lowhigh">Price low to high</option>
+                  <option value="highlow">Price high to low</option>
+                </select>
+              </label>
+              <label for="rating">
+                Rating
+                <select name="sort" id="sort">
+                  <option value="default">Not set</option>
+                  <option value="category">5</option>
+                  <option value="category">4 and up</option>
+                  <option value="category">3 and up</option>
+                  <option value="category">2 and up</option>
+                  <option value="category">1 and up</option>
+                </select>
+              </label>
+              <button class="set-btn">
+                <img
+                  src="/assets/images/icons/play-solid.svg"
+                  alt="set"
+                  title="Set Filter"
+                />
+              </button>
+              <button class="reset-btn">
+                <img
+                  src="/assets/images/icons/rotate-right-solid.svg"
+                  alt="reset"
+                  title="Reset"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
       <section>
         <div class="container">
-          <h3 class="section-title">Search result</h3>
+          <div class="section-title">1 item/s found for "Bagoong"</div>
           <div id="products">
             <a href="product.html" class="product">
               <div class="product-image">

@@ -41,83 +41,59 @@
               <div class="login-window">
                 <div class="login-card">
                   <span>Log In</span>
-                  <form action="action_page.php" method="post">
+                  <div class="login-form">
                     <div class="card-container">
-                      <label for="uname"><b>Username</b></label>
+                      <label><b>Username</b></label>
                       <input
                         type="text"
                         placeholder="Enter Username"
-                        name="uname"
-                        required
+                        id="login-username-field"
                       />
-                      <label for="psw"><b>Password</b></label>
+                      <label><b>Password</b></label>
                       <input
                         type="password"
                         placeholder="Enter Password"
-                        name="psw"
-                        required
+                        id="login-password-field"
                       />
-                      <button type="submit">Login</button>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked="checked"
-                          name="remember"
-                        />
-                        Remember me
-                      </label>
-                      <a href="#" class="login-signup-btn" id="signup-btn"
-                        >Create an account</a
-                      >
+                      <button id="login-btn">Login</button>
+                      <a href="#" class="login-signup-btn">
+                        Create an account
+                      </a>
                     </div>
-                  </form>
+                  </div>
                 </div>
                 <div class="signup-card">
                   <span>Create an Account</span>
-                  <form action="action_page.php" method="post">
+                  <div class="signup-form">
                     <div class="card-container">
-                      <label for="uname"><b>Username</b></label>
+                      <label><b>Username</b></label>
                       <input
                         type="text"
                         placeholder="Enter Username"
-                        name="uname"
-                        required
+                        id="signup-username-field"
                       />
-                      <label for="email"><b>E-mail</b></label>
+                      <label><b>E-mail</b></label>
                       <input
                         type="email"
-                        placeholder="Enter e-mail"
-                        name="email"
-                        required
+                        placeholder="Enter E-mail"
+                        id="signup-email-field"
                       />
-                      <label for="psw"><b>Password</b></label>
+                      <label><b>Phone Number</b></label>
+                      <input
+                        type="password"
+                        placeholder="Enter Phone Number"
+                        id="signup-phone-field"
+                      />
+                      <label><b>Password</b> </label>
                       <input
                         type="password"
                         placeholder="Enter Password"
-                        name="psw"
-                        required
+                        id="signup-password-field"
                       />
-                      <label for="psw"><b>Re-enter Password</b> </label>
-                      <input
-                        type="password"
-                        placeholder="Re-enter Password"
-                        name="psw"
-                        required
-                      />
-                      <button type="submit">Create Account</button>
-                      <!-- <label>
-                      <input
-                        type="checkbox"
-                        checked="checked"
-                        name="remember"
-                      />
-                      Remember me
-                    </label> -->
-                      <a href="#" class="login-signup-btn" id="login-btn">
-                        Log In
-                      </a>
+                      <button id="signup-btn">Create Account</button>
+                      <a href="#" class="login-signup-btn"> Log In </a>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>

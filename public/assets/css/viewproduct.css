@@ -12,6 +12,10 @@
   color: var(--accent-color);
 }
 
+.product-view-price .product-view-sale-text {
+  border-radius: 3px;
+}
+
 .product-view-sale-text {
   width: fit-content;
   margin: 0 20px;

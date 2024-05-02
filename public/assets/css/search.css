@@ -1,6 +1,68 @@
 #search-filter {
-  height: 200px;
+  /* height: 200px; */
   background-color: white;
+  border-radius: 3px;
+  padding: 20px;
+}
+
+.search-title {
+  background-color: var(--secondary-color);
+  color: white;
+  padding-inline: 5px;
+  border-radius: 3px;
+  margin-block: 10px;
+}
+
+#filter-minprice,
+#filter-maxprice {
+  width: 60px;
+}
+
+#category {
+  width: 150px;
+}
+
+.search-filter-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-filter-input label,
+.search-filter-input input,
+.search-filter-input select {
+  margin: 5px;
+}
+
+.search-filter-input input,
+.search-filter-input select {
+  border: 2px solid var(--secondary-color);
+  border-radius: 3px;
+}
+
+.set-btn,
+.reset-btn {
+  height: 25px;
+  width: 25px;
+  border: none;
+  background-color: var(--secondary-color);
+  transition: 150ms;
+}
+.set-btn img,
+.reset-btn img {
+  filter: var(--filter-white);
+  margin: auto;
+  display: block;
+  transition: 150ms;
+}
+
+.set-btn:hover,
+.reset-btn:hover {
+  background-color: var(--accent-color);
+}
+.set-btn:hover img,
+.reset-btn:hover img {
+  filter: var(--filter-secondary);
 }
 
 .pagination_section {

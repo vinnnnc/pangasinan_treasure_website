@@ -323,6 +323,9 @@ main {
   font-size: 0.8rem;
   margin: 20px;
 }
+.checkout-subtotal-1 {
+  margin-top: 20px;
+}
 
 #shipping-option {
   /* margin-inline: 50px; */
