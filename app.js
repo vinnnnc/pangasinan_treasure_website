@@ -8,17 +8,7 @@ const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const cors = require("cors");
-
-// import express from "express";
-// import mongoose from "mongoose";
-// import session from "express-session";
-// import protectedRoute from "./routes/protectedRoute";
-// import userRoutes from "./routes/userRoutes";
-// import productRoutes from "./routes/productRoutes";
-// import orderRoutes from "./routes/orderRoutes";
-// import cartRoutes from "./routes/cartRoutes";
-// import cors from "cors";
-
+const errorHandler = require("./helpers/error-handler");
 require("dotenv").config();
 
 const app = express();
@@ -36,6 +26,7 @@ app.use(
 );
 app.use("/protected", protectedRoute);
 app.use(cors());
+app.use(errorHandler);
 app.options("*", cors());
 
 // Database connection
@@ -90,7 +81,7 @@ app.get(`${api}/auth/check`, (req, res) => {
   }
 });
 
-// const PORT = process.env.PORT || 9000;
+// const PORT = process.env.PORT || 3000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // export default app;

@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const AddressBook = require("../models/AddressBook");
@@ -97,7 +98,9 @@ router.post("/login", async (req, res) => {
     }
 
     // Set user session
-    req.session.user = { id: user._id, username: user.username }; // Store relevant user data in the session
+    // req.session.user = { id: user._id, username: user.username }; // Store relevant user data in the session
+    const token = jwt.sign({ userId: user._id }, jwtSecret);
+    res.json({ token });
 
     // Passwords match, user is authenticated
     res.json({ message: "Login successful", user });

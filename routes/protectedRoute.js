@@ -1,23 +1,14 @@
-// routes/protectedRoute.js
+// protectedRoute.js
 const express = require("express");
 const router = express.Router();
+const authJwt = require("../helpers/jwt");
 
-// Middleware to check if user is authenticated
-function isAuthenticated(req, res, next) {
-  if (req.session.user) {
-    return next(); // User is authenticated, proceed to the next middleware or route
-  }
-  res.redirect("/login");
-  res.status(401).json({ message: "Unauthorized" });
-}
-
-// Protected route
-router.get("/protected", isAuthenticated, (req, res) => {
-  res.json({ message: "This is a protected route" });
+router.get("/protected", authJwt, (req, res) => {
+  res.send("This is a protected route");
 });
 
 // Protected route
-router.get("/cart", isAuthenticated, (req, res) => {
+router.get("/cart", authJwt, (req, res) => {
   // res.json({ message: "This is a protected route" });
   res.redirect("cart.html");
 });
