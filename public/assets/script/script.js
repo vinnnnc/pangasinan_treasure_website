@@ -42,84 +42,117 @@ function registerUser(
 }
 
 // Function to log in with email and password
-function login(username, password) {
-  const loginData = { username, password };
+// function login(username, password) {
+//   const loginData = { username, password };
 
-  fetch("/api/v1/users/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(loginData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("Logged in successfully");
-        // Redirect to the homepage after successful login
-        window.location.href = "/"; // Redirect to homepage
-      } else {
-        throw new Error("Error logging in");
-      }
-    })
-    .catch((error) => console.error("Error logging in:", error));
+//   fetch("/api/v1/users/login", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(loginData),
+//   })
+//     .then((response) => {
+//       if (response.ok) {
+//         console.log("Logged in successfully");
+//         // Redirect to the homepage after successful login
+//         window.location.href = "/"; // Redirect to homepage
+//       } else {
+//         throw new Error("Error logging in");
+//       }
+//     })
+//     .catch((error) => console.error("Error logging in:", error));
+// }
+
+async function login(username, password) {
+  const credentials = { username, password };
+  try {
+    const response = await fetch("/api/v1/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    });
+    const data = await response.json();
+    localStorage.setItem("token", data.token);
+    console.log("Logged in successfully");
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 // let isLoggedIn = false;
 
 // Function to Check Login Status
+// function loginStatus() {
+//   return new Promise((resolve, reject) => {
+//     fetch("/api/v1/auth/check", {
+//       method: "GET",
+//       credentials: "include", // Include credentials (cookies) in the request
+//     })
+//       .then((response) => {
+//         if (response.ok) {
+//           response.json().then((json) => {
+//             console.log(json["loggedIn"]);
+//             resolve(json["loggedIn"]);
+//           });
+//           //   isLoggedIn = true; // User is logged in
+//           //   resolve(true); // Resolve the Promise with true
+//         } else {
+//           response.json().then((json) => {
+//             console.log(json["loggedIn"]);
+//             resolve(json["loggedIn"]);
+//           });
+//           //   resolve(false); // Resolve the Promise with false
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error checking authentication status:", error);
+//         reject(error); // Reject the Promise with the error
+//       });
+//   });
+// }
+
 function loginStatus() {
-  return new Promise((resolve, reject) => {
-    fetch("/api/v1/auth/check", {
-      method: "GET",
-      credentials: "include", // Include credentials (cookies) in the request
-    })
-      .then((response) => {
-        if (response.ok) {
-          response.json().then((json) => {
-            console.log(json["loggedIn"]);
-            resolve(json["loggedIn"]);
-          });
-          //   isLoggedIn = true; // User is logged in
-          //   resolve(true); // Resolve the Promise with true
-        } else {
-          response.json().then((json) => {
-            console.log(json["loggedIn"]);
-            resolve(json["loggedIn"]);
-          });
-          //   resolve(false); // Resolve the Promise with false
-        }
-      })
-      .catch((error) => {
-        console.error("Error checking authentication status:", error);
-        reject(error); // Reject the Promise with the error
-      });
-  });
+  const token = localStorage.getItem("token");
+  if (token) {
+    // Token exists, user is logged in
+    return true;
+  } else {
+    // Token does not exist, user is not logged in
+    return false;
+  }
 }
 
-function refreshStatus() {
-  setTimeout(() => {
-    loginStatus(); // Call loginStatus after a short delay
-  }, 100); // Adjust the delay as needed
-}
+// function refreshStatus() {
+//   setTimeout(() => {
+//     loginStatus(); // Call loginStatus after a short delay
+//   }, 100); // Adjust the delay as needed
+// }
+
+// function logout() {
+//   fetch("/api/v1/users/logout", {
+//     method: "POST", // or "GET" depending on your server setup
+//     credentials: "include", // Include credentials (cookies) in the request
+//   })
+//     .then((response) => {
+//       if (response.ok) {
+//         console.log("User logged out successfully");
+//         window.location.href = "/login";
+//         // Perform any additional actions after logout (if needed)
+//       } else {
+//         console.error("Failed to log out");
+//         // Handle logout failure (if needed)
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Error logging out:", error);
+//     });
+// }
 
 function logout() {
-  fetch("/api/v1/users/logout", {
-    method: "POST", // or "GET" depending on your server setup
-    credentials: "include", // Include credentials (cookies) in the request
-  })
-    .then((response) => {
-      if (response.ok) {
-        console.log("User logged out successfully");
-        window.location.href = "/login";
-        // Perform any additional actions after logout (if needed)
-      } else {
-        console.error("Failed to log out");
-        // Handle logout failure (if needed)
-      }
-    })
-    .catch((error) => {
-      console.error("Error logging out:", error);
-    });
+  localStorage.removeItem("token");
+  console.log("Logged out successfully");
+  window.location.href = "/login"; // Redirect to Login
 }
 
 function fetchUserProfile() {

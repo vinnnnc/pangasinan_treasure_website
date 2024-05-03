@@ -103,7 +103,7 @@ router.post("/login", async (req, res) => {
     res.json({ token });
 
     // Passwords match, user is authenticated
-    res.json({ message: "Login successful", user });
+    // res.json({ message: "Login successful", user });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
