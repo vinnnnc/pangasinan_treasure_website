@@ -1,8 +1,8 @@
 // routes/cartRoutes.js
 const express = require("express");
 const router = express.Router();
-const Cart = require("../models/Cart.js");
-const Product = require("../models/Product.js");
+const Cart = require("../models/Cart");
+const Product = require("../models/Product");
 
 // Get user's cart
 router.get("/", async (req, res) => {

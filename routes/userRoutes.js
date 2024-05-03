@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const User = require("../models/User.js");
-const AddressBook = require("../models/AddressBook.js");
-const UserWallet = require("../models/UserWallet.js");
+const User = require("../models/User");
+const AddressBook = require("../models/AddressBook");
+const UserWallet = require("../models/UserWallet");
 
 // Route to get user details by ID
 router.get("/list/:id", async (req, res) => {
