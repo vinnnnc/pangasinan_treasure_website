@@ -1,13 +1,23 @@
 // app.js
-const express = require("express");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const protectedRoute = require("./routes/protectedRoute");
-const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./routes/productRoutes");
-const orderRoutes = require("./routes/orderRoutes");
-const cartRoutes = require("./routes/cartRoutes");
-const cors = require("cors");
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const session = require("express-session");
+// const protectedRoute = require("./routes/protectedRoute");
+// const userRoutes = require("./routes/userRoutes");
+// const productRoutes = require("./routes/productRoutes");
+// const orderRoutes = require("./routes/orderRoutes");
+// const cartRoutes = require("./routes/cartRoutes");
+// const cors = require("cors");
+
+import express from "express";
+import mongoose from "mongoose";
+import session from "express-session";
+import protectedRoute from "./routes/protectedRoute";
+import userRoutes from "./routes/userRoutes";
+import productRoutes from "./routes/productRoutes";
+import orderRoutes from "./routes/orderRoutes";
+import cartRoutes from "./routes/cartRoutes";
+import cors from "cors";
 
 require("dotenv").config();
 
