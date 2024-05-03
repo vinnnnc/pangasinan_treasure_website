@@ -4,7 +4,8 @@
   "description": "backend of pangasinan_treasure",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "vercel-build": "echo hello"
   },
   "author": "",
   "license": "ISC",

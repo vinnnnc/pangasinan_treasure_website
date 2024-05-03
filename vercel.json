@@ -2,28 +2,8 @@
     "version": 2,
     "routes": [
         {
-            "src": "/api/user/*",
-            "dest": "/api/userRoutes.js"
-        },
-        {
-            "src": "/api/product/*",
-            "dest": "/api/productRoutes.js"
-        },
-        {
-            "src": "/api/order/*",
-            "dest": "/api/orderRoutes.js"
-        },
-        {
-            "src": "/api/cart/*",
-            "dest": "/api/cartRoutes.js"
-        },
-        {
-            "src": "/api/protected/*",
-            "dest": "/api/protectedRoute.js"
-        },
-        {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "/api"
         }
     ]
 }
