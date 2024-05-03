@@ -71,7 +71,7 @@ app.get("/admin", (req, res) => {
 });
 
 // Endpoint to check login status
-app.get("/api/v1/auth/check", (req, res) => {
+app.get(`${api}/auth/check`, (req, res) => {
   if (req.session.user) {
     // User is authenticated
     res.json({ loggedIn: true, user: req.session.user });
