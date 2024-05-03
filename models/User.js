@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const AddressBook = require("./AddressBook");
-const UserWallet = require("./UserWallet");
+// const AddressBook = require("./AddressBook");
+// const UserWallet = require("./UserWallet");
 
 const userSchema = new mongoose.Schema({
   fullname: { type: String, required: true },
