@@ -1,17 +1,49 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const AddressBook = require("../models/AddressBook");
 const UserWallet = require("../models/UserWallet");
 
+// Route to get user details by ID
+router.get("/list/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // Exclude sensitive fields like password before sending the response
+    const { password, ...userData } = user.toObject();
+    res.json(userData);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Register a new user
 router.post("/register", async (req, res) => {
-  const { username, email, password } = req.body;
+  const {
+    fullname,
+    username,
+    phone,
+    email,
+    birthdate,
+    address,
+    gender,
+    password,
+    avatar,
+  } = req.body;
   try {
     // Check if the email is already registered
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
+      return res.status(400).json({ message: "Username already registered" });
+    }
+
+    // Check if the email is already registered
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
@@ -20,7 +52,17 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     // Create the user
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({
+      fullname,
+      username,
+      phone,
+      email,
+      birthdate,
+      address,
+      gender,
+      password: hashedPassword,
+      avatar,
+    });
     await newUser.save();
 
     res.status(201).json(newUser);
@@ -31,22 +73,31 @@ router.post("/register", async (req, res) => {
 
 // Login route
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   try {
     // Find the user by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     // Compare the provided password with the hashed password
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = bcrypt.compareSync(
+      password,
+      user.password,
+      function (err, result) {
+        if (err) {
+          throw err;
+        }
+        console.log(result);
+      }
+    );
     if (!passwordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
     // Set user session
-    req.session.user = { id: user._id, email: user.email }; // Store relevant user data in the session
+    req.session.user = { id: user._id, username: user.username }; // Store relevant user data in the session
 
     // Passwords match, user is authenticated
     res.json({ message: "Login successful", user });
@@ -55,10 +106,21 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Logout route
+router.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to logout" });
+    }
+    res.json({ message: "Logout successful" });
+  });
+});
+
 // Get all users (for admin)
 router.get("/list", async (req, res) => {
   try {
     const users = await User.find();
+    console.log(users);
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -66,7 +128,7 @@ router.get("/list", async (req, res) => {
 });
 
 // Update a user
-router.patch("/:id", async (req, res) => {
+router.patch("/list/:id", async (req, res) => {
   try {
     const { address } = req.body;
     const user = await User.findById(req.params.id);
@@ -116,7 +178,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // Delete a user
-router.delete("/:id", async (req, res) => {
+router.delete("/list/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {

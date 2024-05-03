@@ -330,7 +330,8 @@ html {
 
 /* ----Products---- */
 
-#products {
+#products,
+#shop-products {
   display: grid;
   grid-template-columns: repeat(6, 191.5px);
   gap: 10px;
@@ -444,7 +445,7 @@ html {
 }
 
 .unchecked-star {
-  background-image: url(/assets/images/star-unchecked.svg);
+  background-image: url(/assets/images/star-unchecked.svg) !important;
   filter: invert(93%) sepia(83%) saturate(6789%) hue-rotate(327deg)
     brightness(110%) contrast(103%);
 }

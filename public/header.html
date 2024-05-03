@@ -1,18 +1,20 @@
 <header>
   <div class="top-header">
     <div class="top-container">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
       <!-- <a href="#">Contact</a> -->
-      <a href="seller.html" class="hidden">Seller Dashboard</a>
-      <a href="#" class="hidden">Log Out</a>
-      <a href="login.html" id="login-link">Log In</a>
-      <a href="#" id="signup-link">Sign Up</a>
+      <a href="/sellerdashboard" class="hidden" id="seller-link"
+        >Seller Dashboard</a
+      >
+      <a href="#" class="hidden" id="logout-link">Log Out</a>
+      <a href="/login" id="login-link">Log In</a>
+      <a href="/signup" id="signup-link">Sign Up</a>
     </div>
   </div>
   <nav>
     <div class="nav-container">
-      <a href="index.html" class="brand">
+      <a href="/" class="brand">
         <img class="brand-logo" src="/assets/images/optionweblogo.png" alt="" />
         <div class="brand-name">
           <div>angasinan</div>
@@ -21,19 +23,20 @@
       </a>
       <div class="nav-search">
         <input type="text" placeholder="Search.." id="search-bar" />
-        <a href="search.html" id="search-btn" class="btn-shadow">
+        <a href="/search" id="search-btn" class="btn-shadow">
           <img src="/assets/images/search.svg" alt="search-icon" />
         </a>
       </div>
       <div class="nav-right">
-        <a href="cart.html" id="cart-btn" class="btn-shadow">
+        <a href="/cart" id="cart-btn" class="btn-shadow">
           <img src="/assets/images/shopping-cart.svg" alt="cart" />
         </a>
-        <a href="login.html" id="profile-btn" class="logged-out">
+        <a href="/login" id="profile-btn" class="logged-out">
           <img src="/assets/images/user.svg" alt="profile" />
           <span>Log In</span>
         </a>
       </div>
     </div>
   </nav>
+  <script src="/assets/script/header.js"></script>
 </header>

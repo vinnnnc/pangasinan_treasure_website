@@ -8,11 +8,12 @@ const Product = require("../models/Product");
 router.get("/", async (req, res) => {
   try {
     // Assuming you have user authentication middleware that sets req.user
-    const userId = req.user.id;
+    const userId = req.session.user.id;
     const cart = await Cart.findOne({ userId }).populate("items.productId");
     res.json(cart);
   } catch (err) {
     res.status(500).json({ message: err.message });
+    console.log(err);
   }
 });
 
@@ -21,8 +22,8 @@ router.post("/add", async (req, res) => {
   try {
     const { productId, quantity } = req.body;
     // Assuming you have user authentication middleware that sets req.user
-    const userId = req.user.id;
-
+    const userId = req.session.user.id;
+    console.log(productId, quantity);
     // Check if the product exists
     const product = await Product.findById(productId);
     if (!product) {
@@ -49,6 +50,7 @@ router.post("/add", async (req, res) => {
     res.status(201).json(cart);
   } catch (err) {
     res.status(500).json({ message: err.message });
+    console.log(err);
   }
 });
 
@@ -57,7 +59,7 @@ router.delete("/remove/:itemId", async (req, res) => {
   try {
     const { itemId } = req.params;
     // Assuming you have user authentication middleware that sets req.user
-    const userId = req.user.id;
+    const userId = req.session.user.id;
 
     const cart = await Cart.findOne({ userId });
     if (!cart) {

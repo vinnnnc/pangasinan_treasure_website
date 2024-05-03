@@ -89,7 +89,7 @@ header a:has(img) {
   opacity: 0%;
 }
 
-a.hidden {
+.hidden {
   display: none;
 }
 

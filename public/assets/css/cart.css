@@ -84,12 +84,10 @@ main {
   font-weight: lighter;
 }
 
-.cart-table tr:not(:first-child) th:nth-child(2) {
-  border-radius: 2px;
-  background-image: url(/assets/images/products/product-7.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.cart-table tr:not(:first-child) th:nth-child(2) img {
+  height: 100px;
+  width: 100px;
+  border-radius: 3px;
 }
 
 .variant {

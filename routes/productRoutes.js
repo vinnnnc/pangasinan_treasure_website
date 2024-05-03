@@ -89,6 +89,7 @@ router.post("/:id/ratings", async (req, res) => {
 router.get("/:id/ratings", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
+
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -97,17 +98,6 @@ router.get("/:id/ratings", async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-});
-
-// Define a virtual property to calculate the average rating
-productSchema.virtual("averageRating").get(function () {
-  if (this.ratings.length === 0) return 0;
-
-  const totalRating = this.ratings.reduce(
-    (acc, rating) => acc + rating.rating,
-    0
-  );
-  return totalRating / this.ratings.length;
 });
 
 module.exports = router;

@@ -32,33 +32,54 @@ body {
 } */
 
 .login-brand {
-  width: 600px;
+  width: 1000px;
   text-align: center;
   font-size: 1.5rem;
+  transition: 300ms ease-in-out;
+}
+
+.login-brand.small {
+  width: 600px;
+  font-size: 1rem;
 }
 
 .login-brand img {
   width: 100%;
   filter: blur(0.5px);
-  translate: 0 -15px;
+  /* translate: 0 -15px; */
 }
 
-.login-card,
-.signup-card {
+.login-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 400px;
   height: 500px;
+}
+
+.signup-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 500px;
   /* background-color: white; */
   /* padding: 0 20px 30px 20px; */
   /* margin: 50px 20px; */
 }
 
+.signup-section {
+  width: 48%;
+}
+
 .login-window {
   transition: 500ms ease-in-out;
   translate: 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 .login-window.change-window {
@@ -131,6 +152,24 @@ button:hover {
 .card-container {
   padding: 16px;
   position: relative;
+}
+
+.signup-container {
+  /* padding: 16px; */
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: column; */
+}
+
+.signup-container input[type="date"],
+.signup-container select {
+  border: 2px solid var(--secondary-color);
+  height: 40px;
+  border-radius: 3px;
+  width: 100%;
+  margin: 8px 0;
+  padding: 0;
 }
 
 span.psw {

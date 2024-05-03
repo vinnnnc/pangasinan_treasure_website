@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pangasinan Treasure</title>
+    <title>Cart - Pangasinan Treasure</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -34,7 +34,7 @@
         <div class="container">
           <span class="section-title">Cart</span>
           <div class="cart-container">
-            <table class="cart-table">
+            <table class="cart-table" id="cart-table-body">
               <tr>
                 <th><input type="checkbox" id="cart-product-1" /></th>
                 <th></th>
@@ -75,7 +75,6 @@
                     <input
                       class="cart-product-quantity"
                       type="text"
-                      aria-valuenow="1"
                       role="spinbutton"
                       value="1"
                     />
@@ -101,15 +100,15 @@
               <span>Order Summary</span>
               <div class="subtotal-1">
                 <span>Subtotal</span>
-                <span>₱ 1,798.96</span>
+                <span id="summary-subtotal1">₱ 1,798.96</span>
               </div>
               <div class="shipping-fee">
                 <span>Shipping Fee</span>
-                <span>₱ 50.00</span>
+                <span id="summary-shippingfee">₱ 50.00</span>
               </div>
               <div class="subtotal-2">
                 <span>Subtotal</span>
-                <span>₱ 1,848.96</span>
+                <span id="summary-subtotal2">₱ 1,848.96</span>
               </div>
               <button id="checkout-btn">Check Out</button>
             </div>

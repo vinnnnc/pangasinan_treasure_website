@@ -1,45 +1,85 @@
+// app.js
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const userRoutes = require("./routes/userRoutes");
 const protectedRoute = require("./routes/protectedRoute");
-// Import other route files
+// const authJwt = require("./authJwt");
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+const cors = require("cors");
+
+require("dotenv").config();
 
 const app = express();
+const api = process.env.API_URL;
 
-// Set up Express Session middleware
+// Middleware
+app.use(express.json());
 app.use(
   session({
-    secret: "your-secret-key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    cookie: { secure: false }, // Set secure: true if using HTTPS
   })
 );
+app.use("/protected", protectedRoute);
+app.use(cors());
+app.options("*", cors());
 
-app.use(express.json());
-
-// Connect to MongoDB
-mongoose.connect(
-  "mongodb+srv://developerthrill:DZZ7HbyAnp97KVl8@cluster0.l62emu1.mongodb.net/",
-  {
+// Database connection
+mongoose
+  .connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: "pangasinantreasure_db",
-  }
-);
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
+    dbName: "pangasinantreasure_db", // Specify the dbName option
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB:", err.message));
 
-// Use routes
-app.use("/users", userRoutes);
-app.use("/protected", protectedRoute);
-// Use other routes
+// Middleware for JWT authentication
+// app.use(authJwt());
 
+// Routes
+app.use(`/`, express.static("public")); // Serve static files from the "public" directory
+app.use(`${api}/users`, userRoutes);
+app.use(`${api}/product`, productRoutes);
+app.use(`${api}/orders`, orderRoutes);
+app.use(`${api}/cart`, cartRoutes);
+app.use("/", protectedRoute); // Add the protected route middleware
+
+// Serve index.html
 app.get("/", (req, res) => {
-  res.sendFile("index.html");
+  res.sendFile(__dirname + "/public/index.html");
+});
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
+app.get("/product", (req, res) => {
+  res.sendFile(__dirname + "/public/product.html");
+});
+app.get("/profile", (req, res) => {
+  res.sendFile(__dirname + "/public/profile.html");
+});
+app.get("/sellerdashboard", (req, res) => {
+  res.sendFile(__dirname + "/public/seller.html");
+});
+app.get("/admin", (req, res) => {
+  res.sendFile(__dirname + "/public/admin.html");
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Endpoint to check login status
+app.get("/api/v1/auth/check", (req, res) => {
+  if (req.session.user) {
+    // User is authenticated
+    res.json({ loggedIn: true, user: req.session.user });
+  } else {
+    // User is not authenticated
+    res.json({ loggedIn: false });
+  }
 });
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

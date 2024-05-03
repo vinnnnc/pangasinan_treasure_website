@@ -70,7 +70,7 @@ function setTitle(num) {
 
 function loadDefault() {
   loadContent(
-    "profile_orders.html",
+    "../profile/profile_edit.html",
     document.querySelector(".profile-links div:first-child")
   );
   document.getElementById("my-account-title").classList.add("active");

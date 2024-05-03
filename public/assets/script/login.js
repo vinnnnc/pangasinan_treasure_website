@@ -1,78 +1,62 @@
 //signup
 
 const loginToSignupBtn = document.querySelectorAll(".login-signup-btn");
+const loginBrand = document.querySelector(".login-brand");
 const loginBtn = document.getElementById("login-btn");
 const signupBtn = document.getElementById("signup-btn");
 const loginNameField = document.getElementById("login-username-field");
 const loginPassField = document.getElementById("login-password-field");
-const signupNameField = document.getElementById("signup-username-field");
-const signupPassField = document.getElementById("signup-email-field");
+const signupFullnameField = document.getElementById("signup-fullname-field");
+const signupUsernameField = document.getElementById("signup-username-field");
 const signupPhoneField = document.getElementById("signup-phone-field");
-const signupEmailField = document.getElementById("signup-password-field");
+const signupEmailField = document.getElementById("signup-email-field");
+const signupBdayField = document.getElementById("signup-bday-field");
+const signupAddressField = document.getElementById("signup-address-field");
+const signupGenderField = document.getElementById("signup-gender-field");
+const signupPassField = document.getElementById("signup-password-field");
+const signupForm = document.getElementById("signup-form");
+
 var isPasswordStrong = false;
 var isNameEmpty = true;
 var isPassEmpty = true;
 
-loginPassField.addEventListener("input", () => {
+loginBtn.addEventListener("click", () => {
+  login(loginNameField.value, loginPassField.value);
+  console.log(loginNameField.value, loginPassField.value);
+});
+
+signupPassField.addEventListener("input", () => {
   console.log(checkPasswordStrength(loginPassField.value));
   loginPassField.style.borderColor = "var(--secondary-color)";
 });
 
-const registerUser = async (username, phonenumber, email, password) => {
-  try {
-    const response = await fetch("http://localhost:3000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, phonenumber, password }),
-    });
+signupForm.addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent form submission
+  const formData = new FormData(event.target);
+  const fullname = formData.get("fullname");
+  const username = formData.get("username");
+  const phonenumber = formData.get("phonenumber");
+  const email = formData.get("email");
+  const birthdate = formData.get("birthdate");
+  const address = formData.get("address");
+  const gender = formData.get("gender");
+  const password = formData.get("password");
 
-    const data = await response.json();
-    if (response.ok) {
-      console.log(data.message); // User registered successfully
-    } else {
-      console.error(data.error); // Error message from the server
-    }
-  } catch (err) {
-    console.error("Error:", err);
-    alert(err);
-  }
-};
-
-signupBtn.addEventListener("click", () => {
-  let incomplete = false;
-  if (signupNameField.value == "") {
-    signupNameField.style.borderColor = "red";
-    incomplete = true;
-  }
-  if (signupEmailField.value == "") {
-    signupEmailField.style.borderColor = "red";
-    incomplete = true;
-  }
-  if (signupPhoneField.value == "") {
-    signupPhoneField.style.borderColor = "red";
-    incomplete = true;
-  }
-  if (signupPassField.value == "") {
-    signupPassField.style.borderColor = "red";
-    incomplete = true;
-  }
-  if (incomplete == true) {
-    alert("Fill all empty fields!");
+  if (!isPasswordStrong) {
+    alert(checkPasswordStrength(password));
     return;
   }
-  // if (!isPasswordStrong) {
-  //   alert(checkPasswordStrength(signupPassField.value));
-  //   return;
-  // }
+
   registerUser(
-    signupNameField.value,
-    signupEmailField.value,
-    signupPhoneField.value,
-    signupPassField.value
+    fullname,
+    username,
+    phonenumber,
+    email,
+    birthdate,
+    address,
+    gender,
+    password
   );
-  // console.log("User" + username + " registered successfuly!");
 });
 
 function checkPasswordStrength(password) {
@@ -114,6 +98,7 @@ function checkPasswordStrength(password) {
 function changeLogin() {
   const signupWindow = document.querySelector(".login-window");
   signupWindow.classList.toggle("change-window");
+  loginBrand.classList.toggle("small");
 }
 
 loginToSignupBtn[0].addEventListener("click", () => {

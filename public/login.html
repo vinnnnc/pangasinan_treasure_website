@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pangasinan Treasure</title>
+    <title>Log In - Pangasinan Treasure</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -64,36 +64,98 @@
                 </div>
                 <div class="signup-card">
                   <span>Create an Account</span>
-                  <div class="signup-form">
+                  <form id="signup-form">
                     <div class="card-container">
-                      <label><b>Username</b></label>
-                      <input
-                        type="text"
-                        placeholder="Enter Username"
-                        id="signup-username-field"
-                      />
-                      <label><b>E-mail</b></label>
-                      <input
-                        type="email"
-                        placeholder="Enter E-mail"
-                        id="signup-email-field"
-                      />
-                      <label><b>Phone Number</b></label>
-                      <input
-                        type="password"
-                        placeholder="Enter Phone Number"
-                        id="signup-phone-field"
-                      />
-                      <label><b>Password</b> </label>
-                      <input
-                        type="password"
-                        placeholder="Enter Password"
-                        id="signup-password-field"
-                      />
-                      <button id="signup-btn">Create Account</button>
+                      <div class="signup-container">
+                        <div class="signup-section">
+                          <label><b>Full Name</b></label>
+                          <input
+                            type="text"
+                            placeholder="First Last"
+                            name="fullname"
+                            id="signup-fullname-field"
+                            required
+                          />
+                          <label><b>Phone Number</b></label>
+                          <input
+                            type="text"
+                            placeholder="Enter Phone Number"
+                            name="phonenumber"
+                            id="signup-phone-field"
+                            required
+                          />
+                          <label>
+                            <b>Birthdate</b>
+                            <input
+                              type="date"
+                              name="birthdate"
+                              id="signup-bday-field"
+                              required
+                            />
+                          </label>
+                          <label>
+                            <b>Gender</b>
+                            <select
+                              name="gender"
+                              id="signup-gender-field"
+                              name="gender"
+                              required
+                            >
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </label>
+                        </div>
+                        <div class="signup-section">
+                          <label>
+                            <b>Username</b>
+                            <input
+                              type="text"
+                              placeholder="Enter Username"
+                              name="username"
+                              id="signup-username-field"
+                              minlength="6"
+                              required
+                            />
+                          </label>
+
+                          <label><b>E-mail</b></label>
+                          <input
+                            type="email"
+                            placeholder="Enter E-mail"
+                            name="email"
+                            id="signup-email-field"
+                            required
+                          />
+                          <label>
+                            <b>Address</b>
+                            <input
+                              type="text"
+                              placeholder="Enter Address"
+                              name="address"
+                              required
+                              id="signup-address-field"
+                            />
+                          </label>
+                          <label>
+                            <b>Password</b>
+                            <input
+                              type="password"
+                              placeholder="Enter Password"
+                              name="password"
+                              id="signup-password-field"
+                              required
+                            />
+                          </label>
+                        </div>
+                      </div>
+                      <button type="submit" id="signup-btn">
+                        Create Account
+                      </button>
                       <a href="#" class="login-signup-btn"> Log In </a>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
