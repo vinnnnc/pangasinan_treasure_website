@@ -2,11 +2,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const protectedRoute = require("../routes/protectedRoute");
-const userRoutes = require("../routes/userRoutes");
-const productRoutes = require("../routes/productRoutes");
-const orderRoutes = require("../routes/orderRoutes");
-const cartRoutes = require("../routes/cartRoutes");
+const protectedRoute = require("./routes/protectedRoute");
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -80,7 +80,7 @@ app.get(`${api}/auth/check`, (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// const PORT = process.env.PORT || 9000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 export default app;
