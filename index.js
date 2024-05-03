@@ -51,9 +51,9 @@ app.use(`${api}/cart`, cartRoutes);
 app.use("/", protectedRoute); // Add the protected route middleware
 
 // Serve index.html
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/public/index.html");
+// });
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
