@@ -51,7 +51,7 @@ app.use("/", protectedRoute); // Add the protected route middleware
 
 // Serve index.html
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
+  res.sendFile(__dirname + "../public/index.html");
 });
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
@@ -66,7 +66,7 @@ app.get("/sellerdashboard", (req, res) => {
   res.sendFile(__dirname + "/public/seller.html");
 });
 app.get("/admin", (req, res) => {
-  res.sendFile(__dirname + "/public/admin.html");
+  res.sendFile(__dirname + "../public/admin.html");
 });
 
 // Endpoint to check login status
