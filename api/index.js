@@ -3,9 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const protectedRoute = require("./routes/protectedRoute");
-// const authJwt = require("./api/authJwt");
 const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./api/apiroutes/productRoutes");
+const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const cors = require("cors");
@@ -51,9 +50,9 @@ app.use(`${api}/cart`, cartRoutes);
 app.use("/", protectedRoute); // Add the protected route middleware
 
 // Serve index.html
-// app.get("/", (req, res) => {
-//   res.sendFile(__dirname + "/public/index.html");
-// });
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
