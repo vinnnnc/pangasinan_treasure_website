@@ -12,11 +12,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import session from "express-session";
-import protectedRoute from "./routes/protectedRoute";
-import userRoutes from "./routes/userRoutes";
-import productRoutes from "./routes/productRoutes";
-import orderRoutes from "./routes/orderRoutes";
-import cartRoutes from "./routes/cartRoutes";
+import protectedRoute from "./routes/protectedRoute.js";
+import userRoutes from "./routes/userRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 import cors from "cors";
 
 require("dotenv").config();
