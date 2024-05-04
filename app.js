@@ -3,8 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 // const session = require("express-session");
 const cors = require("cors");
-const errorHandler = require("./helpers/error-handler");
-const authJwt = require("./helpers/jwt");
+// const errorHandler = require("./helpers/error-handler");
+// const authJwt = require("./helpers/jwt");
 require("dotenv").config();
 
 const app = express();
@@ -13,8 +13,8 @@ const api = process.env.API_URL;
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use(authJwt());
-app.use(errorHandler());
+// app.use(authJwt());
+// app.use(errorHandler());
 app.options("*", cors());
 
 // Database connection
