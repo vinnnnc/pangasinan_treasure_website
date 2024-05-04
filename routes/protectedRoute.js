@@ -7,8 +7,8 @@ router.get("/protected", authJwt, (req, res) => {
   res.send("This is a protected route");
 });
 
-router.get("/cart", authJwt, (req, res) => {
-  res.redirect("cart.html");
-});
+// router.get("/cart", authJwt, (req, res) => {
+//   res.redirect("cart.html");
+// });
 
 module.exports = router;

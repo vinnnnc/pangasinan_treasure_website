@@ -105,7 +105,7 @@
 .product-view-image {
   overflow: hidden;
   display: flex;
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid #0002;
   width: 500px;
   height: 500px;
   border-radius: 3px;
@@ -138,7 +138,7 @@
   width: 90px;
   height: 90px;
   transition: 150ms;
-  outline: 2px solid var(--secondary-color);
+  outline: 2px solid #0002;
   position: relative;
 }
 

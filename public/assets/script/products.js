@@ -101,6 +101,7 @@ function displayProductDetails() {
       const productViewVariants = document.getElementById(
         "product-view-variants"
       );
+      productViewVariants.innerHTML = "";
       product.variants.forEach((variant, index) => {
         const button = document.createElement("button");
         if (index == 0) button.className = "product-view-btn variant-btn";

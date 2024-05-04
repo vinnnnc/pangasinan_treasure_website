@@ -74,7 +74,9 @@ router.post("/register", async (req, res) => {
 
 // Login route
 router.post("/login", async (req, res) => {
+  console.log("asd");
   const { username, password } = req.body;
+  const secret = process.env.JWT_SECRET;
   try {
     // Find the user by email
     const user = await User.findOne({ username });
@@ -99,31 +101,40 @@ router.post("/login", async (req, res) => {
 
     // Set user session
     // req.session.user = { id: user._id, username: user.username }; // Store relevant user data in the session
-    const token = jwt.sign({ userId: user._id }, jwtSecret);
-    res.json({ token });
-
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        isAdmin: user.isAdmin,
+      },
+      secret,
+      { expiresIn: "1d" }
+    );
+    // res.json({ token });
+    // console.log(token);
+    res.status(200).send({ user: user.email, token: token });
     // Passwords match, user is authenticated
     // res.json({ message: "Login successful", user });
   } catch (err) {
+    // console.log(err);
     res.status(500).json({ message: err.message });
   }
 });
 
 // Logout route
-router.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).json({ message: "Failed to logout" });
-    }
-    res.json({ message: "Logout successful" });
-  });
-});
+// router.post("/logout", (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) {
+//       return res.status(500).json({ message: "Failed to logout" });
+//     }
+//     res.json({ message: "Logout successful" });
+//   });
+// });
 
 // Get all users (for admin)
 router.get("/list", async (req, res) => {
   try {
     const users = await User.find();
-    console.log(users);
+    // console.log(users);
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -65,19 +65,38 @@ function registerUser(
 // }
 
 async function login(username, password) {
-  const credentials = { username, password };
-  try {
-    const response = await fetch("/api/v1/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(credentials),
+  const loginData = { username, password };
+  fetch("/api/v1/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(loginData),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      // Handle the response data
+      console.log(data.user); // Log the user email
+      console.log(data.token); // Log the token
+      localStorage.setItem("token", data.token);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
-    const data = await response.json();
-    localStorage.setItem("token", data.token);
-    console.log("Logged in successfully");
-  } catch (error) {
-    console.error("Error:", error);
-  }
+  // try {
+  //   const response = await fetch("/api/v1/users/login", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(credentials),
+  //   });
+  //   const data = await response.json();
+
+  //   console.log(data);
+  //   localStorage.setItem("token", data.token);
+  //   console.log("Logged in successfully");
+  // } catch (error) {
+  //   console.error("Error:", error);
+  // }
 }
 
 // let isLoggedIn = false;
@@ -173,41 +192,41 @@ function fetchUserProfile() {
     .catch((error) => console.error("Error fetching user profile:", error));
 }
 
-function fetchProducts() {
-  fetch("/products", {
-    method: "GET",
-    credentials: "include", // Include credentials (cookies) in the request
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json(); // Parse JSON response
-      }
-      throw new Error("Error fetching products");
-    })
-    .then((data) => {
-      console.log("Products:", data);
-      // Update UI with product list
-    })
-    .catch((error) => console.error("Error fetching products:", error));
-}
+// function fetchProducts() {
+//   fetch("/api/v1/products", {
+//     method: "GET",
+//     credentials: "include", // Include credentials (cookies) in the request
+//   })
+//     .then((response) => {
+//       if (response.ok) {
+//         return response.json(); // Parse JSON response
+//       }
+//       throw new Error("Error fetching products");
+//     })
+//     .then((data) => {
+//       console.log("Products:", data);
+//       // Update UI with product list
+//     })
+//     .catch((error) => console.error("Error fetching products:", error));
+// }
 
-function fetchUserOrders() {
-  fetch("/orders", {
-    method: "GET",
-    credentials: "include", // Include credentials (cookies) in the request
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json(); // Parse JSON response
-      }
-      throw new Error("Error fetching orders");
-    })
-    .then((data) => {
-      console.log("User Orders:", data);
-      // Update UI with user orders
-    })
-    .catch((error) => console.error("Error fetching orders:", error));
-}
+// function fetchUserOrders() {
+//   fetch("/orders", {
+//     method: "GET",
+//     credentials: "include", // Include credentials (cookies) in the request
+//   })
+//     .then((response) => {
+//       if (response.ok) {
+//         return response.json(); // Parse JSON response
+//       }
+//       throw new Error("Error fetching orders");
+//     })
+//     .then((data) => {
+//       console.log("User Orders:", data);
+//       // Update UI with user orders
+//     })
+//     .catch((error) => console.error("Error fetching orders:", error));
+// }
 
 // function fetchCartItems() {
 //   fetch("/cart", {

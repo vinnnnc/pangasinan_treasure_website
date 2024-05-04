@@ -1,14 +1,10 @@
 // app.js
 const express = require("express");
 const mongoose = require("mongoose");
-const session = require("express-session");
-const protectedRoute = require("./routes/protectedRoute");
-const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./routes/productRoutes");
-const orderRoutes = require("./routes/orderRoutes");
-const cartRoutes = require("./routes/cartRoutes");
+// const session = require("express-session");
 const cors = require("cors");
 const errorHandler = require("./helpers/error-handler");
+const authJwt = require("./helpers/jwt");
 require("dotenv").config();
 
 const app = express();
@@ -16,17 +12,9 @@ const api = process.env.API_URL;
 
 // Middleware
 app.use(express.json());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }, // Set secure: true if using HTTPS
-  })
-);
-app.use("/protected", protectedRoute);
 app.use(cors());
-app.use(errorHandler);
+app.use(authJwt());
+app.use(errorHandler());
 app.options("*", cors());
 
 // Database connection
@@ -39,8 +27,11 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err.message));
 
-// Middleware for JWT authentication
-// app.use(authJwt());
+const protectedRoute = require("./routes/protectedRoute");
+const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 // Routes
 app.use(`/`, express.static("public")); // Serve static files from the "public" directory
@@ -48,7 +39,7 @@ app.use(`${api}/users`, userRoutes);
 app.use(`${api}/product`, productRoutes);
 app.use(`${api}/orders`, orderRoutes);
 app.use(`${api}/cart`, cartRoutes);
-app.use("/", protectedRoute); // Add the protected route middleware
+app.use("/protected", protectedRoute);
 
 // Serve index.html
 app.get("/", (req, res) => {
@@ -69,17 +60,20 @@ app.get("/sellerdashboard", (req, res) => {
 app.get("/admin", (req, res) => {
   res.sendFile(__dirname + "/public/admin.html");
 });
+app.get("/about", (req, res) => {
+  res.sendFile(__dirname + "/public/about.html");
+});
 
 // Endpoint to check login status
-app.get(`${api}/auth/check`, (req, res) => {
-  if (req.session.user) {
-    // User is authenticated
-    res.json({ loggedIn: true, user: req.session.user });
-  } else {
-    // User is not authenticated
-    res.json({ loggedIn: false });
-  }
-});
+// app.get(`${api}/auth/check`, (req, res) => {
+//   if (req.session.user) {
+//     // User is authenticated
+//     res.json({ loggedIn: true, user: req.session.user });
+//   } else {
+//     // User is not authenticated
+//     res.json({ loggedIn: false });
+//   }
+// });
 
 // const PORT = process.env.PORT || 3000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
