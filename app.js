@@ -4,7 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const errorHandler = require("./helpers/error-handler");
-const authJwt = require("./helpers/jwt");
+// const authJwt = require("./helpers/jwt");
 const app = express();
 const api = process.env.API_URL;
 
@@ -24,6 +24,9 @@ app.get("/login", (req, res) => {
 });
 app.get("/product", (req, res) => {
   res.sendFile(__dirname + "/public/product.html");
+});
+app.get("/search", (req, res) => {
+  res.sendFile(__dirname + "/public/search.html");
 });
 app.get("/profile", (req, res) => {
   res.sendFile(__dirname + "/public/profile.html");
@@ -46,6 +49,7 @@ app.use(`${api}/users`, require("./routes/userRoutes"));
 app.use(`${api}/product`, require("./routes/productRoutes"));
 app.use(`${api}/orders`, require("./routes/orderRoutes"));
 app.use(`${api}/cart`, require("./routes/cartRoutes"));
+app.use(`/result`, require("./routes/searchRouter"));
 app.use("/", require("./routes/protectedRoute"));
 
 // Database connection
@@ -58,8 +62,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err.message));
 
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-export default app;
+// export default app;
 // module.exports = app;

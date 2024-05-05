@@ -29,27 +29,23 @@
         <div class="container">
           <div id="search-filter">
             <div class="search-title">Filter</div>
-            <div class="search-filter-input">
-              <label for="category" id="filter-category">
+            <form class="search-filter-input" id="filter-form">
+              <label for="category">
                 Category
-                <select name="category" id="category">
-                  <option value="default">Not set</option>
+                <select name="category" id="filter-category">
+                  <option value="notSet">Not set</option>
                   <option value="foods">Food and Beverages</option>
                   <option value="handicrafts">Handicrafts</option>
                   <option value="textiles">Textiles</option>
                   <option value="local">Local Produce</option>
                   <option value="delicacies">Sweets and Delicacies</option>
                   <option value="souvenirs">Souvenirs</option>
-                  <option value="none">Not Set</option>
                 </select>
               </label>
               <label for="from">
                 Shipped From
-                <select name="from" id="from">
-                  <option value="default">Not set</option>
-                  <option value="">Lingayen</option>
-                  <option value="">Aguilar</option>
-                  <option value="">Dagupan</option>
+                <select name="from" id="filter-from">
+                  <option value="notSet">Not set</option>
                 </select>
               </label>
               <label for="price">
@@ -71,44 +67,44 @@
               </label>
               <label for="sort">
                 Sort By
-                <select name="sort" id="sort">
-                  <option value="bestmatch">Best Match</option>
+                <select name="sort" id="filter-sort">
+                  <option value="notSet">Best Match</option>
                   <option value="lowhigh">Price low to high</option>
                   <option value="highlow">Price high to low</option>
                 </select>
               </label>
               <label for="rating">
                 Rating
-                <select name="sort" id="sort">
-                  <option value="default">Not set</option>
-                  <option value="category">5</option>
-                  <option value="category">4 and up</option>
-                  <option value="category">3 and up</option>
-                  <option value="category">2 and up</option>
-                  <option value="category">1 and up</option>
+                <select name="sort" id="filter-rating">
+                  <option value="notSet">Not set</option>
+                  <option value="5">5</option>
+                  <option value="4">4 and up</option>
+                  <option value="3">3 and up</option>
+                  <option value="2">2 and up</option>
+                  <option value="1">1 and up</option>
                 </select>
               </label>
-              <button class="set-btn">
+              <button type="submit" class="set-btn" id="set-filter-btn">
                 <img
                   src="/assets/images/icons/play-solid.svg"
                   alt="set"
                   title="Set Filter"
                 />
               </button>
-              <button class="reset-btn">
+              <button type="reset" class="reset-btn" id="reset-filter-btn">
                 <img
                   src="/assets/images/icons/rotate-right-solid.svg"
                   alt="reset"
                   title="Reset"
                 />
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </section>
       <section>
         <div class="container">
-          <div class="section-title">1 item/s found for "Bagoong"</div>
+          <div class="section-title" id="result-text">No items found</div>
           <div id="products">
             <a href="product.html" class="product">
               <div class="product-image">
@@ -177,5 +173,6 @@
       </section>
     </footer>
     <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/search.js"></script>
   </body>
 </html>

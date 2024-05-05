@@ -9,7 +9,7 @@ const User = require("../models/User");
 router.post("/", async (req, res) => {
   try {
     const { userId } = req.body;
-    console.log(userId);
+    // console.log(userId);
     // const userId = await User.findOne({ user: user._id });
     if (!userId) {
       return res

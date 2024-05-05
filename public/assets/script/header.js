@@ -30,31 +30,20 @@ if (loginStatus()) {
   loginLink.classList.remove("hidden");
   profileBtn.href = "/login";
 }
-// loginStatus()
-//   .then((loggedIn) => {
-//     if (loggedIn) {
-//       console.log("User is logged in:", loggedIn);
-//       profileBtn.classList.remove("logged-out");
-//       profileBtnSpan.classList.add("hidden");
-//       sellerLink.classList.remove("hidden");
-//       logoutLink.classList.remove("hidden");
-//       signupLink.classList.add("hidden");
-//       loginLink.classList.add("hidden");
-//       profileBtn.href = "/profile";
-//     } else {
-//       console.log("User is logged out");
-//       profileBtn.classList.add("logged-out");
-//       profileBtnSpan.classList.remove("hidden");
-//       sellerLink.classList.add("hidden");
-//       logoutLink.classList.add("hidden");
-//       signupLink.classList.remove("hidden");
-//       loginLink.classList.remove("hidden");
-//       profileBtn.href = "/login";
-//     }
-//   })
-//   .catch((error) => {
-//     console.error("Error checking authentication status:", error);
-//   });
+
+const searchBtn = document.getElementById("search-btn");
+
+searchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const searchValue = document.getElementById("search-bar").value.trim();
+  if (!searchValue) {
+    return; // Ignore empty search
+  }
+
+  const searchUrl = `/search?productName=${encodeURIComponent(searchValue)}`;
+  window.location.href = searchUrl; // Redirect to search page with search query
+});
 
 document.getElementById("logout-link").addEventListener("click", () => {
   event.preventDefault();

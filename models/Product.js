@@ -19,13 +19,14 @@ const ratingSchema = new mongoose.Schema({
 const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    description: { type: String },
+    description: { type: String, default: "No description." },
     images: [{ type: String }],
     category: { type: String },
+    shippedFrom: { type: Number, required: true },
     variants: [variantSchema],
     ratings: [ratingSchema],
     dateCreated: { type: Date, default: Date.now },
-    maxOrder: { type: Number },
+    maxOrder: { type: Number, default: 100 },
     totalSold: { type: Number, default: 0 },
   },
   {

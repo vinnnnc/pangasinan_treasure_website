@@ -12,9 +12,11 @@ addCartBtn.addEventListener("click", () => {
 // Function to add item to cart
 function addItemToCart(productId, quantity) {
   const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   fetch("/api/v1/cart/add", {
     method: "POST",
     headers: {
+      Authorization: `{token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ productId, quantity, userId }),
@@ -243,6 +245,7 @@ const renderRatingStars = (rating, container) => {
 // window.onload = displayProductDetails;
 
 window.addEventListener("load", myInit, true);
+
 function myInit() {
   fetchProducts();
   displayProductDetails();

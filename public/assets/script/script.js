@@ -44,23 +44,29 @@ function registerUser(
 async function accessCartPage() {
   const token = localStorage.getItem("token");
   console.log("Token:", token);
-  try {
-    const response = await fetch("/cartAuth", {
-      method: "GET",
-      headers: {
-        Authorization: `${token}`,
-        "Content-Type": "application/json", // Set the appropriate content type if needed
-      },
-    });
+  if (token) {
+    try {
+      const response = await fetch("/cartAuth", {
+        method: "GET",
+        headers: {
+          Authorization: `${token}`,
+          "Content-Type": "application/json", // Set the appropriate content type if needed
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      // const cartData = await response.json();
+      // console.log("Cart Data:", cartData);
+      window.location.href = "/cart";
+    } catch (error) {
+      console.error("Error accessing cart page:", error.message);
     }
-    // const cartData = await response.json();
-    // console.log("Cart Data:", cartData);
-    window.location.href = "/cart";
-  } catch (error) {
-    console.error("Error accessing cart page:", error.message);
+  } else {
+    console.log("User is not logged in, token is null or undefined.");
+    window.location.href = "/login";
+    // Handle the case where the user is not logged in
   }
 }
 
@@ -137,10 +143,8 @@ async function login(username, password) {
 function loginStatus() {
   const token = localStorage.getItem("token");
   if (token) {
-    // Token exists, user is logged in
     return true;
   } else {
-    // Token does not exist, user is not logged in
     return false;
   }
 }
@@ -172,6 +176,7 @@ function loginStatus() {
 // }
 
 function logout() {
+  localStorage.removeItem("userId");
   localStorage.removeItem("token");
   console.log("Logged out successfully");
   window.location.href = "/login"; // Redirect to Login
@@ -259,69 +264,73 @@ function fetchProducts() {
       return response.json();
     })
     .then((data) => {
-      // Data contains the products array
-      const productList = document.getElementById("products");
-
-      // Clear existing product list
-      productList.innerHTML = "";
-
-      // Loop through products and create anchor elements
-      data.forEach((product) => {
-        const productUrl = `/product.html?id=${product._id}`;
-
-        const productLink = document.createElement("a");
-        productLink.href = productUrl;
-        productLink.classList.add("product");
-        productLink.href = `/product?id=${product.id}`; // Replace with actual product URL
-        // Product image and sale text
-        const productImage = document.createElement("div");
-        productImage.classList.add("product-image");
-        const image = document.createElement("img");
-        image.src = "/assets/images/products/" + product.images[0]; // Replace with actual image URL
-        image.alt = "product";
-        productImage.appendChild(image);
-        if (product.sale) {
-          const saleText = document.createElement("span");
-          saleText.classList.add("sale-text");
-          saleText.textContent = "(sale)";
-          productImage.appendChild(saleText);
-        }
-
-        // Product details
-        const productDetails = document.createElement("div");
-        productDetails.classList.add("product-details");
-        const productName = document.createElement("span");
-        productName.classList.add("product-name");
-        productName.textContent = product.name;
-        const priceSection = document.createElement("section");
-        const productPrice = document.createElement("span");
-        productPrice.classList.add("product-price");
-        productPrice.textContent = `₱ ${product.variants[0].price}`;
-        const ratings = document.createElement("div");
-        ratings.classList.add("ratings");
-        const star = document.createElement("span");
-        star.classList.add("star", "checked-star");
-        const productRating = document.createElement("span");
-        productRating.classList.add("product-rating");
-        productRating.textContent = product.averageRating;
-
-        // Append elements to productLink
-        priceSection.appendChild(productPrice);
-        ratings.appendChild(star);
-        priceSection.appendChild(ratings);
-        ratings.appendChild(productRating);
-        productDetails.appendChild(productName);
-        productDetails.appendChild(priceSection);
-        productLink.appendChild(productImage);
-        productLink.appendChild(productDetails);
-
-        // Append productLink to productList
-        productList.appendChild(productLink);
-      });
+      createProductCards(data);
     })
     .catch((error) => {
       console.error("Error fetching products:", error);
     });
+}
+
+function createProductCards(data) {
+  // Data contains the products array
+  const productList = document.getElementById("products");
+
+  // Clear existing product list
+  productList.innerHTML = "";
+
+  // Loop through products and create anchor elements
+  data.forEach((product) => {
+    const productUrl = `/product.html?id=${product._id}`;
+
+    const productLink = document.createElement("a");
+    productLink.href = productUrl;
+    productLink.classList.add("product");
+    productLink.href = `/product?id=${product.id}`; // Replace with actual product URL
+    // Product image and sale text
+    const productImage = document.createElement("div");
+    productImage.classList.add("product-image");
+    const image = document.createElement("img");
+    image.src = "/assets/images/products/" + product.images[0]; // Replace with actual image URL
+    image.alt = "product";
+    productImage.appendChild(image);
+    if (product.sale) {
+      const saleText = document.createElement("span");
+      saleText.classList.add("sale-text");
+      saleText.textContent = "(sale)";
+      productImage.appendChild(saleText);
+    }
+
+    // Product details
+    const productDetails = document.createElement("div");
+    productDetails.classList.add("product-details");
+    const productName = document.createElement("span");
+    productName.classList.add("product-name");
+    productName.textContent = product.name;
+    const priceSection = document.createElement("section");
+    const productPrice = document.createElement("span");
+    productPrice.classList.add("product-price");
+    productPrice.textContent = `₱ ${product.variants[0].price}`;
+    const ratings = document.createElement("div");
+    ratings.classList.add("ratings");
+    const star = document.createElement("span");
+    star.classList.add("star", "checked-star");
+    const productRating = document.createElement("span");
+    productRating.classList.add("product-rating");
+    productRating.textContent = product.averageRating;
+
+    // Append elements to productLink
+    priceSection.appendChild(productPrice);
+    ratings.appendChild(star);
+    priceSection.appendChild(ratings);
+    ratings.appendChild(productRating);
+    productDetails.appendChild(productName);
+    productDetails.appendChild(priceSection);
+    productLink.appendChild(productImage);
+    productLink.appendChild(productDetails);
+
+    // Append productLink to productList
+    productList.appendChild(productLink);
+  });
 }
 
 // Function to fetch variants for a specific product
