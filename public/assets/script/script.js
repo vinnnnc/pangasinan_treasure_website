@@ -41,29 +41,30 @@ function registerUser(
     .catch((error) => console.error("Error registering user:", error));
 }
 
+async function accessCartPage() {
+  const token = localStorage.getItem("token");
+  console.log("Token:", token);
+  try {
+    const response = await fetch("/cartAuth", {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json", // Set the appropriate content type if needed
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    // const cartData = await response.json();
+    // console.log("Cart Data:", cartData);
+    window.location.href = "/cart";
+  } catch (error) {
+    console.error("Error accessing cart page:", error.message);
+  }
+}
+
 // Function to log in with email and password
-// function login(username, password) {
-//   const loginData = { username, password };
-
-//   fetch("/api/v1/users/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(loginData),
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         console.log("Logged in successfully");
-//         // Redirect to the homepage after successful login
-//         window.location.href = "/"; // Redirect to homepage
-//       } else {
-//         throw new Error("Error logging in");
-//       }
-//     })
-//     .catch((error) => console.error("Error logging in:", error));
-// }
-
 async function login(username, password) {
   const loginData = { username, password };
   fetch("/api/v1/users/login", {
@@ -79,6 +80,8 @@ async function login(username, password) {
       console.log(data.user); // Log the user email
       console.log(data.token); // Log the token
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userId", data.userId);
+      window.location.href = "/";
     })
     .catch((error) => {
       console.error("Error:", error);

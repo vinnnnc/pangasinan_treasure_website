@@ -3,26 +3,39 @@ const express = require("express");
 const router = express.Router();
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
+const User = require("../models/User");
 
-// Get user's cart
-router.get("/", async (req, res) => {
+// Get user's cart based on user ID in request body
+router.post("/", async (req, res) => {
   try {
-    // Assuming you have user authentication middleware that sets req.user
-    const userId = req.session.user.id;
+    const { userId } = req.body;
+    console.log(userId);
+    // const userId = await User.findOne({ user: user._id });
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ message: "User ID is required in the request body." });
+    }
+
     const cart = await Cart.findOne({ userId }).populate("items.productId");
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ message: "Cart not found for the specified user." });
+    }
+
     res.json(cart);
   } catch (err) {
     res.status(500).json({ message: err.message });
-    console.log(err);
+    console.error(err);
   }
 });
 
 // Add item to cart
 router.post("/add", async (req, res) => {
   try {
-    const { productId, quantity } = req.body;
-    // Assuming you have user authentication middleware that sets req.user
-    const userId = req.session.user.id;
+    const { productId, quantity, userId } = req.body;
+
     console.log(productId, quantity);
     // Check if the product exists
     const product = await Product.findById(productId);
@@ -55,12 +68,13 @@ router.post("/add", async (req, res) => {
 });
 
 // Remove item from cart
-router.delete("/remove/:itemId", async (req, res) => {
+router.delete("/remove/:userId/:itemId", async (req, res) => {
+  const { itemId, userId } = req.params;
+  // const { userId } = req.body;
   try {
-    const { itemId } = req.params;
     // Assuming you have user authentication middleware that sets req.user
-    const userId = req.session.user.id;
-
+    // const userId = req.session.user.id;
+    console.log(userId);
     const cart = await Cart.findOne({ userId });
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
@@ -72,6 +86,43 @@ router.delete("/remove/:itemId", async (req, res) => {
     res.json(cart);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to modify the quantity of an item in the cart
+router.put("/update", async (req, res) => {
+  const { userId, itemId, newQuantity } = req.body; // Assuming userId, itemId, and newQuantity are sent in the request body
+
+  try {
+    // Find the user's cart based on userId
+    let cart = await Cart.findOne({ userId });
+
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ message: "Cart not found for the specified user." });
+    }
+    // Find the item in the cart by itemId
+    const cartItem = cart.items.find(
+      (item) => item.productId.toString() === itemId._id.toString()
+    );
+
+    if (!cartItem) {
+      return res.status(404).json({ message: "Item not found in the cart." });
+    }
+
+    // Update the quantity of the item
+    cartItem.quantity = newQuantity;
+
+    // Save the updated cart
+    await cart.save();
+
+    res
+      .status(200)
+      .json({ message: "Item quantity updated successfully.", cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error." });
   }
 });
 

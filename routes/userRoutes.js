@@ -74,7 +74,6 @@ router.post("/register", async (req, res) => {
 
 // Login route
 router.post("/login", async (req, res) => {
-  console.log("asd");
   const { username, password } = req.body;
   const secret = process.env.JWT_SECRET;
   try {
@@ -85,22 +84,12 @@ router.post("/login", async (req, res) => {
     }
 
     // Compare the provided password with the hashed password
-    const passwordMatch = bcrypt.compareSync(
-      password,
-      user.password,
-      function (err, result) {
-        if (err) {
-          throw err;
-        }
-        console.log(result);
-      }
-    );
+    const passwordMatch = bcrypt.compareSync(password, user.password);
     if (!passwordMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    // Set user session
-    // req.session.user = { id: user._id, username: user.username }; // Store relevant user data in the session
+    // Generate JWT token
     const token = jwt.sign(
       {
         userId: user.id,
@@ -109,26 +98,16 @@ router.post("/login", async (req, res) => {
       secret,
       { expiresIn: "1d" }
     );
-    // res.json({ token });
-    // console.log(token);
-    res.status(200).send({ user: user.email, token: token });
-    // Passwords match, user is authenticated
-    // res.json({ message: "Login successful", user });
+
+    // Send the token and user email in the response
+    console.log(user.fullname + " logged in");
+    res.status(200).json({ userId: user._id, token: token });
   } catch (err) {
-    // console.log(err);
-    res.status(500).json({ message: err.message });
+    // console.error(err);
+    console.log("Internal server error");
+    res.status(500).json({ message: "Internal server error" });
   }
 });
-
-// Logout route
-// router.post("/logout", (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       return res.status(500).json({ message: "Failed to logout" });
-//     }
-//     res.json({ message: "Logout successful" });
-//   });
-// });
 
 // Get all users (for admin)
 router.get("/list", async (req, res) => {
@@ -273,6 +252,7 @@ router.get("/:userId/wallet", async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+  w;
 });
 
 module.exports = router;

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 const AddressBook = require("./AddressBook");
 const UserWallet = require("./UserWallet");
 
@@ -23,16 +22,6 @@ const userSchema = new mongoose.Schema({
   userWallet: { type: mongoose.Schema.Types.ObjectId, ref: "UserWallet" },
   // other user fields
 });
-
-// Hash the password before saving to the database
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     return next();
-//   }
-//   const saltRounds = 10;
-//   this.password = await bcrypt.hash(this.password, saltRounds);
-//   next();
-// });
 
 const User = mongoose.model("User", userSchema);
 

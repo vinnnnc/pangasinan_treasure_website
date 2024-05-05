@@ -4,6 +4,12 @@ const sellerLink = document.getElementById("seller-link");
 const logoutLink = document.getElementById("logout-link");
 const signupLink = document.getElementById("signup-link");
 const loginLink = document.getElementById("login-link");
+const cartBtn = document.getElementById("cart-btn");
+
+cartBtn.addEventListener("click", (event) => {
+  event.preventDefault(); // Prevent form submission
+  accessCartPage();
+});
 
 if (loginStatus()) {
   console.log("User is logged in");

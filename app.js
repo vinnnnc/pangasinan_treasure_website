@@ -1,47 +1,21 @@
 // app.js
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-// const session = require("express-session");
 const cors = require("cors");
-// const errorHandler = require("./helpers/error-handler");
-// const authJwt = require("./helpers/jwt");
-require("dotenv").config();
-
+const errorHandler = require("./helpers/error-handler");
+const authJwt = require("./helpers/jwt");
 const app = express();
 const api = process.env.API_URL;
 
 // Middleware
-app.use(express.json());
 app.use(cors());
-// app.use(authJwt());
-// app.use(errorHandler());
 app.options("*", cors());
+app.use(express.json());
+app.use(errorHandler);
 
-// Database connection
-mongoose
-  .connect(process.env.DB_CONNECTION, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: "pangasinantreasure_db", // Specify the dbName option
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Failed to connect to MongoDB:", err.message));
-
-const protectedRoute = require("./routes/protectedRoute");
-const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./routes/productRoutes");
-const orderRoutes = require("./routes/orderRoutes");
-const cartRoutes = require("./routes/cartRoutes");
-
-// Routes
+// Serve static files
 app.use(`/`, express.static("public")); // Serve static files from the "public" directory
-app.use(`${api}/users`, userRoutes);
-app.use(`${api}/product`, productRoutes);
-app.use(`${api}/orders`, orderRoutes);
-app.use(`${api}/cart`, cartRoutes);
-app.use("/protected", protectedRoute);
-
-// Serve index.html
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
@@ -63,21 +37,29 @@ app.get("/admin", (req, res) => {
 app.get("/about", (req, res) => {
   res.sendFile(__dirname + "/public/about.html");
 });
+app.get("/cart", (req, res) => {
+  res.sendFile(__dirname + "/public/cart.html");
+});
 
-// Endpoint to check login status
-// app.get(`${api}/auth/check`, (req, res) => {
-//   if (req.session.user) {
-//     // User is authenticated
-//     res.json({ loggedIn: true, user: req.session.user });
-//   } else {
-//     // User is not authenticated
-//     res.json({ loggedIn: false });
-//   }
-// });
+// Routes
+app.use(`${api}/users`, require("./routes/userRoutes"));
+app.use(`${api}/product`, require("./routes/productRoutes"));
+app.use(`${api}/orders`, require("./routes/orderRoutes"));
+app.use(`${api}/cart`, require("./routes/cartRoutes"));
+app.use("/", require("./routes/protectedRoute"));
+
+// Database connection
+mongoose
+  .connect(process.env.DB_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "pangasinantreasure_db", // Specify the dbName option
+  })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Failed to connect to MongoDB:", err.message));
 
 // const PORT = process.env.PORT || 3000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 export default app;
-
 // module.exports = app;

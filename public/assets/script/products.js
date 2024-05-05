@@ -11,13 +11,13 @@ addCartBtn.addEventListener("click", () => {
 
 // Function to add item to cart
 function addItemToCart(productId, quantity) {
-  // Send a POST request to your backend to add the item to the cart
+  const userId = localStorage.getItem("userId");
   fetch("/api/v1/cart/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ productId, quantity }),
+    body: JSON.stringify({ productId, quantity, userId }),
   })
     .then((response) => {
       if (!response.ok) {
@@ -194,9 +194,7 @@ function displayProductDetails() {
         const ratings = document.createElement("div");
         ratings.classList.add("ratings");
         ratings.id = "ratings-star";
-        // Assuming a function to render stars based on rating value
-        // renderStars(ratings, review.rating); // You can implement renderStars function based on your UI design
-        // const ratingsContainer = document.getElementById("ratings-star");
+
         renderRatingStars(review.rating, ratings);
         const productRating = document.createElement("span");
         productRating.classList.add("product-rating");
