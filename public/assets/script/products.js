@@ -1,8 +1,24 @@
 const addCartBtn = document.getElementById("add-cart-btn");
 const addCartQuantity = document.getElementById("quantity-num");
+const buyBtn = document.getElementById("buy-now-btn");
 var mainImage = "";
 
+buyBtn.addEventListener("click", () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+  window.location.href = "/cart";
+});
+
 addCartBtn.addEventListener("click", () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
+
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get("id");
   const quantity = parseInt(addCartQuantity.value, 10);
