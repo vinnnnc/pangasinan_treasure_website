@@ -296,6 +296,7 @@
   padding: 20px;
   border-radius: 3px;
   box-shadow: 0 0 5px #0003;
+  min-height: 200px;
 }
 
 .review {

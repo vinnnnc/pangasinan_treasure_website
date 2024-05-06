@@ -168,71 +168,74 @@ function displayProductDetails() {
       productDetails.textContent = product.description;
 
       // Display Ratings
-      product.ratings.forEach((review, index) => {
-        // console.log(review);
-        const reviewImg = document.createElement("div");
-        reviewImg.classList.add("review-img");
-        const img = document.createElement("img");
-        const userName = document.createElement("span");
-        const profileSection = document.createElement("section");
-        const reviewContainer = document.querySelector(".review-container");
-        // Clear previous reviews if any
-        reviewContainer.innerHTML = "";
 
-        const reviewElement = document.createElement("div");
-        reviewElement.classList.add("review");
-        profileSection.classList.add("review-profile-section");
+      if (product.ratings.length > 0) {
+        product.ratings.forEach((review, index) => {
+          // console.log(review);
+          const reviewImg = document.createElement("div");
+          reviewImg.classList.add("review-img");
+          const img = document.createElement("img");
+          const userName = document.createElement("span");
+          const profileSection = document.createElement("section");
+          const reviewContainer = document.querySelector(".review-container");
+          // Clear previous reviews if any
+          reviewContainer.innerHTML = "";
 
-        fetch(`/api/v1/users/list/${review.userId}`) // Replace with your actual API endpoint
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Failed to fetch user details");
-            }
-            return response.json();
-          })
-          .then((userData) => {
-            // Process the user data and update UI
-            const { username, avatar } = userData;
-            img.src = avatar;
-            userName.textContent = username; // Assuming name is available in the user data
-          })
-          .catch((error) => {
-            console.error("Error fetching user details:", error);
-          });
+          const reviewElement = document.createElement("div");
+          reviewElement.classList.add("review");
+          profileSection.classList.add("review-profile-section");
 
-        img.alt = "user";
-        reviewImg.appendChild(img);
+          fetch(`/api/v1/users/list/${review.userId}`) // Replace with your actual API endpoint
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Failed to fetch user details");
+              }
+              return response.json();
+            })
+            .then((userData) => {
+              // Process the user data and update UI
+              const { username, avatar } = userData;
+              img.src = avatar;
+              userName.textContent = username; // Assuming name is available in the user data
+            })
+            .catch((error) => {
+              console.error("Error fetching user details:", error);
+            });
 
-        profileSection.appendChild(reviewImg);
-        profileSection.appendChild(userName);
+          img.alt = "user";
+          reviewImg.appendChild(img);
 
-        // Create elements for rating section
-        const ratingSection = document.createElement("section");
-        ratingSection.classList.add("review-rating-section");
+          profileSection.appendChild(reviewImg);
+          profileSection.appendChild(userName);
 
-        const ratings = document.createElement("div");
-        ratings.classList.add("ratings");
-        ratings.id = "ratings-star";
+          // Create elements for rating section
+          const ratingSection = document.createElement("section");
+          ratingSection.classList.add("review-rating-section");
 
-        renderRatingStars(review.rating, ratings);
-        const productRating = document.createElement("span");
-        productRating.classList.add("product-rating");
-        productRating.textContent = review.rating.toFixed(1);
+          const ratings = document.createElement("div");
+          ratings.classList.add("ratings");
+          ratings.id = "ratings-star";
 
-        const reviewText = document.createElement("p");
-        reviewText.textContent = review.review;
+          renderRatingStars(review.rating, ratings);
+          const productRating = document.createElement("span");
+          productRating.classList.add("product-rating");
+          productRating.textContent = review.rating.toFixed(1);
 
-        ratingSection.appendChild(ratings);
-        ratings.appendChild(productRating);
-        ratingSection.appendChild(reviewText);
+          const reviewText = document.createElement("p");
+          reviewText.textContent = review.review;
 
-        // Append profile and rating sections to review element
-        reviewElement.appendChild(profileSection);
-        reviewElement.appendChild(ratingSection);
+          ratingSection.appendChild(ratings);
+          ratings.appendChild(productRating);
+          ratingSection.appendChild(reviewText);
 
-        // Append review element to reviews container
-        reviewContainer.appendChild(reviewElement);
-      });
+          // Append profile and rating sections to review element
+          reviewElement.appendChild(profileSection);
+          reviewElement.appendChild(ratingSection);
+
+          // Append review element to reviews container
+          reviewContainer.appendChild(reviewElement);
+        });
+      }
     })
     .catch((error) => {
       console.error("Error fetching product details:", error);
