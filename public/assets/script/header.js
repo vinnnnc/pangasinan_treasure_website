@@ -50,3 +50,34 @@ document.getElementById("logout-link").addEventListener("click", () => {
   logout(); // Call the logout function when the logout link is clicked
   //   refreshStatus(); // Refresh the status after logout
 });
+
+async function checkSellerRegistration(userId) {
+  try {
+    const response = await fetch(`/api/v1/users/${userId}/isRegisteredSeller`);
+    if (!response.ok) {
+      throw new Error("Failed to check seller registration");
+    }
+    const data = await response.json();
+    return data.isRegisteredSeller;
+  } catch (error) {
+    console.error("Error checking seller registration:", error.message);
+    return false; // Default to false if there's an error
+  }
+}
+
+async function sellerDashboardBtn(userId) {
+  const isRegisteredSeller = await checkSellerRegistration(userId);
+  if (isRegisteredSeller) {
+    // User is registered as a seller, redirect to the seller page
+    window.location.href = `/seller/dashboard/${userId}`; // Replace with actual seller page route
+  } else {
+    // User is not registered as a seller, redirect to the seller registration page
+    window.location.href = "/seller-registration"; // Replace with actual seller registration route
+  }
+}
+
+sellerLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  const userId = localStorage.getItem("userId");
+  sellerDashboardBtn(userId);
+});

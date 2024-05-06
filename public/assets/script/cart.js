@@ -82,9 +82,7 @@ const fetchCartItems = async () => {
           }" value="checked-${item.productId._id}"/>
         </th>
         <th>
-            <img src="/assets/images/products/${
-              item.productId.images[0]
-            }" alt="${item.productId.name}">
+            <img src="${item.productId.images[0]}" alt="${item.productId.name}">
         </th>
         <th>
           <div class="product-text">

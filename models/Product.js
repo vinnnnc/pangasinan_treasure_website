@@ -5,7 +5,7 @@ const variantSchema = new mongoose.Schema({
   variantName: { type: String, required: true },
   stockCount: { type: Number, default: 0 },
   price: { type: Number, required: true },
-  image: { type: String, required: true },
+  image: { type: String },
   date: { type: Date, default: Date.now },
   sale: { type: String },
 });
@@ -22,12 +22,13 @@ const productSchema = new mongoose.Schema(
     description: { type: String, default: "No description." },
     images: [{ type: String }],
     category: { type: String },
-    shippedFrom: { type: Number, required: true },
+    shippedFrom: { type: String },
     variants: [variantSchema],
     ratings: [ratingSchema],
     dateCreated: { type: Date, default: Date.now },
     maxOrder: { type: Number, default: 100 },
     totalSold: { type: Number, default: 0 },
+    active: { type: Boolean, default: true },
   },
   {
     toJSON: { virtuals: true },

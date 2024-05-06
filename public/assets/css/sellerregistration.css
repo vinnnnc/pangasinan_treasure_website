@@ -1,0 +1,89 @@
+main {
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* color: var(--secondary-color) ; */
+}
+.registration-window {
+  width: 800px;
+  height: 700px;
+  background-color: white;
+  box-shadow: 0 0 3px 2px #0003;
+  margin: auto;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#logo {
+  height: 100px;
+  display: block;
+  margin-inline: auto;
+  /* margin-top: ; */
+  padding: 20px;
+}
+
+.registration-title {
+  /* margin: auto; */
+  font-size: 2rem;
+  /* text-align: center; */
+  /* margin: 20px; */
+}
+
+#seller-register-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#seller-register-form input[type="text"],
+#seller-register-form select {
+  border: 2px solid var(--secondary-color);
+  outline: none;
+  height: 40px;
+  border-radius: 3px;
+}
+
+#profile-preview {
+  height: 100px;
+  width: 100px;
+  border: 2px solid var(--secondary-color);
+  border-radius: 50%;
+  text-align: center;
+  margin: 10px;
+}
+
+#seller-register-form label {
+  padding-block: 10px;
+}
+
+#register-btn {
+  border: none;
+  background-color: var(--secondary-color);
+  width: fit-content;
+  height: 40px;
+  color: white;
+  margin: auto;
+  transition: 150ms;
+}
+
+#register-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+}
+
+.form-container {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  /* line-height: 80px; */
+}
+
+button.disabled {
+  pointer-events: none;
+  opacity: 50%;
+}

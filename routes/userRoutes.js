@@ -3,8 +3,9 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
-const AddressBook = require("../models/AddressBook");
 const UserWallet = require("../models/UserWallet");
+const AddressBook = require("../models/AddressBook");
+const Seller = require("../models/Seller");
 
 // Route to get user details by ID
 router.get("/list/:id", async (req, res) => {
@@ -52,6 +53,13 @@ router.post("/register", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    const addressBookEntry = {
+      name: fullname,
+      phone,
+      address,
+      isDefault: true,
+    };
+
     // Create the user
     const newUser = new User({
       fullname,
@@ -63,8 +71,20 @@ router.post("/register", async (req, res) => {
       gender,
       password: hashedPassword,
       avatar,
+      addressbook: addressBookEntry,
     });
+
+    // newUser.addressBook.push(addressBookEntry);
+
     await newUser.save();
+    // const addressBookEntry = new AddressBook({
+    //   userId: newUser._id, // Reference to the user
+    //   fullname,
+    //   phone,
+    //   address,
+    //   isDefault: true, // Set as default address
+    // });
+    // await addressBookEntry.save();
 
     res.status(201).json(newUser);
   } catch (err) {
@@ -210,9 +230,9 @@ router.get("/:userId/address", async (req, res) => {
   try {
     const user = await User.findById(req.params.userId).populate("addressBook");
     if (!user) {
+      console.log(user);
       return res.status(404).json({ message: "User not found" });
     }
-
     res.json(user.addressBook);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -253,6 +273,35 @@ router.get("/:userId/wallet", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
   w;
+});
+
+// Middleware to get seller by ID
+async function getSeller(req, res, next) {
+  try {
+    const userId = req.params.id;
+
+    const seller = await Seller.findOne({ user: userId });
+    if (!seller) {
+      res.seller = null; // Set seller to null if not found
+      res.isRegisteredSeller = false; // Flag indicating user is not a registered seller
+      return next(); // Move to the next middleware or route handler
+    }
+    res.seller = seller; // Set seller object if found
+    res.isRegisteredSeller = true; // Flag indicating user is a registered seller
+    next(); // Move to the next middleware or route handler
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+// Route to check if user is registered as a seller
+router.get("/:id/isRegisteredSeller", getSeller, (req, res) => {
+  if (!res.isRegisteredSeller) {
+    console.log("User is not registered as seller!");
+    return res.redirect("/seller-registration"); // Redirect to seller registration page
+  }
+  res.json({ isRegisteredSeller: true });
 });
 
 module.exports = router;

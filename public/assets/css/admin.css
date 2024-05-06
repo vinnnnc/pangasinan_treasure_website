@@ -21,7 +21,7 @@ main {
   height: 100vh;
   padding: 20px;
   border-left: 30px solid var(--secondary-color);
-  box-shadow: 0 0 2px 4px var(--accent-color);
+  box-shadow: 0 0 3px 3px #0003;
 }
 
 :root {
@@ -52,7 +52,7 @@ main {
 }
 
 .dropdown:nth-child(3).collapsed {
-  max-height: calc(32px * 3);
+  max-height: calc(32px * 2);
 }
 
 .dropdown:nth-child(4).collapsed {
@@ -165,6 +165,7 @@ main {
 
 .dashboard-header .input {
   margin: 0 10px;
+  display: flex;
 }
 
 .dashboard-header select {

@@ -31,7 +31,7 @@ app.get("/search", (req, res) => {
 app.get("/profile", (req, res) => {
   res.sendFile(__dirname + "/public/profile.html");
 });
-app.get("/sellerdashboard", (req, res) => {
+app.get("/seller/dashboard", (req, res) => {
   res.sendFile(__dirname + "/public/seller.html");
 });
 app.get("/admin", (req, res) => {
@@ -43,12 +43,19 @@ app.get("/about", (req, res) => {
 app.get("/cart", (req, res) => {
   res.sendFile(__dirname + "/public/cart.html");
 });
+app.get("/seller-registration", (req, res) => {
+  res.sendFile(__dirname + "/public/sellerregistration.html");
+});
+app.get("/seller/dashboard/:id", (req, res) => {
+  res.redirect("/seller/dashboard");
+});
 
 // Routes
 app.use(`${api}/users`, require("./routes/userRoutes"));
 app.use(`${api}/product`, require("./routes/productRoutes"));
 app.use(`${api}/orders`, require("./routes/orderRoutes"));
 app.use(`${api}/cart`, require("./routes/cartRoutes"));
+app.use(`${api}/seller`, require("./routes/sellerRoutes"));
 app.use(`/result`, require("./routes/searchRouter"));
 app.use("/", require("./routes/protectedRoute"));
 

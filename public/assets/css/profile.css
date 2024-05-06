@@ -163,7 +163,7 @@ input:disabled {
 .edit-profile-container span:nth-child(4) input,
 .edit-profile-container span:nth-child(5) input,
 .edit-profile-container span:nth-child(6) input {
-  width: 100px;
+  width: 160px;
 }
 
 main input {
@@ -174,7 +174,7 @@ main input {
   box-sizing: border-box;
 }
 
-button {
+.profile-card button {
   background-color: var(--secondary-color);
   color: white;
   padding: 14px 20px;
@@ -185,12 +185,24 @@ button {
   margin-top: 20px;
 }
 
-button:hover {
+.profile-card button:hover {
   background-color: var(--accent-color);
   color: var(--secondary-color);
 }
-button:hover img {
+.profile-card button:hover img {
   filter: var(--filter-secondary);
+}
+
+.map-icon {
+  width: 40px;
+  filter: var(--filter-secondary);
+}
+.address-card-details {
+  width: 100%;
+}
+
+.address-card-top {
+  display: flex;
 }
 
 .address-card * {

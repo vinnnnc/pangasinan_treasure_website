@@ -52,7 +52,7 @@ nav {
   display: flex;
   /* border-bottom: 1px solid var(--primary-color); */
 
-  box-shadow: 0 0px 5px black;
+  box-shadow: 0 0 3px 3px #0003;
 }
 
 header a:has(img) {

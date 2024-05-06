@@ -1,4 +1,4 @@
-<div id="address-book">
+<div id="address-book-list">
   <div class="right-section-title">Address Book</div>
   <div class="address-card">
     <div>Juan Dela Cruz</div>
@@ -14,3 +14,50 @@
   </div>
   <button type="button" id="add-new-address">&plus; Add New Address</button>
 </div>
+<script>
+  // Function to create an address card element using HTML strings
+  function createAddressCardHTML(addressData) {
+    return `
+    <div class="right-section-title">Address Book</div>
+    <div class="address-card">
+      <div class="address-card-top">
+        <img src="/assets/images/icons/map-location-dot-solid.svg" class="map-icon" alt="map"/>
+        <div class="address-card-details">
+          <div>
+            <div>${addressData.name}</div>
+            <div>${addressData.phone}</div>
+            <div>${addressData.address}</div>
+          </div>
+        <div>
+      </div>
+      <div class="address-card-buttons">
+        <button type="button" class="edit-address">Edit</button>
+        <button type="button" class="set-default-address">Set as Default</button>
+        <button type="button" class="delete-btn">
+          <img src="/assets/images/delete.svg" alt="delete" />
+        </button>
+      </div>
+    </div>
+  `;
+  }
+
+  async function renderAddressBook() {
+    const addressBookContainer = document.getElementById("address-book-list");
+    addressBookContainer.innerHTML = ""; // Clear previous content
+
+    const user = await fetchUserProfile();
+    console.log(user.addressbook);
+    user.addressbook.forEach((addressData) => {
+      const addressCardHTML = createAddressCardHTML(addressData);
+      addressBookContainer.insertAdjacentHTML("beforeend", addressCardHTML);
+    });
+    addressBookContainer.insertAdjacentHTML(
+      "beforeend",
+      `<button type="button" id="add-new-address">
+        &plus; Add New Address
+      </button>`
+    );
+  }
+
+  renderAddressBook();
+</script>

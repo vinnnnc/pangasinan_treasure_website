@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
+const Seller = require("../models/Seller");
+const upload = require("../helpers/multerConfig");
 
 // Get all products
 router.get("/", async (req, res) => {
@@ -26,11 +28,58 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create a new product
-router.post("/", async (req, res) => {
+// // Create a new product
+// router.post("/", async (req, res) => {
+//   try {
+//     const product = new Product(req.body);
+//     await product.save();
+//     res.status(201).json(product);
+//   } catch (err) {
+//     res.status(400).json({ message: err.message });
+//   }
+// });
+
+// Create a new product with file uploads
+router.post("/", upload.array("productGallery", 5), async (req, res) => {
   try {
-    const product = new Product(req.body);
+    const {
+      userId,
+      productName,
+      productCategory,
+      productDescription,
+      variants,
+    } = req.body;
+
+    const productGallery = req.files.map((file) => {
+      // Remove the "public" folder from the file path
+      const filePathWithoutPublic = file.path.replace(/^public[\\\/]/, "");
+      return filePathWithoutPublic;
+    });
+
+    console.log(productGallery);
+
+    // Create the product
+    const product = new Product({
+      name: productName,
+      category: productCategory,
+      description: productDescription,
+      images: productGallery,
+      variants: JSON.parse(variants), // Parse the JSON string to an array
+    });
+
+    // Find the seller by user ID
+    const seller = await Seller.findOne({ user: userId });
+    if (!seller) {
+      return res.status(404).json({ message: "Seller not found" });
+    }
+
+    // Save the product
     await product.save();
+
+    // Add the product ID to the seller's products array
+    seller.products.push(product._id);
+    await seller.save();
+
     res.status(201).json(product);
   } catch (err) {
     res.status(400).json({ message: err.message });
@@ -99,7 +148,5 @@ router.get("/:id/ratings", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-
 
 module.exports = router;

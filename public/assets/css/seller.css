@@ -23,7 +23,7 @@ main {
   /* box-shadow: 0 0 3px #0003; */
   /* border-left: 30px solid var(--secondary-color); */
   border-left: 30px solid var(--secondary-color);
-  box-shadow: 0 0 2px 4px var(--accent-color);
+  box-shadow: 0 0 3px 3px #0003;
 }
 
 :root {
@@ -409,6 +409,7 @@ input:checked + .slider:before {
   padding: 10px;
   margin: auto;
   transition: 150ms;
+  display: block;
 }
 
 #add-product-btn:hover {
@@ -631,4 +632,108 @@ input:checked + .slider:before {
 .modify-btn:hover {
   background-color: var(--accent-color);
   color: var(--secondary-color);
+}
+
+#product-variants {
+  width: 70%;
+}
+
+#product-variants td:nth-child(2) input {
+  text-align: center;
+  display: block;
+  margin: auto;
+  width: 90%;
+}
+
+#product-variants th:nth-child(1),
+#product-variants td:nth-child(1) {
+  width: 5%;
+  text-align: center;
+}
+#product-variants th:nth-child(2),
+#product-variants td:nth-child(2) {
+  width: 50%;
+}
+
+#product-variants th:nth-child(3),
+#product-variants td:nth-child(3) {
+  width: 5%;
+}
+#product-variants th:nth-child(4),
+#product-variants td:nth-child(4) {
+  width: 5%;
+}
+#product-variants td:nth-child(4) input,
+#product-variants td:nth-child(4) span {
+  display: inline-block;
+}
+
+#product-variants th:nth-child(5),
+#product-variants td:nth-child(5) {
+  width: 5%;
+  text-align: center;
+}
+/* #product-variants th:nth-child(5),
+#product-variants td:nth-child(5) {
+  width: 50px;
+  text-align: center !important;
+} */
+
+.delete-variant-btn,
+#add-variant-btn {
+  border: none;
+  background-color: var(--secondary-color);
+  margin: auto;
+  display: block;
+  color: white;
+}
+#add-variant-btn {
+  margin-top: 10px;
+}
+
+.gallery-preview {
+  border: 2px solid var(--secondary-color);
+  margin: 10px;
+  width: 512px;
+  height: 100px;
+  border-radius: 3px;
+  overflow: hidden;
+  /* text-align: center; */
+}
+#add-product input[type="file"] {
+  border: none;
+  margin-inline: 5px;
+}
+#add-product input[type="text"],
+#add-product textarea {
+  margin: 0;
+}
+
+#add-product textarea {
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.preview-img {
+  height: 100px;
+  width: 100px;
+  border: 1px solid var(--secondary-color);
+}
+
+.description-input textarea {
+  border: 2px solid var(--secondary-color);
+  margin-inline: 10px;
+}
+
+.description-input {
+  display: flex;
+}
+label[for="productName"],
+label[for="productCategory"],
+label[for="shippedFrom"],
+label[for="productDescription"] {
+  margin: 0;
+  padding: 0;
+  width: 150px;
+  display: inline-block;
 }

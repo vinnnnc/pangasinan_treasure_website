@@ -83,62 +83,21 @@ async function login(username, password) {
     .then((response) => response.json())
     .then((data) => {
       // Handle the response data
+
       console.log(data.user); // Log the user email
       console.log(data.token); // Log the token
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
+      if (!data.token) {
+        alert("Wrong Username or Password!");
+        return;
+      }
       window.location.href = "/";
     })
     .catch((error) => {
       console.error("Error:", error);
     });
-  // try {
-  //   const response = await fetch("/api/v1/users/login", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(credentials),
-  //   });
-  //   const data = await response.json();
-
-  //   console.log(data);
-  //   localStorage.setItem("token", data.token);
-  //   console.log("Logged in successfully");
-  // } catch (error) {
-  //   console.error("Error:", error);
-  // }
 }
-
-// let isLoggedIn = false;
-
-// Function to Check Login Status
-// function loginStatus() {
-//   return new Promise((resolve, reject) => {
-//     fetch("/api/v1/auth/check", {
-//       method: "GET",
-//       credentials: "include", // Include credentials (cookies) in the request
-//     })
-//       .then((response) => {
-//         if (response.ok) {
-//           response.json().then((json) => {
-//             console.log(json["loggedIn"]);
-//             resolve(json["loggedIn"]);
-//           });
-//           //   isLoggedIn = true; // User is logged in
-//           //   resolve(true); // Resolve the Promise with true
-//         } else {
-//           response.json().then((json) => {
-//             console.log(json["loggedIn"]);
-//             resolve(json["loggedIn"]);
-//           });
-//           //   resolve(false); // Resolve the Promise with false
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error checking authentication status:", error);
-//         reject(error); // Reject the Promise with the error
-//       });
-//   });
-// }
 
 function loginStatus() {
   const token = localStorage.getItem("token");
@@ -148,32 +107,6 @@ function loginStatus() {
     return false;
   }
 }
-
-// function refreshStatus() {
-//   setTimeout(() => {
-//     loginStatus(); // Call loginStatus after a short delay
-//   }, 100); // Adjust the delay as needed
-// }
-
-// function logout() {
-//   fetch("/api/v1/users/logout", {
-//     method: "POST", // or "GET" depending on your server setup
-//     credentials: "include", // Include credentials (cookies) in the request
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         console.log("User logged out successfully");
-//         window.location.href = "/login";
-//         // Perform any additional actions after logout (if needed)
-//       } else {
-//         console.error("Failed to log out");
-//         // Handle logout failure (if needed)
-//       }
-//     })
-//     .catch((error) => {
-//       console.error("Error logging out:", error);
-//     });
-// }
 
 function logout() {
   localStorage.removeItem("userId");
@@ -199,60 +132,6 @@ function fetchUserProfile() {
     })
     .catch((error) => console.error("Error fetching user profile:", error));
 }
-
-// function fetchProducts() {
-//   fetch("/api/v1/products", {
-//     method: "GET",
-//     credentials: "include", // Include credentials (cookies) in the request
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         return response.json(); // Parse JSON response
-//       }
-//       throw new Error("Error fetching products");
-//     })
-//     .then((data) => {
-//       console.log("Products:", data);
-//       // Update UI with product list
-//     })
-//     .catch((error) => console.error("Error fetching products:", error));
-// }
-
-// function fetchUserOrders() {
-//   fetch("/orders", {
-//     method: "GET",
-//     credentials: "include", // Include credentials (cookies) in the request
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         return response.json(); // Parse JSON response
-//       }
-//       throw new Error("Error fetching orders");
-//     })
-//     .then((data) => {
-//       console.log("User Orders:", data);
-//       // Update UI with user orders
-//     })
-//     .catch((error) => console.error("Error fetching orders:", error));
-// }
-
-// function fetchCartItems() {
-//   fetch("/cart", {
-//     method: "GET",
-//     credentials: "include", // Include credentials (cookies) in the request
-//   })
-//     .then((response) => {
-//       if (response.ok) {
-//         return response.json(); // Parse JSON response
-//       }
-//       throw new Error("Error fetching cart items");
-//     })
-//     .then((data) => {
-//       console.log("Cart Items:", data);
-//       // Update UI with cart items
-//     })
-//     .catch((error) => console.error("Error fetching cart items:", error));
-// }
 
 // Function to fetch products and list them on the homepage
 function fetchProducts() {
@@ -290,7 +169,7 @@ function createProductCards(data) {
     const productImage = document.createElement("div");
     productImage.classList.add("product-image");
     const image = document.createElement("img");
-    image.src = "/assets/images/products/" + product.images[0]; // Replace with actual image URL
+    image.src = product.images[0]; // Replace with actual image URL
     image.alt = "product";
     productImage.appendChild(image);
     if (product.sale) {
@@ -332,30 +211,3 @@ function createProductCards(data) {
     productList.appendChild(productLink);
   });
 }
-
-// Function to fetch variants for a specific product
-// function fetchVariants(productId) {
-//   fetch(`/api/v1/products/${productId}/variants`) // Assuming your variants API endpoint is /api/v1/products/:productId/variants
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error("Network response was not ok");
-//       }
-//       return response.json();
-//     })
-//     .then((data) => {
-//       // Data contains the variants array for the product
-//       // Loop through variants and process each variant
-//       data.forEach((variant) => {
-//         const { userid, rating, review, date } = variant; // Destructure variant object
-
-//         // Process userid, rating, and review as needed
-//         // console.log(`User ID: ${userid}, Rating: ${rating}, Review: ${review}`);
-//       });
-//     })
-//     .catch((error) => {
-//       console.error("Error fetching variants:", error);
-//     });
-// }
-
-// Call fetchProducts when the page loads or as needed
-// window.onload = fetchProducts;

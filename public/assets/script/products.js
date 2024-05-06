@@ -1,6 +1,7 @@
 const addCartBtn = document.getElementById("add-cart-btn");
 const addCartQuantity = document.getElementById("quantity-num");
 var mainImage = "";
+
 addCartBtn.addEventListener("click", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get("id");
@@ -51,15 +52,15 @@ function displayProductDetails() {
     .then((product) => {
       // Display product image
       const productViewImage = document.getElementById("product-view-image");
-      productViewImage.src = `/assets/images/products/${product.images[0]}`; // Assuming images is an array
-
+      productViewImage.src = `${product.images[0]}`; // Assuming images is an array
+      mainImage = `${product.images[0]}`;
       // Display product gallery images
       const productViewGallery = document.querySelectorAll(".gallery-img");
       // productViewGallery.forEach((element) => {
       //   element.parentNode.style.display = "none";
       // });
       product.images.forEach((image, index) => {
-        productViewGallery[index].src = `/assets/images/products/${image}`;
+        productViewGallery[index].src = `${image}`;
         productViewGallery[index].parentNode.style.opacity = "100%";
         productViewGallery[index].parentNode.style.pointerEvents = "all";
       });
@@ -126,8 +127,8 @@ function displayProductDetails() {
           productViewPrice.textContent = `₱ ${product.variants[
             index
           ].price.toFixed(2)}`;
-          productViewImage.src = `/assets/images/products/${product.variants[index].image}`;
-          productViewGallery[0].src = `/assets/images/products/${product.variants[index].image}`;
+          productViewImage.src = `${product.variants[index].image}`;
+          productViewGallery[0].src = `${product.variants[index].image}`;
           mainImage = productViewImage.src;
           variantButtons.forEach((btn) =>
             btn.classList.add("variant-unchecked")

@@ -4,23 +4,33 @@
   </div>
   <div class="dashboard-body">
     <div class="form-container">
-      <form action="" id="add-product">
+      <form id="add-product">
         <div class="dashboard-title">Basic Information</div>
         <div class="input">
-          <label for="product-name">Product Name</label>
-          <input type="text" name="product-name" placeholder="Product Name" />
+          <label for="productName">Product Name</label>
+          <input type="text" id="product-name" placeholder="Product Name" />
         </div>
         <div class="input">
-          <label for="product-category">Category</label>
-          <input type="text" name="product-category" placeholder="Category" />
+          <label for="productCategory">Category</label>
+          <select id="product-category">
+            <option value="notSet">Not set</option>
+            <option value="foods">Food and Beverages</option>
+            <option value="handicrafts">Handicrafts</option>
+            <option value="textiles">Textiles</option>
+            <option value="local">Local Produce</option>
+            <option value="delicacies">Sweets and Delicacies</option>
+            <option value="souvenirs">Souvenirs</option>
+          </select>
         </div>
         <div class="input">
-          <label for="product-description">Description</label>
-          <input
-            type="text"
-            name="product-description"
-            placeholder="Description"
-          />
+          <label for="shippedFrom">Shipped From</label>
+          <select id="shipped-from">
+            <option value="notSet">Not set</option>
+          </select>
+        </div>
+        <div class="input description-input">
+          <label for="productDescription">Description</label>
+          <textarea id="product-description" cols="100" rows="5"></textarea>
         </div>
         <div class="input">
           <label for="product-gallery"
@@ -29,8 +39,9 @@
           <input
             type="file"
             id="product-gallery"
-            name="product-gallery"
+            name="productGallery"
             accept="image/png, image/jpeg"
+            multiple
           />
           <div class="gallery-preview">
             <p>No files currently selected for upload</p>
@@ -39,28 +50,298 @@
         <div class="dashboard-title">Price & Stock</div>
         <div class="input">
           <table id="product-variants">
-            <tr>
-              <th>Availability</th>
-              <th>Variant</th>
-              <th>Quantity</th>
-              <th>Price</th>
-              <th>Delete</th>
-            </tr>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Variant Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><input id="variant-name-1" type="text" /></td>
+                <td>
+                  <input id="variant-quantity-1" type="number" />
+                </td>
+                <td>
+                  <input id="variant-price-1" type="number" />
+                </td>
+                <td>
+                  <button type="button" class="delete-variant-btn">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5">
+                  <button type="button" id="add-variant-btn">
+                    Add Variant
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
-        <div class="dashboard-title">Delivery</div>
-        <div class="input">
-          <label for="product-weight">Package Weight (kg)</label>
-          <input type="number" name="product-weight" />
-        </div>
-        <div class="input">
-          <label for="product-dimensions">Package Dimensions (cm)</label>
-          <input type="number" name="length" placeholder="Length" />
-          <input type="number" name="width" placeholder="Width" />
-          <input type="number" name="height" placeholder="Height" />
-        </div>
-        <button type="submit" id="add-product-btn">Add Product</button>
+        <button id="add-product-btn">Add Product</button>
       </form>
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    const inputElement = document.getElementById("product-gallery");
+    const previewElement = document.querySelector(".gallery-preview");
+
+    inputElement.addEventListener("change", function () {
+      // Clear existing preview
+      previewElement.innerHTML = "";
+
+      // Get selected files
+      const files = this.files;
+      if (files.length > 5) {
+        alert("You can select up to 5 files.");
+        this.value = ""; // Clear the selected files
+        return;
+      }
+      // Iterate through selected files
+      Array.from(files).forEach((file) => {
+        if (file.type.match("image.*")) {
+          const reader = new FileReader();
+
+          // Read file as data URL
+          reader.readAsDataURL(file);
+
+          // When file reading is done
+          reader.onload = function () {
+            const imgElement = document.createElement("img");
+            imgElement.classList.add("preview-img");
+            imgElement.src = reader.result;
+            imgElement.alt = file.name;
+            previewElement.appendChild(imgElement);
+          };
+        }
+      });
+
+      // Display message if no files are selected
+      if (files.length === 0) {
+        previewElement.innerHTML =
+          "<p>No files currently selected for upload</p>";
+      }
+    });
+
+    // const addVariantBtn = document.getElementById("add-variant-btn");
+    // const deleteBtns = document.querySelectorAll(".delete-variant-btn");
+
+    const addVariantBtn = document.getElementById("add-variant-btn");
+    const deleteBtns = document.querySelectorAll(".delete-variant-btn");
+
+    // Function to add a new row
+    const addRow = () => {
+      const tableBody = document.querySelector("#product-variants tbody");
+      const rowCount = tableBody.querySelectorAll("tr").length + 1; // Calculate row number
+      const newRow = `
+        <tr>
+          <td>${rowCount}</td>
+          <td><input id="variant-name-${rowCount}" type="text" value=""/></td>
+          <td><input id="variant-quantity-${rowCount}" type="number" value=""/></td>
+          <td><input id="variant-price-${rowCount}" type="number" value=""/></td>
+          <td><button type="button" class="delete-variant-btn">Delete</button></td>
+        </tr>
+      `;
+      tableBody.insertAdjacentHTML("beforeend", newRow);
+      updateRowNumbers(); // Update row numbers after adding
+    };
+
+    // Function to update row numbers
+    const updateRowNumbers = () => {
+      const rows = document.querySelectorAll("#product-variants tbody tr");
+      rows.forEach((row, index) => {
+        row.querySelector("td:first-child").textContent = index + 1;
+      });
+    };
+
+    // Function to handle row deletion
+    const deleteRow = (btn) => {
+      const tableBody = document.querySelector("#product-variants tbody");
+      const rows = tableBody.querySelectorAll("tr");
+      if (rows.length === 1) {
+        // If only one row left, clear the fields
+        const inputs = rows[0].querySelectorAll("input");
+        inputs.forEach((input) => (input.value = ""));
+      } else {
+        // Remove the row
+        const row = btn.closest("tr");
+        row.remove();
+        updateRowNumbers(); // Update row numbers after deletion
+      }
+    };
+
+    // Event listener for add variant button
+    addVariantBtn.addEventListener("click", addRow);
+
+    // Event delegation for delete variant buttons
+    document.addEventListener("click", (e) => {
+      if (e.target.classList.contains("delete-variant-btn")) {
+        deleteRow(e.target);
+      }
+    });
+
+    const addProductForm = document.getElementById("add-product"); // Assuming you have a form with this ID
+    const addProductBtn = document.getElementById("add-product-btn");
+
+    addProductBtn.addEventListener("click", async (event) => {
+      event.preventDefault(); // Prevent default form submission
+
+      const variants = [];
+      const variantRows = document.querySelectorAll(
+        "#product-variants tbody tr"
+      );
+
+      variantRows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+
+        // Assuming the order of cells is: name, quantity, price
+        const variantName = cells[1].querySelector("input").value;
+        const variantQuantity = cells[2].querySelector("input").value;
+        const variantPrice = cells[3].querySelector("input").value;
+
+        // Push variant data to the array
+        variants.push({
+          variantName: variantName,
+          quantity: variantQuantity,
+          price: variantPrice,
+        });
+      });
+
+      // Create a new FormData object
+      const formData = new FormData();
+
+      // Get input values by ID and append them to the FormData object
+      const productName = document.getElementById("product-name").value;
+      const productCategory = document.getElementById("product-category").value;
+      const productDescription = document.getElementById(
+        "product-description"
+      ).value;
+      const productGallery = document.getElementById("product-gallery").files;
+      const userId = localStorage.getItem("userId");
+      // Append values to FormData
+      formData.append("userId", userId);
+      formData.append("productName", productName);
+      formData.append("productCategory", productCategory);
+      formData.append("productDescription", productDescription);
+      formData.append("variants", JSON.stringify(variants));
+
+      // Append files to FormData (assuming 'productGallery' is an array of File objects)
+      for (const file of productGallery) {
+        formData.append("productGallery", file);
+      }
+      console.log(...formData);
+
+      try {
+        const response = await fetch("/api/v1/product", {
+          method: "POST",
+          body: formData,
+          // Add headers if needed
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log("Product added successfully:", data);
+        alert("Product added successfully!");
+        const inputFields = Array.from(
+          addProductForm.getElementsByTagName("input")
+        );
+        const selectFields = Array.from(
+          addProductForm.getElementsByTagName("select")
+        );
+        const textarea = Array.from(
+          addProductForm.getElementsByTagName("textarea")
+        );
+
+        inputFields.forEach((element) => {
+          element.value = "";
+        });
+
+        selectFields.forEach((element) => {
+          element.value = "notSet"; // Set default value if needed
+        });
+
+        textarea.forEach((element) => {
+          element.value = "";
+        });
+        addProductForm.reset();
+        // Optionally, redirect or show a success message
+      } catch (error) {
+        console.error("Error adding product:", error.message);
+        // Handle error, show error message, etc.
+      }
+    });
+
+    const citiesAndTowns = [
+      "Agno",
+      "Aguilar",
+      "Alcala",
+      "Alcantara",
+      "Alaminos",
+      "Alcala",
+      "Anda",
+      "Asingan",
+      "Balungao",
+      "Bani",
+      "Basista",
+      "Bautista",
+      "Bayambang",
+      "Binalonan",
+      "Binmaley",
+      "Bolinao",
+      "Bugallon",
+      "Burgos",
+      "Calasiao",
+      "Dasol",
+      "Infanta",
+      "Labrador",
+      "Laoac",
+      "Lingayen",
+      "Mabini",
+      "Malasiqui",
+      "Manaoag",
+      "Mangaldan",
+      "Mangatarem",
+      "Mapandan",
+      "Natividad",
+      "Pozzorubio",
+      "Rosales",
+      "San Carlos",
+      "San Fabian",
+      "San Jacinto",
+      "San Manuel",
+      "San Nicolas",
+      "San Quintin",
+      "Santa Barbara",
+      "Santa Maria",
+      "Santo Tomas",
+      "Sison",
+      "Sual",
+      "Tayug",
+      "Umingan",
+      "Urbiztondo",
+      "Villasis",
+    ];
+
+    const shippedFrom = document.getElementById("shipped-from");
+
+    citiesAndTowns.forEach((city) => {
+      const option = document.createElement("option");
+      option.value = city.toLowerCase();
+      option.text = city;
+      shippedFrom.appendChild(option);
+    });
+  })();
+</script>

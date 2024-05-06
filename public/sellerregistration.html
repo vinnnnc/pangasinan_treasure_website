@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seller Dashboard - Pangasinan Treasure</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/images/optionweblogo.png"
+    />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+    <link rel="stylesheet" href="/assets/css/header.css" />
+    <link rel="stylesheet" href="/assets/css/footer.css" />
+    <link rel="stylesheet" href="/assets/css/sellerregistration.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+        $(".dashboard").load("/seller/manageproducts.html");
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- <div id="header"></div> -->
+    <main>
+      <section class="registration-window">
+        <div>
+          <img src="/assets/images/weblogo.png" alt="web_logo" id="logo" />
+          <div class="registration-title">Seller Registration</div>
+        </div>
+        <form id="seller-register-form">
+          <label for="name">Store Name</label>
+          <input
+            type="text"
+            name="name"
+            value=""
+            placeholder="Store Name"
+            id="store-name"
+            required
+          />
+          <label for="location">Store Based In</label>
+          <select title="location" name="location" id="store-location" required>
+            <option value="default" disabled selected>Select Location</option>
+          </select>
+          <label for="profilePic"> Store Icon </label>
+          <div class="form-container">
+            <img
+              src="/assets/images/user.svg"
+              id="profile-preview"
+              alt="preview"
+            />
+            <input
+              type="file"
+              id="store-profile"
+              name="profilePic"
+              accept="image/*"
+              required
+            />
+          </div>
+          <label for="agreement">
+            <input type="checkbox" id="agreement" />
+            I've read and understood Pangasinan Treasure's
+            <a href="#">Marketplace Agreement. </a>
+          </label>
+          <button type="button" id="register-btn" class="disabled">
+            Register
+          </button>
+        </form>
+      </section>
+    </main>
+    <script src="/assets/script/script.js"></script>
+    <script src="/assets/script/sellerregistration.js"></script>
+  </body>
+</html>

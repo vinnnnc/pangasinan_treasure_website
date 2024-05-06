@@ -109,11 +109,18 @@ form.addEventListener("submit", async (e) => {
 //   }
 // }
 
-async function searchProducts(productName) {
+async function searchProducts(productName = "", category = "") {
+  var query = "";
+  if (productName != "") {
+    query = `/result?productName=${encodeURIComponent(productName)}`;
+  }
+
+  if (category != "") {
+    query = `/result?category=${encodeURIComponent(category)}`;
+  }
+
   try {
-    const response = await fetch(
-      `/result?productName=${encodeURIComponent(productName)}`
-    );
+    const response = await fetch(query);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -128,10 +135,11 @@ async function searchProducts(productName) {
 window.addEventListener("load", async () => {
   const searchParams = new URLSearchParams(window.location.search);
   const productName = searchParams.get("productName");
+  const category = searchParams.get("category");
   const resultText = document.getElementById("result-text");
 
   if (productName) {
-    searchProducts(productName)
+    searchProducts("", productName)
       .then((products) => {
         // Handle the received products data and update the UI
         console.log(products);
@@ -139,6 +147,31 @@ window.addEventListener("load", async () => {
         // const productContainer = document.getElementById("productContainer");
         // productContainer.innerHTML = ""; // Clear previous content
         resultText.innerText = `${products.length} item/s found for ${productName}`;
+        if (products.length == 0) {
+          const nothing = document.getElementById("nothing-img");
+          nothing.style.display = "block";
+        }
+        products.forEach((product) => {
+          createProductCards(products);
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error.message);
+      });
+  } else if (category) {
+    console.log(category);
+    searchProducts("", category)
+      .then((products) => {
+        // Handle the received products data and update the UI
+        console.log(products);
+        // Update the productContainer with the products data
+        // const productContainer = document.getElementById("productContainer");
+        // productContainer.innerHTML = ""; // Clear previous content
+        resultText.innerText = `${products.length} item/s found for ${category}`;
+        if (products.length == 0) {
+          const nothing = document.getElementById("nothing-img");
+          nothing.style.display = "block";
+        }
         products.forEach((product) => {
           createProductCards(products);
         });

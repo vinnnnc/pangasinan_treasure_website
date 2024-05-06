@@ -27,39 +27,91 @@
       </div>
     </div>
   </div>
-  <table class="manage-products-table">
-    <tr>
-      <th>select</th>
-      <th>Product</th>
-      <th>Price</th>
-      <th>Stock</th>
-      <th>Active</th>
-    </tr>
-    <tr>
+  <table class="manage-products-table" id="manage-products-table">
+    <thead>
+      <tr>
+        <th>select</th>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody class="manage-products-tbody">
+      <!-- <tr>
+        <td>
+          <input type="checkbox" id="" />
+        </td>
+        <td>
+          <img src="/assets/images/products/product-1.jpg" alt="" />
+          <span>JB Bagoong</span>
+        </td>
+        <td>₱200.00</td>
+        <td>100</td>
+        <td></td>
+      </tr> -->
+    </tbody>
+  </table>
+  <!-- <div class="pagination_section">
+    <a href="#"> &lt; </a>
+    <a href="#" title="Page 1" class="page-active"> 1 </a>
+    <a href="#" title="Page 2"> 2 </a>
+      <a href="#" title="Page 3"> 3 </a>
+      <a href="#" title="Page 4"> 4 </a>
+      <a href="#" title="Page 5"> 5 </a>
+    <a href="#"> &gt; </a>
+  </div> -->
+</div>
+<script>
+  async function fetchSellerProducts() {
+    try {
+      const userId = localStorage.getItem("userId");
+      const response = await fetch(`/api/v1/seller/${userId}/products`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching products:", error.message);
+      return [];
+    }
+  }
+
+  function renderProducts(products) {
+    const table = document.querySelector("#manage-products-tbody");
+    table.innerHTML = ""; // Clear existing content
+
+    products.forEach((product) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
       <td>
-        <input type="checkbox" id="" />
+        <input type="checkbox" id="select-product-${product._id}" />
       </td>
       <td>
-        <img src="/assets/images/products/product-1.jpg" alt="" />
-        <span>JB Bagoong</span>
+        <img src="${product.imageUrl}" alt="" />
+        <span>${product.name}</span>
       </td>
-      <td>₱200.00</td>
-      <td>100</td>
+      <td>${product.price}</td>
+      <td>${product.stock}</td>
       <td>
         <label class="switch">
-          <input type="checkbox" />
+          <input type="checkbox" id="active-product-${product._id}" ${
+        product.isActive ? "checked" : ""
+      } />
           <span class="slider round"></span>
         </label>
       </td>
-    </tr>
-  </table>
-  <div class="pagination_section">
-    <a href="#"> &lt; </a>
-    <a href="#" title="Page 1" class="page-active"> 1 </a>
-    <!-- <a href="#" title="Page 2"> 2 </a>
-      <a href="#" title="Page 3"> 3 </a>
-      <a href="#" title="Page 4"> 4 </a>
-      <a href="#" title="Page 5"> 5 </a> -->
-    <a href="#"> &gt; </a>
-  </div>
-</div>
+    `;
+      table.appendChild(tr);
+    });
+  }
+
+  // Assuming you have the sellerId available
+  // const sellerId = "123"; // Replace with the actual sellerId
+
+  fetchSellerProducts()
+    .then((products) => renderProducts(products))
+    .catch((error) =>
+      console.error("Error fetching and rendering products:", error.message)
+    );
+</script>

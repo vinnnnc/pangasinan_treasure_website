@@ -13,6 +13,16 @@
   margin-block: 10px;
 }
 
+#nothing-img {
+  height: 300px;
+  width: 400px;
+  margin: auto;
+  /* margin: auto; */
+  display: none;
+  opacity: 40%;
+  padding: 80px;
+}
+
 #filter-minprice,
 #filter-maxprice {
   width: 60px;
@@ -67,9 +77,10 @@
 
 .pagination_section {
   text-align: center;
+  margin-top: auto;
+  display: block;
   padding: 20px;
   margin: 10px 0;
-  bottom: 0;
 }
 
 .pagination_section a {

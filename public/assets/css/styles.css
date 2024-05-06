@@ -33,9 +33,11 @@ button {
 
 main {
   padding-top: 100px;
+  min-height: 768px;
 }
 
 body {
+  overflow-x: hidden !important;
   overflow: scroll;
   width: 100%;
   background-color: var(--bg-color);
@@ -219,7 +221,7 @@ html {
 
 #slide-3 a {
   /* background-color: #6a478f; */
-  background-image: url(/assets/images/announcements/announcement-3.jpg);
+  background-image: url(/assets/images/announcements/announcement-4.jpg);
   background-size: cover;
   background-position: center;
 }
@@ -292,7 +294,7 @@ html {
 
 .featured-item-1 {
   grid-area: 1 / 1 / 5 / 3;
-  background-image: url(/assets/images/products/product-2.jpg);
+  background-image: url(/assets/images/products/439586882_957701545678523_1213956629816949875_n.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   border-top-left-radius: 3px;
@@ -300,14 +302,14 @@ html {
 }
 .featured-item-2 {
   grid-area: 1 / 3 / 3 / 5;
-  background-image: url(/assets/images/products/product-7.jpg);
+  background-image: url(/assets/images/products/439908170_269806989454835_734663846528526464_n.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   border-top-right-radius: 3px;
 }
 .featured-item-3 {
   grid-area: 3 / 3 / 5 / 5;
-  background-image: url(/assets/images/products/product-4.jpg);
+  background-image: url(/assets/images/products/439482323_453959450475847_683384573181254200_n.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   border-bottom-right-radius: 3px;

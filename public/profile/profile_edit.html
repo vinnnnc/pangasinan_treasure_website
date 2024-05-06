@@ -7,9 +7,9 @@
         <input
           type="text"
           placeholder="Enter Username"
-          name="uname"
-          value="Juan01"
+          id="profile-uname"
           required
+          value=""
         />
       </span>
       <span>
@@ -17,9 +17,9 @@
         <input
           type="text"
           placeholder="Enter Name"
-          name="name"
-          value="Juan Dela Cruz"
+          id="profile-name"
           required
+          value=""
         />
       </span>
       <span>
@@ -27,10 +27,10 @@
         <input
           type="email"
           placeholder="Enter email"
-          name="email"
-          value="juandelacruz.01@gmail.com"
+          id="profile-email"
           required
           disabled
+          value=""
         />
       </span>
       <span>
@@ -38,10 +38,10 @@
         <input
           type="text"
           placeholder="Enter phone number"
-          name="phone"
-          value="0912 121 2121"
+          id="profile-phone"
           required
           disabled
+          value=""
         />
       </span>
       <span>
@@ -49,10 +49,10 @@
         <input
           type="text"
           placeholder="Enter gender"
-          name="gender"
-          value="Male"
+          id="profile-gender"
           required
           disabled
+          value=""
         />
       </span>
       <span>
@@ -60,9 +60,9 @@
         <input
           type="date"
           placeholder="Enter birth date"
-          name="birthdate"
-          value="2000-01-01"
+          id="profile-birthdate"
           required
+          value=""
         />
       </span>
 
@@ -70,3 +70,46 @@
     </div>
   </form>
 </div>
+<script>
+  function myInit() {
+    fetchUserProfile()
+      .then((userData) => {
+        if (userData) {
+          console.log("User Profile:", userData);
+
+          const username = document.getElementById("profile-uname");
+          const name = document.getElementById("profile-name");
+          const email = document.getElementById("profile-email");
+          const phone = document.getElementById("profile-phone");
+          const gender = document.getElementById("profile-gender");
+          const date = document.getElementById("profile-birthdate");
+
+          const dateString = userData.birthdate;
+          const dateObj = new Date(dateString);
+
+          // Get the individual components of the date (year, month, day)
+          const year = dateObj.getFullYear(); // Get the full year (yyyy)
+          const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Get the month (MM) and pad with zero if needed
+          const day = String(dateObj.getDate()).padStart(2, "0"); // Get the day (dd) and pad with zero if needed
+
+          // Create the formatted date string "yyyy-MM-dd"
+          const formattedDate = `${year}-${month}-${day}`;
+
+          username.value = userData.username;
+          name.value = userData.fullname;
+          email.value = userData.email;
+          phone.value = userData.phone;
+          gender.value = userData.gender;
+          date.value = formattedDate;
+        } else {
+          console.log("User profile not found");
+          // Handle case where user profile is not found
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching user profile:", error.message);
+        // Handle the error, display message, etc.
+      });
+  }
+  myInit();
+</script>
