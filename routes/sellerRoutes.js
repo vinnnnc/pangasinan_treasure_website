@@ -45,6 +45,7 @@ router.post("/", upload.single("profilePic"), async (req, res) => {
 
 // Get seller by ID
 router.get("/:id", getSeller, (req, res) => {
+  console.log(res.seller);
   res.json(res.seller);
 });
 
@@ -77,12 +78,13 @@ router.delete("/:id", getSeller, async (req, res) => {
 // Middleware function to get seller by ID
 async function getSeller(req, res, next) {
   try {
-    const seller = await Seller.findById(req.params.id);
+    let seller = await Seller.findOne({ user: req.params.id });
     if (seller == null) {
-      return res.status(404).json({ message: "Seller not found" });
+      seller = await Seller.findById(req.params.id);
+      if (seller == null)
+        return res.status(404).json({ message: "Seller not found" });
     }
-    res.seller = seller;
-    next();
+    res.json({ name: seller.name, _id: seller._id });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

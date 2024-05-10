@@ -24,9 +24,20 @@
         </div>
         <div class="input">
           <label for="shippedFrom">Shipped From</label>
-          <select id="shipped-from">
+          <select id="location-dropdown">
             <option value="notSet">Not set</option>
           </select>
+        </div>
+        <div class="input">
+          <label for="maxOrders">Maximum Order</label>
+          <input
+            type="number"
+            name="maxOrders"
+            id="product-maximum"
+            min="0"
+            max="1000"
+            value="100"
+          />
         </div>
         <div class="input description-input">
           <label for="productDescription">Description</label>
@@ -56,6 +67,7 @@
                 <th>Variant Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
+                <th>Image</th>
                 <th></th>
               </tr>
             </thead>
@@ -70,6 +82,17 @@
                   <input id="variant-price-1" type="number" />
                 </td>
                 <td>
+                  <label class="gallery-preview variant-gallery-preview">
+                    &plus;
+                    <input
+                      name="variantImage"
+                      id="variant-image-1"
+                      class="variant-image"
+                      type="file"
+                    />
+                  </label>
+                </td>
+                <td>
                   <button type="button" class="delete-variant-btn">
                     Delete
                   </button>
@@ -78,10 +101,8 @@
             </tbody>
             <tfoot>
               <tr>
-                <td colspan="5">
-                  <button type="button" id="add-variant-btn">
-                    Add Variant
-                  </button>
+                <td colspan="6">
+                  <button type="button" id="add-variant-btn">&plus;</button>
                 </td>
               </tr>
             </tfoot>
@@ -146,17 +167,45 @@
       const tableBody = document.querySelector("#product-variants tbody");
       const rowCount = tableBody.querySelectorAll("tr").length + 1; // Calculate row number
       const newRow = `
-        <tr>
-          <td>${rowCount}</td>
-          <td><input id="variant-name-${rowCount}" type="text" value=""/></td>
-          <td><input id="variant-quantity-${rowCount}" type="number" value=""/></td>
-          <td><input id="variant-price-${rowCount}" type="number" value=""/></td>
-          <td><button type="button" class="delete-variant-btn">Delete</button></td>
-        </tr>
-      `;
+                      <tr>
+                        <td>${rowCount}</td>
+                        <td><input id="variant-name-${rowCount}" type="text" value=""/></td>
+                        <td><input id="variant-quantity-${rowCount}" type="number" value=""/></td>
+                        <td><input id="variant-price-${rowCount}" type="number" value=""/></td>
+                        <td>
+                          <label class="gallery-preview variant-gallery-preview" for="variant-image-${rowCount}">
+                            &plus;
+                            <input
+                              id="variant-image-${rowCount}"
+                              class="variant-image"
+                              type="file"
+                            />
+                          </label>
+                        </td>
+                        <td><button type="button" class="delete-variant-btn">Delete</button></td>
+                      </tr>
+                    `;
       tableBody.insertAdjacentHTML("beforeend", newRow);
       updateRowNumbers(); // Update row numbers after adding
     };
+
+    document.addEventListener("change", (e) => {
+      if (e.target.classList.contains("variant-image")) {
+        const fileInput = e.target;
+        const file = fileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const previewLabel = fileInput.parentElement;
+            const rowNumber = fileInput.dataset.row; // Retrieve the row number from the data attribute
+            previewLabel.style.backgroundImage = `url('${e.target.result}')`;
+            previewLabel.style.backgroundSize = "cover";
+            previewLabel.style.backgroundPosition = "center";
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    });
 
     // Function to update row numbers
     const updateRowNumbers = () => {
@@ -181,16 +230,14 @@
         updateRowNumbers(); // Update row numbers after deletion
       }
     };
-
-    // Event listener for add variant button
-    addVariantBtn.addEventListener("click", addRow);
-
-    // Event delegation for delete variant buttons
     document.addEventListener("click", (e) => {
       if (e.target.classList.contains("delete-variant-btn")) {
         deleteRow(e.target);
       }
     });
+
+    // Event listener for add variant button
+    addVariantBtn.addEventListener("click", addRow);
 
     const addProductForm = document.getElementById("add-product"); // Assuming you have a form with this ID
     const addProductBtn = document.getElementById("add-product-btn");
@@ -210,12 +257,14 @@
         const variantName = cells[1].querySelector("input").value;
         const variantQuantity = cells[2].querySelector("input").value;
         const variantPrice = cells[3].querySelector("input").value;
+        const variantImage = cells[4].querySelector("input").files[0]; // Get the first file
 
         // Push variant data to the array
         variants.push({
           variantName: variantName,
-          quantity: variantQuantity,
+          stockCount: variantQuantity,
           price: variantPrice,
+          image: variantImage,
         });
       });
 
@@ -225,22 +274,66 @@
       // Get input values by ID and append them to the FormData object
       const productName = document.getElementById("product-name").value;
       const productCategory = document.getElementById("product-category").value;
+      const productMaxorder = document.getElementById("product-maximum").value;
       const productDescription = document.getElementById(
         "product-description"
       ).value;
-      const productGallery = document.getElementById("product-gallery").files;
+
       const userId = localStorage.getItem("userId");
+      var sellerId = null;
+
+      // Fetch request to get the seller data based on the user ID
+      await fetch(`/api/v1/seller/${userId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle the data containing the seller name and ID
+          const sellerName = data.name;
+          sellerId = data._id;
+          console.log("Seller Name:", sellerName);
+          console.log("Seller ID:", sellerId);
+          // Further processing with the seller name and ID, if needed
+        })
+        .catch((error) => {
+          console.error("Error fetching seller data:", error);
+          // Handle errors, show error message, etc.
+        });
+
+      const productGallery = document.getElementById("product-gallery").files;
       // Append values to FormData
       formData.append("userId", userId);
       formData.append("productName", productName);
       formData.append("productCategory", productCategory);
       formData.append("productDescription", productDescription);
+      formData.append("productMaxorder", productMaxorder);
+      formData.append("productSeller", sellerId);
       formData.append("variants", JSON.stringify(variants));
 
       // Append files to FormData (assuming 'productGallery' is an array of File objects)
       for (const file of productGallery) {
         formData.append("productGallery", file);
       }
+
+      // Append variant images to FormData
+      const variantImages = variants
+        .map((variant, index) => {
+          if (variant.image) {
+            // Check if variant has an image
+            return variant.image;
+          }
+          return null;
+        })
+        .filter(Boolean); // Filter out null values (variants without images)
+
+      // Append the limited number of variant images to FormData
+      variantImages.forEach((image, index) => {
+        formData.append(`variantImages${index + 1}`, image); // Append variant image
+      });
+
       console.log(...formData);
 
       try {
@@ -255,93 +348,35 @@
         const data = await response.json();
         console.log("Product added successfully:", data);
         alert("Product added successfully!");
-        const inputFields = Array.from(
-          addProductForm.getElementsByTagName("input")
-        );
-        const selectFields = Array.from(
-          addProductForm.getElementsByTagName("select")
-        );
-        const textarea = Array.from(
-          addProductForm.getElementsByTagName("textarea")
-        );
+        // const inputFields = Array.from(
+        //   addProductForm.getElementsByTagName("input")
+        // );
+        // const selectFields = Array.from(
+        //   addProductForm.getElementsByTagName("select")
+        // );
+        // const textarea = Array.from(
+        //   addProductForm.getElementsByTagName("textarea")
+        // );
 
-        inputFields.forEach((element) => {
-          element.value = "";
-        });
+        // inputFields.forEach((element) => {
+        //   element.value = "";
+        // });
 
-        selectFields.forEach((element) => {
-          element.value = "notSet"; // Set default value if needed
-        });
+        // selectFields.forEach((element) => {
+        //   element.value = "notSet"; // Set default value if needed
+        // });
 
-        textarea.forEach((element) => {
-          element.value = "";
-        });
-        addProductForm.reset();
+        // textarea.forEach((element) => {
+        //   element.value = "";
+        // });
+        // addProductForm.reset();
+        // window.location = window.location.href;
         // Optionally, redirect or show a success message
       } catch (error) {
         console.error("Error adding product:", error.message);
         // Handle error, show error message, etc.
       }
     });
-
-    const citiesAndTowns = [
-      "Agno",
-      "Aguilar",
-      "Alcala",
-      "Alcantara",
-      "Alaminos",
-      "Alcala",
-      "Anda",
-      "Asingan",
-      "Balungao",
-      "Bani",
-      "Basista",
-      "Bautista",
-      "Bayambang",
-      "Binalonan",
-      "Binmaley",
-      "Bolinao",
-      "Bugallon",
-      "Burgos",
-      "Calasiao",
-      "Dasol",
-      "Infanta",
-      "Labrador",
-      "Laoac",
-      "Lingayen",
-      "Mabini",
-      "Malasiqui",
-      "Manaoag",
-      "Mangaldan",
-      "Mangatarem",
-      "Mapandan",
-      "Natividad",
-      "Pozzorubio",
-      "Rosales",
-      "San Carlos",
-      "San Fabian",
-      "San Jacinto",
-      "San Manuel",
-      "San Nicolas",
-      "San Quintin",
-      "Santa Barbara",
-      "Santa Maria",
-      "Santo Tomas",
-      "Sison",
-      "Sual",
-      "Tayug",
-      "Umingan",
-      "Urbiztondo",
-      "Villasis",
-    ];
-
-    const shippedFrom = document.getElementById("shipped-from");
-
-    citiesAndTowns.forEach((city) => {
-      const option = document.createElement("option");
-      option.value = city.toLowerCase();
-      option.text = city;
-      shippedFrom.appendChild(option);
-    });
+    loadLocationDropdown();
   })();
 </script>

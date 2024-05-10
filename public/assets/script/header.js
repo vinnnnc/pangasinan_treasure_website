@@ -35,7 +35,10 @@ const searchBtn = document.getElementById("search-btn");
 
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  beginSearch();
+});
 
+function beginSearch() {
   const searchValue = document.getElementById("search-bar").value.trim();
   if (!searchValue) {
     return; // Ignore empty search
@@ -43,7 +46,7 @@ searchBtn.addEventListener("click", (e) => {
 
   const searchUrl = `/search?productName=${encodeURIComponent(searchValue)}`;
   window.location.href = searchUrl; // Redirect to search page with search query
-});
+}
 
 document.getElementById("logout-link").addEventListener("click", () => {
   event.preventDefault();
@@ -81,3 +84,10 @@ sellerLink.addEventListener("click", (e) => {
   const userId = localStorage.getItem("userId");
   sellerDashboardBtn(userId);
 });
+
+function handle(e) {
+  if (e.keyCode === 13) {
+    beginSearch();
+  }
+  return false;
+}

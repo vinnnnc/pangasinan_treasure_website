@@ -6,66 +6,7 @@
 // const filterRating = document.getElementById("filter-rating");
 // const setFilter = document.getElementById("set-filter-btn");
 // const resetFilter = document.getElementById("reset-filter-btn");
-
-const citiesAndTowns = [
-  "Agno",
-  "Aguilar",
-  "Alcala",
-  "Alcantara",
-  "Alaminos",
-  "Alcala",
-  "Anda",
-  "Asingan",
-  "Balungao",
-  "Bani",
-  "Basista",
-  "Bautista",
-  "Bayambang",
-  "Binalonan",
-  "Binmaley",
-  "Bolinao",
-  "Bugallon",
-  "Burgos",
-  "Calasiao",
-  "Dasol",
-  "Infanta",
-  "Labrador",
-  "Laoac",
-  "Lingayen",
-  "Mabini",
-  "Malasiqui",
-  "Manaoag",
-  "Mangaldan",
-  "Mangatarem",
-  "Mapandan",
-  "Natividad",
-  "Pozzorubio",
-  "Rosales",
-  "San Carlos",
-  "San Fabian",
-  "San Jacinto",
-  "San Manuel",
-  "San Nicolas",
-  "San Quintin",
-  "Santa Barbara",
-  "Santa Maria",
-  "Santo Tomas",
-  "Sison",
-  "Sual",
-  "Tayug",
-  "Umingan",
-  "Urbiztondo",
-  "Villasis",
-];
-
-const filterFrom = document.getElementById("filter-from");
-
-citiesAndTowns.forEach((city) => {
-  const option = document.createElement("option");
-  option.value = city.toLowerCase();
-  option.text = city;
-  filterFrom.appendChild(option);
-});
+const resultText = document.getElementById("result-text");
 
 // Assuming you have a form with input fields for category, shippedFrom, minPrice, maxPrice, and sortBy
 const form = document.getElementById("filter-form");
@@ -109,15 +50,9 @@ form.addEventListener("submit", async (e) => {
 //   }
 // }
 
-async function searchProducts(productName = "", category = "") {
-  var query = "";
-  if (productName != "") {
-    query = `/result?productName=${encodeURIComponent(productName)}`;
-  }
-
-  if (category != "") {
-    query = `/result?category=${encodeURIComponent(category)}`;
-  }
+async function searchProducts(filters) {
+  const queryParams = new URLSearchParams(filters).toString();
+  const query = `/api/v1/result${queryParams ? `?${queryParams}` : ""}`;
 
   try {
     const response = await fetch(query);
@@ -134,52 +69,56 @@ async function searchProducts(productName = "", category = "") {
 
 window.addEventListener("load", async () => {
   const searchParams = new URLSearchParams(window.location.search);
-  const productName = searchParams.get("productName");
-  const category = searchParams.get("category");
-  const resultText = document.getElementById("result-text");
+  const filters = {};
+  let displayText = "";
 
-  if (productName) {
-    searchProducts("", productName)
-      .then((products) => {
-        // Handle the received products data and update the UI
-        console.log(products);
-        // Update the productContainer with the products data
-        // const productContainer = document.getElementById("productContainer");
-        // productContainer.innerHTML = ""; // Clear previous content
-        resultText.innerText = `${products.length} item/s found for ${productName}`;
-        if (products.length == 0) {
-          const nothing = document.getElementById("nothing-img");
-          nothing.style.display = "block";
-        }
-        products.forEach((product) => {
-          createProductCards(products);
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error.message);
-      });
-  } else if (category) {
-    console.log(category);
-    searchProducts("", category)
-      .then((products) => {
-        // Handle the received products data and update the UI
-        console.log(products);
-        // Update the productContainer with the products data
-        // const productContainer = document.getElementById("productContainer");
-        // productContainer.innerHTML = ""; // Clear previous content
-        resultText.innerText = `${products.length} item/s found for ${category}`;
-        if (products.length == 0) {
-          const nothing = document.getElementById("nothing-img");
-          nothing.style.display = "block";
-        }
-        products.forEach((product) => {
-          createProductCards(products);
-        });
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error.message);
-      });
-  } else {
-    console.error("Search name not provided.");
+  // Retrieve filters from the address bar query
+  for (const [key, value] of searchParams.entries()) {
+    filters[key] = value;
   }
+
+  if (filters.productName) {
+    displayText = filters.productName;
+  } else if (filters.category) {
+    switch (filters.category) {
+      case "foods":
+        displayText = "Food and beverages";
+        break;
+      case "handicrafts":
+        displayText = "Handicrafts";
+        break;
+      case "textiles":
+        displayText = "Textiles";
+        break;
+      case "local":
+        displayText = "Local Produce";
+        break;
+      case "sweets":
+        displayText = "Sweets and Delicacies";
+        break;
+      case "souvenirs":
+        displayText = "Souvenirs";
+        break;
+      default:
+        displayText = "";
+        break;
+    }
+  }
+
+  searchProducts(filters)
+    .then((products) => {
+      console.log(products);
+      resultText.innerText = `${products.length} item/s found for ${displayText}`;
+      if (products.length == 0) {
+        const nothing = document.getElementById("nothing-img");
+        nothing.style.display = "block";
+      }
+      products.forEach((product) => {
+        createProductCards(products);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching products:", error.message);
+    });
+  loadLocationDropdown();
 });

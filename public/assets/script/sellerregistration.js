@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const registerBtn = document.getElementById("register-btn");
   const agreementCheckbox = document.getElementById("agreement");
   const nameInput = document.getElementById("store-name");
-  const locationSelect = document.getElementById("store-location");
+  const locationSelect = document.getElementById("location-dropdown");
   const profilePicInput = document.getElementById("store-profile");
 
   agreementCheckbox.addEventListener("change", () => {
@@ -60,63 +60,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error registering as seller:", error.message);
     }
   });
-});
-
-const citiesAndTowns = [
-  "Agno",
-  "Aguilar",
-  "Alcala",
-  "Alcantara",
-  "Alaminos",
-  "Alcala",
-  "Anda",
-  "Asingan",
-  "Balungao",
-  "Bani",
-  "Basista",
-  "Bautista",
-  "Bayambang",
-  "Binalonan",
-  "Binmaley",
-  "Bolinao",
-  "Bugallon",
-  "Burgos",
-  "Calasiao",
-  "Dasol",
-  "Infanta",
-  "Labrador",
-  "Laoac",
-  "Lingayen",
-  "Mabini",
-  "Malasiqui",
-  "Manaoag",
-  "Mangaldan",
-  "Mangatarem",
-  "Mapandan",
-  "Natividad",
-  "Pozzorubio",
-  "Rosales",
-  "San Carlos",
-  "San Fabian",
-  "San Jacinto",
-  "San Manuel",
-  "San Nicolas",
-  "San Quintin",
-  "Santa Barbara",
-  "Santa Maria",
-  "Santo Tomas",
-  "Sison",
-  "Sual",
-  "Tayug",
-  "Umingan",
-  "Urbiztondo",
-  "Villasis",
-];
-const locationSelect = document.getElementById("store-location");
-
-citiesAndTowns.forEach((city) => {
-  const option = document.createElement("option");
-  option.value = city.toLowerCase();
-  option.text = city;
-  locationSelect.appendChild(option);
 });

@@ -22,26 +22,40 @@ addCartBtn.addEventListener("click", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const productId = urlParams.get("id");
   const quantity = parseInt(addCartQuantity.value, 10);
-  console.log("adding " + productId + " x " + quantity);
-  addItemToCart(productId, quantity);
+  const variantNumber = getSelectedVariant();
+  console.log(
+    "Adding " + productId + " x " + quantity + ", Variant: " + variantNumber
+  );
+  addItemToCart(productId, quantity, variantNumber);
 });
 
+function getSelectedVariant() {
+  const variantBtns = document.getElementById("product-view-variants").children;
+  for (let i = 0; i < variantBtns.length; i++) {
+    if (!variantBtns[i].classList.contains("variant-unchecked")) {
+      return i;
+    }
+  }
+  return null; // Return null if no variant is selected
+}
+
 // Function to add item to cart
-function addItemToCart(productId, quantity) {
+function addItemToCart(productId, quantity, variant) {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  fetch("/api/v1/cart/add", {
+  fetch(`/api/v1/cart/add/${userId}/${productId}`, {
     method: "POST",
     headers: {
-      Authorization: `{token}`,
+      Authorization: `${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ productId, quantity, userId }),
+    body: JSON.stringify({ quantity, variant }),
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Error adding item to cart");
       }
+      console.log({ userId, productId, quantity, variant });
       // Item added to cart successfully
       alert("Item added to cart.");
       // You can redirect to the cart page or update cart UI as needed

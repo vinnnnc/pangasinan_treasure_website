@@ -4,6 +4,7 @@ const router = express.Router();
 const Cart = require("../models/Cart");
 const Product = require("../models/Product");
 const User = require("../models/User");
+const authJwt = require("../helpers/jwt");
 
 // Get user's cart based on user ID in request body
 router.post("/", async (req, res) => {
@@ -32,18 +33,18 @@ router.post("/", async (req, res) => {
 });
 
 // Add item to cart
-router.post("/add", async (req, res) => {
+router.post("/add/:userId/:productId", authJwt, async (req, res) => {
+  const { productId, userId } = req.params;
   try {
-    const { productId, quantity, userId } = req.body;
+    const { quantity, variant } = req.body;
 
-    console.log(productId, quantity);
     // Check if the product exists
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    // Add item to the user's cart
+    // Find the user's cart
     let cart = await Cart.findOne({ userId });
     if (!cart) {
       cart = new Cart({ userId, items: [] });
@@ -54,9 +55,16 @@ router.post("/add", async (req, res) => {
       item.productId.equals(productId)
     );
     if (existingItem) {
-      existingItem.quantity += quantity;
+      // Check if the variant matches
+      if (existingItem.variant === variant) {
+        existingItem.quantity += quantity;
+      } else {
+        // If the variant doesn't match, add a new item to the cart
+        cart.items.push({ productId, variant, quantity });
+      }
     } else {
-      cart.items.push({ productId, quantity });
+      // Add a new item to the cart
+      cart.items.push({ productId, variant, quantity });
     }
 
     await cart.save();
@@ -104,7 +112,7 @@ router.put("/update", async (req, res) => {
     }
     // Find the item in the cart by itemId
     const cartItem = cart.items.find(
-      (item) => item.productId.toString() === itemId._id.toString()
+      (item) => item._id.toString() === itemId.toString()
     );
 
     if (!cartItem) {

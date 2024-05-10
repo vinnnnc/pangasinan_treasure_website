@@ -23,22 +23,35 @@
   </head>
 
   <body>
+    <div class="order-success-panel hide">
+      <div class="order-success-container">
+        <button type="button" class="close-order-success-btn" title="Close">
+          &#10005;
+        </button>
+        Order placed successfuly <span id="check-symbol">&#10004;</span>
+      </div>
+    </div>
     <div id="header"></div>
     <main>
       <section>
         <div class="container">
           <span class="section-title">Cart</span>
           <div class="cart-container">
-            <table class="cart-table" id="cart-table-body">
-              <tr>
-                <th><input type="checkbox" id="cart-product-1" /></th>
-                <th></th>
-                <th></th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th></th>
-              </tr>
+            <table class="cart-table">
+              <thead id="cart-table-head">
+                <tr>
+                  <th>
+                    <!-- <input type="checkbox" id="cart-select-all" /> -->
+                  </th>
+                  <th></th>
+                  <th></th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="cart-table-body"></tbody>
               <!-- <tr>
                 <th>
                   <input type="checkbox" id="cart-product-1" />
@@ -114,9 +127,11 @@
               <div class="checkout-container">
                 <div class="place-order-container">
                   <span class="panel-title">Payment Method</span>
-                  <button class="payment-options active">Wallet</button>
+                  <button class="payment-options">Wallet</button>
                   <!-- <button class="payment-options">GCash</button> -->
-                  <button class="payment-options">Cash on Delivery</button>
+                  <button class="payment-options active">
+                    Cash on Delivery
+                  </button>
                   <button class="payment-options">View all Methods</button>
                   <!-- <div class="shipping-option">
                     <span>Shipping Option</span>
@@ -125,15 +140,15 @@
                   </div> -->
                   <div class="checkout-subtotal-1">
                     <span>Subtotal</span>
-                    <span>₱ 1,798.96</span>
+                    <span id="checkout-subtotal-1">₱ 1,798.96</span>
                   </div>
                   <div class="checkout-shipping-fee">
                     <span>Shipping Fee</span>
-                    <span>₱ 50.00</span>
+                    <span id="checkout-shipping-fee">₱ 50.00</span>
                   </div>
                   <div class="checkout-subtotal-2">
                     <span>Subtotal</span>
-                    <span>₱ 1,848.96</span>
+                    <span id="checkout-subtotal-2">₱ 1,848.96</span>
                   </div>
                 </div>
                 <div class="shipping-address-container">
@@ -146,12 +161,13 @@
                   <button class="edit-address-btn">Edit</button>
                 </div>
               </div>
-              <button id="checkout-btn">Check Out</button>
+              <button id="place-order-btn">Place Order</button>
             </div>
           </div>
         </div>
       </section>
     </main>
+
     <div id="footer"></div>
     <script src="/assets/script/script.js"></script>
     <script src="/assets/script/cart.js"></script>

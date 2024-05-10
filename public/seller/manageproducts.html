@@ -7,21 +7,27 @@
       <div class="dashboard-title">Filter</div>
       <div class="input">
         <label for="product-name">Product Name</label>
-        <input type="text" placeholder="Product Name" name="product-name" />
-        <label for="category">Sort By</label>
-        <select name="category" id="category">
+        <input
+          type="text"
+          placeholder="Product Name"
+          name="product-name"
+          id="name-filter"
+        />
+        <label for="category">Category</label>
+        <select name="category" id="category-filter">
+          <option value="notSet">Not Set</option>
           <option value="foods">Food and Beverages</option>
           <option value="handicrafts">Handicrafts</option>
-          <option value="textiles">Mercedes</option>
-          <option value="localproduce">Textiles</option>
+          <option value="textiles">Textiles</option>
+          <option value="local">Local Produce</option>
           <option value="delicacies">Sweets and Delicacies</option>
           <option value="souvenirs">Souvenirs</option>
         </select>
-        <label for="sort">Sort By</label>
-        <select name="sort" id="sort">
+        <!-- <label for="sort">Sort By</label>
+        <select name="sort">
           <option value="category">Category</option>
-        </select>
-        <button class="reset-btn">
+        </select> -->
+        <button class="reset-btn" id="reset-filter">
           <img src="/assets/images/icons/rotate-right-solid.svg" alt="reset" />
         </button>
       </div>
@@ -37,20 +43,7 @@
         <th>Delete</th>
       </tr>
     </thead>
-    <tbody class="manage-products-tbody">
-      <!-- <tr>
-        <td>
-          <input type="checkbox" id="" />
-        </td>
-        <td>
-          <img src="/assets/images/products/product-1.jpg" alt="" />
-          <span>JB Bagoong</span>
-        </td>
-        <td>₱200.00</td>
-        <td>100</td>
-        <td></td>
-      </tr> -->
-    </tbody>
+    <tbody class="manage-products-tbody"></tbody>
   </table>
   <!-- <div class="pagination_section">
     <a href="#"> &lt; </a>
@@ -63,55 +56,168 @@
   </div> -->
 </div>
 <script>
-  async function fetchSellerProducts() {
-    try {
-      const userId = localStorage.getItem("userId");
-      const response = await fetch(`/api/v1/seller/${userId}/products`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch products");
+  (function () {
+    // Define variables for input elements and table
+    const nameFilterInput = document.getElementById("name-filter");
+    const categoryFilterSelect = document.getElementById("category-filter");
+    const tableBody = document.querySelector(".manage-products-tbody");
+
+    let productsList = []; // Store the initial product list
+
+    async function fetchSellerProducts() {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await fetch(`/api/v1/product/${userId}/products`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        var responsejson = await response.json();
+        console.log(responsejson);
+        return responsejson;
+      } catch (error) {
+        console.error("Error fetching products:", error.message);
+        return [];
       }
-      return await response.json();
-    } catch (error) {
-      console.error("Error fetching products:", error.message);
-      return [];
     }
-  }
 
-  function renderProducts(products) {
-    const table = document.querySelector("#manage-products-tbody");
-    table.innerHTML = ""; // Clear existing content
+    function renderProducts(products) {
+      tableBody.innerHTML = ""; // Clear existing content
 
-    products.forEach((product) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-      <td>
-        <input type="checkbox" id="select-product-${product._id}" />
-      </td>
-      <td>
-        <img src="${product.imageUrl}" alt="" />
-        <span>${product.name}</span>
-      </td>
-      <td>${product.price}</td>
-      <td>${product.stock}</td>
-      <td>
-        <label class="switch">
-          <input type="checkbox" id="active-product-${product._id}" ${
-        product.isActive ? "checked" : ""
-      } />
-          <span class="slider round"></span>
-        </label>
-      </td>
-    `;
-      table.appendChild(tr);
-    });
-  }
+      products.forEach((product) => {
+        const tr = document.createElement("tr");
+        tr.classList.add(`${product.category}`);
+        tr.innerHTML = `
+                        <td>
+                          <input type="checkbox" id="select-product-${
+                            product._id
+                          }" />
+                        </td>
+                        <td>
+                          <img src="/${product.images[0]}" alt="${
+          product.name
+        }" />
+                          <span>${product.name}</span>
+                        </td>
+                        <td>₱ ${product.variants[0].price.toFixed(2)}</td>
+                        <td>${product.variants[0].stockCount}</td>
+                        <td>
 
-  // Assuming you have the sellerId available
-  // const sellerId = "123"; // Replace with the actual sellerId
+                            <button class="delete-product" id="delete-${
+                              product._id
+                            }">Delete</button>
+                        </td>
+                      `;
+        // <span class="slider round"></span>
 
-  fetchSellerProducts()
-    .then((products) => renderProducts(products))
-    .catch((error) =>
-      console.error("Error fetching and rendering products:", error.message)
+        tableBody.appendChild(tr);
+        // Add event listener to the delete button
+        const deleteButton = tr.querySelector(`#delete-${product._id}`);
+        deleteButton.addEventListener("click", () => {
+          // Call a function to handle product deletion when the button is clicked
+          if (confirm("Delete Product?")) deleteProduct(product._id);
+          loadProducts();
+        });
+      });
+    }
+
+    function deleteProduct(productId) {
+      fetch(`/api/v1/product/${productId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Product deleted successfully:", data);
+          // Handle success message, update UI, etc.
+        })
+        .catch((error) => {
+          console.error("Error deleting product:", error);
+          // Handle error message, show error to user, etc.
+        });
+    }
+
+    // Assuming you have the sellerId available
+    // const sellerId = "123"; // Replace with the actual sellerId
+
+    function loadProducts() {
+      fetchSellerProducts()
+        .then((products) => {
+          renderProducts(products);
+          productsList = products;
+          if (products.length == 0) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                      <td colspan="5" style="height: 50px">No products yet.</td>
+                    `;
+            // <span class="slider round"></span>
+            tableBody.appendChild(tr);
+          }
+        })
+        .catch((error) =>
+          console.error("Error fetching and rendering products:", error.message)
+        );
+    }
+    loadProducts();
+
+    // Debounce function to delay filtering
+    function debounce(func, delay) {
+      let timeoutId;
+      return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
+    }
+
+    // Event listener for name filter input
+    nameFilterInput.addEventListener(
+      "input",
+      debounce(() => {
+        applyFilters();
+      }, 1000)
     );
+
+    // Event listener for category filter select
+    categoryFilterSelect.addEventListener(
+      "change",
+      debounce(() => {
+        applyFilters();
+      }, 1000)
+    );
+
+    // Function to apply filters
+    function applyFilters() {
+      const filterText = nameFilterInput.value.toLowerCase();
+      const selectedCategory = categoryFilterSelect.value.toLowerCase();
+
+      const filteredProducts = productsList.filter((product) => {
+        const matchesName = product.name.toLowerCase().includes(filterText);
+        const matchesCategory =
+          selectedCategory === "notset" || // If "Not Set" is selected, ignore category filter
+          product.category.toLowerCase() === selectedCategory;
+        return matchesName && matchesCategory;
+      });
+
+      renderProducts(filteredProducts);
+    }
+
+    const resetFilterButton = document.getElementById("reset-filter");
+
+    // Event listener for reset filter button
+    resetFilterButton.addEventListener("click", () => {
+      nameFilterInput.value = ""; // Clear name filter input
+      categoryFilterSelect.value = "notSet"; // Set category filter select to "Not Set"
+      applyFilters(); // Apply filters after resetting
+    });
+  })();
 </script>

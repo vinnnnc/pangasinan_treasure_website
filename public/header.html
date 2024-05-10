@@ -4,7 +4,7 @@
       <a href="/">Home</a>
       <a href="/about">About</a>
       <!-- <a href="#">Contact</a> -->
-      <a href="/sellerdashboard" class="hidden" id="seller-link"
+      <a href="/seller/dashboard" class="hidden" id="seller-link"
         >Seller Dashboard</a
       >
       <a href="#" class="hidden" id="logout-link">Log Out</a>
@@ -27,6 +27,7 @@
           name="search"
           placeholder="Search.."
           id="search-bar"
+          onkeypress="handle(event)"
         />
         <button type="button" id="search-btn" class="btn-shadow">
           <img src="/assets/images/search.svg" alt="search-icon" />

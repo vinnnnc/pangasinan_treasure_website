@@ -188,7 +188,7 @@ function createProductCards(data) {
     const priceSection = document.createElement("section");
     const productPrice = document.createElement("span");
     productPrice.classList.add("product-price");
-    productPrice.textContent = `₱ ${product.variants[0].price}`;
+    productPrice.textContent = `₱ ${product.variants[0].price.toFixed(2)}`;
     const ratings = document.createElement("div");
     ratings.classList.add("ratings");
     const star = document.createElement("span");

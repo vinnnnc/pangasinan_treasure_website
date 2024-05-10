@@ -56,7 +56,7 @@ app.use(`${api}/product`, require("./routes/productRoutes"));
 app.use(`${api}/orders`, require("./routes/orderRoutes"));
 app.use(`${api}/cart`, require("./routes/cartRoutes"));
 app.use(`${api}/seller`, require("./routes/sellerRoutes"));
-app.use(`/result`, require("./routes/searchRouter"));
+app.use(`${api}/result`, require("./routes/searchRouter"));
 app.use("/", require("./routes/protectedRoute"));
 
 // Database connection

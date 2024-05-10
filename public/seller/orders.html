@@ -17,52 +17,138 @@
     </div>
   </div>
   <table class="order-table">
-    <tr>
-      <th>Select</th>
-      <th>Product</th>
-      <th></th>
-      <th>Total Amount</th>
-      <th>Delivery</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-    <tr class="order-top-row">
-      <td colspan="7">
-        <div class="order-top">
-          <div>
-            <img src="/assets/images/user.svg" alt="user" class="user-icon" />
-            <span class="order-user">Juan Dela Cruz</span>
-            <span class="order-item-count">(1 item)</span>
+    <thead>
+      <tr>
+        <!-- <th>Select</th> -->
+        <th>Product</th>
+        <th></th>
+        <th>Total Amount</th>
+        <th>Delivery</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="order-top-row">
+        <td colspan="6">
+          <div class="order-top">
+            <div>
+              <img src="/assets/images/user.svg" alt="user" class="user-icon" />
+              <span class="order-user">Juan Dela Cruz</span>
+              <span class="order-item-count">(1 item)</span>
+            </div>
+            <div>
+              <span class="order-number">Order Number:</span>
+              <span class="order-date">12 April 2024</span>
+            </div>
           </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img src="/assets/images/products/product-6.jpg" alt="product" />
           <div>
-            <span class="order-number">Order Number:</span>
-            <span class="order-date">12 April 2024</span>
+            <div>Bangus</div>
+            <div>Boneless Bangus</div>
           </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td><input type="checkbox" /></td>
-      <td>
-        <img src="/assets/images/products/product-6.jpg" alt="product" />
-        <div>
-          <div>Bangus</div>
-          <div>Boneless Bangus</div>
-        </div>
-      </td>
-      <td>x5</td>
-      <td>₱1650.50</td>
-      <td>
-        <div>Standard</div>
-        <div>COD</div>
-      </td>
-      <td>Pending</td>
-      <td><button class="pack-btn">Pack</button></td>
-    </tr>
+        </td>
+        <td>x 5</td>
+        <td>₱1650.50</td>
+        <td>
+          <div>Standard</div>
+          <div>COD</div>
+        </td>
+        <td>Pending</td>
+        <td><button class="pack-btn">Pack</button></td>
+      </tr>
+    </tbody>
   </table>
-  <div class="pagination_section">
+  <!-- <div class="pagination_section">
     <a href="#"> &lt; </a>
     <a href="#" title="Page 1" class="page-active"> 1 </a>
     <a href="#"> &gt; </a>
-  </div>
+  </div> -->
 </div>
+
+<script>
+  (function () {
+    // Function to fetch seller details and orders
+    async function fetchOrders(sellerId) {
+      try {
+        const response = await fetch(`/api/v1/seller/${sellerId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const seller = await response.json();
+        console.log("Seller details:", seller);
+
+        // Loop through the orders and fetch order details
+        for (const orderId of seller.orders) {
+          const orderResponse = await fetch(`/api/v1/order/${orderId}`);
+          if (!orderResponse.ok) {
+            throw new Error(`HTTP error! Status: ${orderResponse.status}`);
+          }
+          const order = await orderResponse.json();
+          console.log("Order details:", order);
+
+          // Create order rows
+          const orderTopRow = document.createElement("tr");
+          orderTopRow.classList.add("order-top-row");
+          orderTopRow.innerHTML = `
+        <td colspan="6">
+          <div class="order-top">
+            <div>
+              <img src="/assets/images/user.svg" alt="user" class="user-icon" />
+              <span class="order-user">${order.userId.name}</span>
+              <span class="order-item-count">(${order.orderItems.length} item${
+            order.orderItems.length === 1 ? "" : "s"
+          })</span>
+            </div>
+            <div>
+              <span class="order-number">Order Number:</span>
+              <span class="order-date">${new Date(
+                order.dateOrdered
+              ).toLocaleDateString()}</span>
+            </div>
+          </div>
+        </td>
+      `;
+          document.getElementById("orderTableBody").appendChild(orderTopRow);
+
+          for (const item of order.orderItems) {
+            const orderRow = document.createElement("tr");
+            orderRow.innerHTML = `
+          <td>
+            <img src="/assets/images/products/${
+              item.productId.images[0]
+            }" alt="product" />
+            <div>
+              <div>${item.productId.name}</div>
+              <div>${item.productId.variants[item.variant].variantName}</div>
+            </div>
+          </td>
+          <td>x ${item.quantity}</td>
+          <td>₱${(
+            item.productId.variants[item.variant].price * item.quantity
+          ).toFixed(2)}</td>
+          <td>
+            <div>${order.shippingAddress}</div>
+            <div>${order.paymentMethod}</div>
+          </td>
+          <td>${order.status}</td>
+          <td><button class="pack-btn">Pack</button></td>
+        `;
+            document.getElementById("orderTableBody").appendChild(orderRow);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        // Handle errors, show error message, etc.
+      }
+    }
+
+    // Usage: Call fetchOrders with the seller ID
+    const sellerId = "your_seller_id_here";
+    fetchOrders(sellerId);
+  })();
+</script>
