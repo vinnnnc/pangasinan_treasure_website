@@ -13,77 +13,80 @@
   </table>
 </div>
 <script>
-  async function deleteUserById(userId) {
-    try {
-      const response = await fetch(`/api/v1/users/list/${userId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete user");
-      }
-      const deletedUser = await response.json();
-      return deletedUser;
-    } catch (error) {
-      console.error("Error deleting user:", error.message);
-      return null;
-    }
-  }
-
-  // Function to fetch all users for admin
-  const fetchAllUsers = async () => {
-    try {
-      const response = await fetch("/api/v1/users/list");
-      if (!response.ok) {
-        throw new Error("Failed to fetch users");
-      }
-      const users = await response.json();
-
-      // Display users in the admin page (assuming there's a container with id "user-list")
-      const userListContainer = document.getElementById(
-        "user-management-table"
-      );
-      userListContainer.innerHTML = `
-                                  <tr>
-                                  <th>User</th>
-                                  <th>Full Name</th>
-                                  <th>Gender</th>
-                                  <th>Email Address</th>
-                                  <th>Type</th>
-                                  <th>Date Joined</th>
-                                  <th>Action</th>
-                                </tr>`; // Clear previous user list
-
-      users.forEach((user) => {
-        const dateString = user.birthdate;
-        const dateObj = new Date(dateString);
-        const year = dateObj.getFullYear();
-        const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-        const day = String(dateObj.getDate()).padStart(2, "0");
-        const formattedDate = `${year}-${month}-${day}`;
-
-        const userRow = document.createElement("tr");
-        userRow.innerHTML = `
-        <td>${user.username}</td>
-        <td>${user.fullname}</td>
-        <td>${user.gender}</td>
-        <td>${user.email}</td>
-        <td>User | Seller</td>
-        <td>${formattedDate}</td>
-        <td><button type="Button" class="delete-btn" id="del-${user._id}">Delete</button></td>
-      `;
-        userListContainer.appendChild(userRow);
-        const deleteBtn = document.getElementById(`del-${user._id}`);
-        deleteBtn.addEventListener("click", () => {
-          if (confirm("WARNING: Delete user?")) {
-            deleteUserById(user._id);
-          }
+  function initUsers() {
+    async function deleteUserById(userId) {
+      try {
+        const response = await fetch(`/api/v1/users/list/${userId}`, {
+          method: "DELETE",
         });
-      });
-    } catch (error) {
-      console.error("Error fetching users:", error);
+        if (!response.ok) {
+          throw new Error("Failed to delete user");
+        }
+        const deletedUser = await response.json();
+        return deletedUser;
+      } catch (error) {
+        console.error("Error deleting user:", error.message);
+        return null;
+      }
     }
-  };
 
-  // Call fetchAllUsers function to fetch and display all users in the admin page
-  fetchAllUsers();
+    // Function to fetch all users for admin
+    const fetchAllUsers = async () => {
+      try {
+        const response = await fetch("/api/v1/users/list");
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        const users = await response.json();
+
+        // Display users in the admin page (assuming there's a container with id "user-list")
+        const userListContainer = document.getElementById(
+          "user-management-table"
+        );
+        userListContainer.innerHTML = `
+                                   <tr>
+                                   <th>User</th>
+                                   <th>Full Name</th>
+                                   <th>Gender</th>
+                                   <th>Email Address</th>
+                                   <th>Type</th>
+                                   <th>Date Joined</th>
+                                   <th>Action</th>
+                                 </tr>`; // Clear previous user list
+
+        users.forEach((user) => {
+          const dateString = user.birthdate;
+          const dateObj = new Date(dateString);
+          const year = dateObj.getFullYear();
+          const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+          const day = String(dateObj.getDate()).padStart(2, "0");
+          const formattedDate = `${year}-${month}-${day}`;
+
+          const userRow = document.createElement("tr");
+          userRow.innerHTML = `
+         <td>${user.username}</td>
+         <td>${user.fullname}</td>
+         <td>${user.gender}</td>
+         <td>${user.email}</td>
+         <td>User | Seller</td>
+         <td>${formattedDate}</td>
+         <td><button type="Button" class="delete-btn" id="del-${user._id}">Delete</button></td>
+       `;
+          userListContainer.appendChild(userRow);
+          const deleteBtn = document.getElementById(`del-${user._id}`);
+          deleteBtn.addEventListener("click", () => {
+            if (confirm("WARNING: Delete user?")) {
+              deleteUserById(user._id);
+            }
+          });
+        });
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    // Call fetchAllUsers function to fetch and display all users in the admin page
+    fetchAllUsers();
+  }
+  initUsers();
 </script>

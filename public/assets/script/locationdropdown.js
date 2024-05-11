@@ -59,4 +59,4 @@ function loadLocationDropdown() {
     filterFrom.appendChild(option);
   });
 }
-// loadLocationDropdown();
+loadLocationDropdown();

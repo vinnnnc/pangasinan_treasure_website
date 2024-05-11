@@ -23,6 +23,7 @@ dropdownOptions.forEach((element, index) => {
 });
 
 // Load Contents
+const loadOverview = document.getElementById("dashboard-overview");
 const loadManageProduct = document.getElementById("manage-products");
 const loadAddProduct = document.getElementById("add-product");
 const loadOrders = document.getElementById("orders");
@@ -30,6 +31,9 @@ const loadReviews = document.getElementById("reviews");
 const loadStoreSettings = document.getElementById("store-settings");
 const loadAccountSettings = document.getElementById("account-settings");
 
+loadOverview.addEventListener("click", () => {
+  $(".dashboard").load("/seller/overview.html");
+});
 loadManageProduct.addEventListener("click", () => {
   $(".dashboard").load("/seller/manageproducts.html");
 });

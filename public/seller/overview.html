@@ -1,0 +1,250 @@
+<div class="dashboard-container">
+  <div class="breadcrumb-text">Dashboard <span>&#8250;</span> Overview</div>
+  <div class="overview-body">
+    <div class="overview-monthly">
+      <div class="div1">
+        <select name="product-list" id="product-list-data"></select>
+        <div class="data-line">
+          <span>Product Sales</span><span id="monthly-sales"></span>
+        </div>
+        <div class="data-line">
+          <span>Product Revenue</span><span id="monthly-revenue"></span>
+        </div>
+        <div class="data-line">
+          <span>Product Views</span><span id="monthly-product-views"></span>
+        </div>
+      </div>
+      <div class="div2">
+        <div>Daily Sales</div>
+        <canvas id="monthly-chart"></canvas>
+      </div>
+      <div class="div3">
+        <div class="table-title">Revenue by Products</div>
+        <table id="productTable">
+          <thead>
+            <tr>
+              <th data-sortby="productName">Product</th>
+              <th data-sortby="totalSales" class="sort-selected">
+                Product Sales
+              </th>
+              <th data-sortby="totalRevenue">Revenue</th>
+              <th data-sortby="totalViews">Views</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Product data will be dynamically inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (async function () {
+    const fetchProductMetrics = async (userId) => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await fetch(`/api/v1/product/analytics/${userId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch product metrics");
+        }
+        const productMetrics = await response.json();
+        return productMetrics;
+      } catch (error) {
+        console.error("Error fetching product metrics:", error);
+        return null;
+      }
+    };
+    const productsData = await fetchProductMetrics();
+    console.log(productsData);
+    // Select
+    // Function to add options to the select element
+    function addOptionsToSelect(options) {
+      const selectElement = document.getElementById("product-list-data");
+      options.forEach((option, index) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = index;
+        optionElement.textContent = option.productName;
+        selectElement.appendChild(optionElement);
+      });
+    }
+
+    // Set first value
+    changeProductData(0);
+
+    // Function to change product data based on the selected option
+    function changeProductData(selectedOption) {
+      const productSales = document.getElementById("monthly-sales");
+      const productRevenue = document.getElementById("monthly-revenue");
+      const productViews = document.getElementById("monthly-product-views");
+
+      // // Example data (replace with actual data)
+      // const productsData = {
+      //   "JB Bagoong": { sales: 123, revenue: 312, views: 123 },
+      //   "Product B": { sales: 200, revenue: 400, views: 150 },
+      //   "Product C": { sales: 150, revenue: 350, views: 100 },
+      // };
+
+      // Update the product data based on the selected option
+      const selectedData = productsData[selectedOption];
+      console.log(selectedData);
+      productSales.textContent = selectedData.totalSales;
+      productRevenue.textContent = `₱ ${selectedData.totalRevenue.toFixed(2)}`;
+      productViews.textContent = selectedData.totalViews;
+    }
+
+    // Call the function to add options to the select element
+    addOptionsToSelect(productsData);
+
+    // Add event listener to the select element
+    const selectElement = document.getElementById("product-list-data");
+    selectElement.addEventListener("change", (event) => {
+      const selectedOption = event.target.value;
+      changeProductData(selectedOption);
+    });
+
+    // const productsData = [
+    //   {
+    //     name: "Product A",
+    //     sales: 100,
+    //     revenue: 5000,
+    //     views: 5,
+    //   },
+    // ];
+
+    // Function to generate horizontal bar graph HTML
+    function generateBarGraph(value, maxValue, price = false) {
+      const percentage = (value / maxValue) * 100;
+      return `<div class="bar-graph">
+                <div class="bar" style="width: ${percentage}%;"></div>
+                <span class="label">${price ? "₱ " : ""}${
+        price ? value.toFixed(2) : value
+      }</span>
+            </div>`;
+    }
+
+    // Function to sort productsData by a given key
+    function sortProductsData(key) {
+      productsData.sort((a, b) => a[key] - b[key]).reverse();
+    }
+
+    // Event listener for table label clicks
+    const tableHeaders = document.querySelectorAll("#productTable th");
+    tableHeaders.forEach((header) => {
+      header.addEventListener("click", () => {
+        tableHeaders.forEach((header) => {
+          header.classList.remove("sort-selected");
+        });
+        header.classList.add("sort-selected");
+        const sortBy = header.getAttribute("data-sortby");
+        sortProductsData(sortBy);
+        populateProductTable(productsData);
+      });
+    });
+
+    // Function to populate the table with data and bar graphs
+    function populateProductTable(data) {
+      const tableBody = document.querySelector("#productTable tbody");
+      tableBody.innerHTML = "";
+      for (i = 0; i < 10; i++) {
+        const product = data[i];
+        if (!product) break;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td><span class="table-numbering">${i + 1}.</span>${
+          product.productName
+        }</td>
+            <td>${generateBarGraph(product.totalSales, 200)}</td>
+            <td>${generateBarGraph(product.totalRevenue, 10000, true)}</td>
+            <td>${generateBarGraph(product.totalViews, 50)}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+      // data.forEach((product, index) => {
+      //   const row = document.createElement("tr");
+      //   row.innerHTML = `
+      //       <td><span class="table-numbering">${index + 1}.</span>${
+      //     product.productName
+      //   }</td>
+      //       <td>${generateBarGraph(product.totalSales, 200)}</td>
+      //       <td>${generateBarGraph(product.totalRevenue, 10000)}</td>
+      //       <td>${generateBarGraph(product.totalViews, 50)}</td>
+      //   `;
+      //   tableBody.appendChild(row);
+      // });
+    }
+
+    // Call the function to populate the table with data
+    sortProductsData("totalSales");
+    populateProductTable(productsData);
+
+    // Fetch monthly sales and revenue data
+    const fetchMonthlyData = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await fetch(`/api/v1/seller/${userId}/monthlySales`);
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error fetching monthly data:", error);
+        return null;
+      }
+    };
+
+    let monthlyChart = document.getElementById("monthly-chart");
+
+    const updateMonthlyChart = async () => {
+      const monthlyData = await fetchMonthlyData();
+      console.log(monthlyData);
+      if (!monthlyData) {
+        console.log("Failed to fetch monthly data");
+        return;
+      }
+
+      const { dailySales, month, year } = monthlyData;
+
+      const labels = dailySales.map(
+        (dayData) => `${month}-${dayData.day}-${year.toString().slice(-2)}`
+      );
+      const salesData = dailySales.map((dayData) => dayData.sales);
+
+      let monthlySalesChart = new Chart(monthlyChart, {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [
+            {
+              label: "Sales",
+              data: salesData,
+              backgroundColor: "#ff2454",
+              // borderColor: "rgba(75, 192, 192, 1)",
+              // borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              // beginAtZero: true,
+              max: Math.ceil(Math.max(...salesData) / 5) * 5 + 5,
+            },
+          },
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            // title: {
+            //   display: true,
+            //   text: "Daily Sales",
+            // },
+          },
+        },
+      });
+    };
+
+    // Call the function to update the chart
+    updateMonthlyChart();
+  })();
+</script>

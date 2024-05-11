@@ -25,6 +25,28 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     unique: true,
   },
+  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "Seller" },
+});
+
+// Define pre-save middleware to populate sellerId based on productId
+orderSchema.pre("save", async function (next) {
+  try {
+    // const Order = mongoose.model("Order", orderSchema); // Get the Order model
+    const order = this;
+
+    // Iterate through orderItems and get the sellerId from the productId
+    for (const orderItem of order.orderItems) {
+      const product = await Product.findById(orderItem.productId);
+      if (!product) {
+        throw new Error("Product not found");
+      }
+      order.sellerId = product.seller; // Assuming sellerId is stored in the 'seller' field of Product
+    }
+
+    next(); // Proceed to save the order
+  } catch (error) {
+    next(error); // Pass any errors to the next middleware
+  }
 });
 
 // Define pre-save middleware for Order schema

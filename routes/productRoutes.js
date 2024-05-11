@@ -4,6 +4,7 @@ const router = express.Router();
 const Product = require("../models/Product");
 const Seller = require("../models/Seller");
 const Cart = require("../models/Cart");
+const Order = require("../models/Order");
 const upload = require("../helpers/multerConfig");
 
 // Get all products
@@ -124,7 +125,7 @@ router.post(
       const parsedVariants = JSON.parse(variants); // Parse the JSON string to an array
 
       const updatedVariants = parsedVariants.map((variant, index) => {
-        const variantImageFile = req.files[`variantImages${index + 1}`]
+      const variantImageFile = req.files[`variantImages${index + 1}`]
           ? req.files[`variantImages${index + 1}`][0]
           : null; // Get variant image file
 
@@ -244,6 +245,62 @@ router.get("/:id/ratings", async (req, res) => {
     res.json(product.ratings);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+// Route to retrieve total sales, revenue, and views of all seller's products
+router.get("/analytics/:userId", async (req, res) => {
+  try {
+    // Find the seller ID corresponding to the provided user ID
+    const seller = await Seller.findOne({ user: req.params.userId });
+    if (!seller) {
+      return res.status(404).json({ message: "Seller not found" });
+    }
+
+    // Fetch the seller's products
+    const products = await Product.find({ seller: seller._id });
+
+    // Initialize an array to store product metrics
+    const productMetrics = [];
+
+    // Loop through each product
+    for (const product of products) {
+      // Calculate total sales and revenue for each product
+      const productOrders = await Order.find({
+        "orderItems.productId": product._id,
+        status: "Delivered", // Assuming 'Delivered' status indicates completed orders
+      });
+      let totalSales = 0;
+      let totalRevenue = 0;
+      for (const order of productOrders) {
+        const orderItem = order.orderItems.find(
+          (item) => item.productId.toString() === product._id.toString()
+        );
+        if (orderItem) {
+          totalSales += orderItem.quantity;
+          totalRevenue +=
+            orderItem.quantity * product.variants[orderItem.variant].price;
+        }
+      }
+
+      // Get total views for the product
+      const totalViews = product.views;
+
+      // Push product metrics to the array
+      productMetrics.push({
+        sellerName: seller.name,
+        productName: product.name,
+        totalSales,
+        totalRevenue,
+        totalViews,
+      });
+    }
+
+    // Send the product metrics as JSON response
+    res.json(productMetrics);
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ message: error.message });
   }
 });
 

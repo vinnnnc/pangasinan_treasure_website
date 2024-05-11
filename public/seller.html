@@ -13,12 +13,19 @@
     <link rel="stylesheet" href="/assets/css/header.css" />
     <link rel="stylesheet" href="/assets/css/footer.css" />
     <link rel="stylesheet" href="/assets/css/seller.css" />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+      integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script>
       $(function () {
         $("#header").load("header.html");
         $("#footer").load("footer.html");
-        $(".dashboard").load("/seller/productdetails.html");
+        $(".dashboard").load("/seller/overview.html");
       });
     </script>
   </head>
@@ -32,11 +39,23 @@
           <div class="dropdown collapsed" id="products-dropdown">
             <div class="dropdown-option dropdown-title">
               <img
+                src="/assets/images/icons/chart-line-solid.svg"
+                alt="chart"
+              />Dashboard
+            </div>
+            <div class="dropdown-option active" id="dashboard-overview">
+              Overview
+            </div>
+            <div class="collapse-btn">&#8249;</div>
+          </div>
+          <div class="dropdown" id="products-dropdown">
+            <div class="dropdown-option dropdown-title">
+              <img
                 src="/assets/images/icons/bag-shopping-solid.svg"
                 alt="product"
               />Products
             </div>
-            <div class="dropdown-option active" id="manage-products">
+            <div class="dropdown-option" id="manage-products">
               Manage Products
             </div>
             <div class="dropdown-option" id="add-product">Add New Product</div>

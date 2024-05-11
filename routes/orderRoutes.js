@@ -195,6 +195,57 @@ router.get("/user/:userId", async (req, res) => {
   }
 });
 
-module.exports = router;
+// Route to get total sales and revenue of each seller by name
+router.get("/seller/analytics", async (req, res) => {
+  console.log("Retrieving seller analytics...");
+  try {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // January is 0 in JavaScript
+
+    const startDate = new Date(currentYear, currentMonth - 1, 1);
+    const endDate = new Date(currentYear, currentMonth, 0, 23, 59, 59, 999);
+
+    const sellerSalesRevenue = await Seller.aggregate([
+      {
+        $lookup: {
+          from: "orders", // Collection name for orders
+          localField: "_id", // Use seller's _id
+          foreignField: "sellerId", // Field in orders collection
+          as: "orders",
+        },
+      },
+      {
+        $unwind: {
+          path: "$orders",
+          preserveNullAndEmptyArrays: true, // Include sellers without orders
+        },
+      },
+      {
+        $unwind: {
+          path: "$orders.orderItems",
+          preserveNullAndEmptyArrays: true, // Include orders without items
+        },
+      },
+      {
+        $match: {
+          "orders.dateOrdered": { $gte: startDate, $lte: endDate },
+        },
+      },
+      {
+        $group: {
+          _id: "$name", // Group by seller name
+          totalSales: { $sum: { $ifNull: ["$orders.orderItems.quantity", 0] } }, // Calculate total sales
+          totalRevenue: { $sum: { $ifNull: ["$orders.totalPrice", 0] } }, // Calculate total revenue
+        },
+      },
+    ]);
+
+    console.log(sellerSalesRevenue);
+    res.json(sellerSalesRevenue);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;

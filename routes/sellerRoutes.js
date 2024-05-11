@@ -110,6 +110,64 @@ async function getSeller(req, res, next) {
   }
 }
 
+// Get monthly sales and revenue for a seller
+router.get("/:id/monthlySales", async (req, res) => {
+  try {
+    let seller = await Seller.findOne({ user: req.params.id });
+    // const { sellerId } = req.params;
+    console.log(seller);
+    const monthlyData = await calculateDailyProductSales(seller._id);
+    res.json(monthlyData);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Calculate monthly sales and revenue
+const calculateDailyProductSales = async (sellerId) => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; // January is 0 in JavaScript
+
+  // Create an array to store daily sales data
+  const dailySalesData = new Array(31).fill(0);
+
+  try {
+    const orders = await Order.find({
+      dateOrdered: {
+        $gte: new Date(currentYear, currentMonth - 1, 1),
+        $lte: new Date(currentYear, currentMonth, 0, 23, 59, 59, 999),
+      },
+      status: "Delivered", // Assuming 'Delivered' status indicates completed orders
+      sellerId: sellerId,
+    }).populate("orderItems.productId");
+
+    orders.forEach((order) => {
+      order.orderItems.forEach((item) => {
+        const orderDay = new Date(order.dateOrdered).getDate();
+        dailySalesData[orderDay - 1] += item.quantity; // Increment sales for the day
+      });
+    });
+
+    // Create an array of objects representing daily sales data
+    const dailySales = [];
+    for (let i = 0; i < dailySalesData.length; i++) {
+      const day = i + 1;
+      const sales = dailySalesData[i];
+      dailySales.push({ day, sales });
+    }
+
+    return {
+      month: currentMonth,
+      year: currentYear,
+      dailySales,
+    };
+  } catch (error) {
+    console.error("Error calculating daily product sales:", error);
+    return null;
+  }
+};
+
 // // Route to add product to seller's products list
 // router.post(
 //   "/addproduct",

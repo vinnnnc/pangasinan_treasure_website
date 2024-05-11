@@ -72,6 +72,8 @@
 
 <script>
   (async function () {
+    const userId = localStorage.getItem("userId");
+    var sellerId = null;
     // Function to fetch seller details and orders
     async function fetchOrders(sellerId) {
       try {
@@ -198,6 +200,7 @@
                   })
                   .then((data) => {
                     console.log("Order updated successfully:", data);
+                    fetchOrders(sellerId);
                     // Perform actions based on the updated order, such as updating UI, etc.
                   })
                   .catch((error) => {
@@ -217,9 +220,6 @@
     // Usage: Call fetchOrders with the seller ID
     // const userId = localStorage.getItem("userId");
     // const sellerId = await getSellerById(userId);
-
-    const userId = localStorage.getItem("userId");
-    var sellerId = null;
 
     // Fetch request to get the seller data based on the user ID
     await fetch(`/api/v1/seller/${userId}`)

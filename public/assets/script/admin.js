@@ -30,7 +30,7 @@ const loadAccountSettings = document.getElementById("option-account-settings");
 const loadAdmins = document.getElementById("option-admins");
 
 loadDashboard.addEventListener("click", () => {
-  $(".dashboard").load("/admin/dashboard.html");
+  $(".dashboard").load("/admin/overview.html");
   loadScripts();
 });
 loadUsers.addEventListener("click", () => {
