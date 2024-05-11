@@ -210,6 +210,13 @@ main {
 
 #checkout-btn.disabled {
   pointer-events: none;
+  cursor: unset;
+  opacity: 50%;
+}
+
+#place-order-btn.disabled {
+  pointer-events: none;
+  cursor: unset;
   opacity: 50%;
 }
 

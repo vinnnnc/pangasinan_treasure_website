@@ -56,10 +56,10 @@
         return null;
       }
     };
+
     const productsData = await fetchProductMetrics();
-    console.log(productsData);
-    // Select
-    // Function to add options to the select element
+    const selectData = [...productsData];
+
     function addOptionsToSelect(options) {
       const selectElement = document.getElementById("product-list-data");
       options.forEach((option, index) => {
@@ -70,8 +70,15 @@
       });
     }
 
+    // Call the function to add options to the select element
+    addOptionsToSelect(selectData);
+
     // Set first value
+
     changeProductData(0);
+    // Call the function to populate the table with data
+    sortProductsData("totalSales");
+    populateProductTable(productsData);
 
     // Function to change product data based on the selected option
     function changeProductData(selectedOption) {
@@ -87,15 +94,12 @@
       // };
 
       // Update the product data based on the selected option
-      const selectedData = productsData[selectedOption];
+      const selectedData = selectData[selectedOption];
       console.log(selectedData);
       productSales.textContent = selectedData.totalSales;
       productRevenue.textContent = `₱ ${selectedData.totalRevenue.toFixed(2)}`;
       productViews.textContent = selectedData.totalViews;
     }
-
-    // Call the function to add options to the select element
-    addOptionsToSelect(productsData);
 
     // Add event listener to the select element
     const selectElement = document.getElementById("product-list-data");
@@ -175,10 +179,6 @@
       //   tableBody.appendChild(row);
       // });
     }
-
-    // Call the function to populate the table with data
-    sortProductsData("totalSales");
-    populateProductTable(productsData);
 
     // Fetch monthly sales and revenue data
     const fetchMonthlyData = async () => {

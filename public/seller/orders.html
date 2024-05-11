@@ -200,6 +200,7 @@
                   })
                   .then((data) => {
                     console.log("Order updated successfully:", data);
+                    orderTableBody.innerHTML = "";
                     fetchOrders(sellerId);
                     // Perform actions based on the updated order, such as updating UI, etc.
                   })

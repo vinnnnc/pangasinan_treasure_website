@@ -497,6 +497,7 @@ const successPanel = document.querySelector(".order-success-panel");
 const successCloseBtn = document.querySelector(".close-order-success-btn");
 const placeOrderBtn = document.getElementById("place-order-btn");
 placeOrderBtn.addEventListener("click", async () => {
+  placeOrderBtn.classList.add("disabled");
   await placeOrder(getOrderDetails())
     .then(async (order) => {
       console.log(checkedItems);
@@ -516,6 +517,9 @@ placeOrderBtn.addEventListener("click", async () => {
       await fetchCartItems();
       hidePanel();
       successPanel.classList.remove("hide");
+      checkedItems.length = 0;
+      updateSummary();
+      placeOrderBtn.classList.remove("disabled");
       // Perform actions based on the order, such as updating UI, etc.
     })
     .catch((error) => {
