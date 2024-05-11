@@ -15,7 +15,8 @@
         </div>
       </div>
       <div class="div2">
-        <div>Daily Sales</div>
+        <div id="chart-title">No Products Yet</div>
+
         <canvas id="monthly-chart"></canvas>
       </div>
       <div class="div3">
@@ -193,7 +194,8 @@
       }
     };
 
-    let monthlyChart = document.getElementById("monthly-chart");
+    const monthlyChart = document.getElementById("monthly-chart");
+    const chartTitle = document.getElementById("chart-title");
 
     const updateMonthlyChart = async () => {
       const monthlyData = await fetchMonthlyData();
@@ -201,6 +203,9 @@
       if (!monthlyData) {
         console.log("Failed to fetch monthly data");
         return;
+      }
+      if (monthlyData.length > 0) {
+        chartTitle.innerHTML = "Daily Sales";
       }
 
       const { dailySales, month, year } = monthlyData;
@@ -243,7 +248,6 @@
         },
       });
     };
-
     // Call the function to update the chart
     updateMonthlyChart();
   })();

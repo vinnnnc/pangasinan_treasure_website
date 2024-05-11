@@ -990,3 +990,7 @@ thead {
   /* line-height: 1.5rem; */
   padding-bottom: 10px;
 }
+
+#monthly-chart {
+  min-height: 90%;
+}

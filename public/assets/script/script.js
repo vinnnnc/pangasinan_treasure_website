@@ -83,16 +83,18 @@ async function login(username, password) {
     .then((response) => response.json())
     .then((data) => {
       // Handle the response data
-
-      console.log(data.user); // Log the user email
+      console.log("Admin: " + data.isAdmin);
+      console.log(data.userId); // Log the user email
       console.log(data.token); // Log the token
       localStorage.setItem("token", data.token);
+      localStorage.setItem("isAdmin", data.isAdmin);
       localStorage.setItem("userId", data.userId);
       if (!data.token) {
         alert("Wrong Username or Password!");
         return;
       }
-      window.location.href = "/";
+      if (data.isAdmin) window.location.href = "/admin";
+      else window.location.href = "/";
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -109,8 +111,7 @@ function loginStatus() {
 }
 
 function logout() {
-  localStorage.removeItem("userId");
-  localStorage.removeItem("token");
+  localStorage.clear();
   console.log("Logged out successfully");
   window.location.href = "/login"; // Redirect to Login
 }

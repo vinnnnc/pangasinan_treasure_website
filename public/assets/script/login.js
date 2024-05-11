@@ -42,10 +42,10 @@ signupForm.addEventListener("submit", function (event) {
   const gender = formData.get("gender");
   const password = formData.get("password");
 
-  if (!isPasswordStrong) {
-    alert(checkPasswordStrength(password));
-    return;
-  }
+  // if (!isPasswordStrong) {
+  //   alert(checkPasswordStrength(password));
+  //   return;
+  // }
 
   registerUser(
     fullname,
