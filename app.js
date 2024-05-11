@@ -22,6 +22,9 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/public/login.html");
 });
+app.get("/signup", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
 app.get("/product", (req, res) => {
   res.sendFile(__dirname + "/public/product.html");
 });

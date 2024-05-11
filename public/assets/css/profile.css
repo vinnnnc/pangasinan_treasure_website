@@ -396,3 +396,13 @@ main input {
   color: var(--secondary-color);
   background-color: var(--accent-color);
 }
+
+.no-orders-message {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 0 3px #0003;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

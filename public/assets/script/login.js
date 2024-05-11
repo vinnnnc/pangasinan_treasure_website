@@ -100,7 +100,10 @@ function changeLogin() {
   signupWindow.classList.toggle("change-window");
   loginBrand.classList.toggle("small");
 }
-
+console.log(window.location.pathname);
+if (window.location.pathname === "/signup") {
+  changeLogin();
+}
 loginToSignupBtn[0].addEventListener("click", () => {
   changeLogin();
 });
