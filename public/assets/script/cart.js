@@ -343,6 +343,8 @@ async function updateCartQuantity(itemId, newQuantity) {
     console.log("Item quantity updated successfully:", data.message);
     console.log("Updated cart:", data.cart);
     await fetchCartItems();
+    checkedItems.length = 0;
+    updateSummary();
     // Optionally, you can update the UI with the updated cart data
     return true;
   } catch (error) {
@@ -403,7 +405,7 @@ window.onload = fetchCartItems();
 
 const placeOrder = async (orderData) => {
   try {
-    const response = await fetch("/api/v1/orders", {
+    const response = await fetch("/api/v1/order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

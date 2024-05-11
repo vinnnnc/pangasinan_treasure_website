@@ -39,12 +39,38 @@ loadAddProduct.addEventListener("click", () => {
 loadOrders.addEventListener("click", () => {
   $(".dashboard").load("/seller/orders.html");
 });
-loadReviews.addEventListener("click", () => {
-  $(".dashboard").load("/seller/reviews.html");
-});
+// loadReviews.addEventListener("click", () => {
+//   $(".dashboard").load("/seller/reviews.html");
+// });
 loadStoreSettings.addEventListener("click", () => {
   $(".dashboard").load("/seller/storesettings.html");
 });
 loadAccountSettings.addEventListener("click", () => {
   $(".dashboard").load("/seller/accountsettings.html");
 });
+
+// async function getSellerById(userId) {
+//   // var sellerId = null;
+
+//   // Fetch request to get the seller data based on the user ID
+//   await fetch(`/api/v1/seller/${userId}`)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error(`HTTP error! Status: ${response.status}`);
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       // Handle the data containing the seller name and ID
+//       const sellerName = data.name;
+//       const sellerId = data._id;
+//       console.log("Seller Name:", sellerName);
+//       console.log("Seller ID:", sellerId);
+//       return { sellerId };
+//       // Further processing with the seller name and ID, if needed
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching seller data:", error);
+//       // Handle errors, show error message, etc.
+//     });
+// }

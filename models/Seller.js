@@ -33,6 +33,7 @@ const sellerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dateJoined: { type: Date, default: Date.now },
 });
 
 const Seller = mongoose.model("Seller", sellerSchema);

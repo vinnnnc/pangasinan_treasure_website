@@ -132,6 +132,7 @@ main {
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .breadcrumb-text {
@@ -249,16 +250,18 @@ select {
 .manage-products-table td:first-child,
 .manage-products-table th:first-child {
   border-radius: 3px 0 0 3px;
+  width: 50%;
 }
 .manage-products-table td:last-child,
 .manage-products-table th:last-child {
   border-radius: 0 3px 3px 0;
 }
 
-.manage-products-table tr td:nth-child(2) {
+.manage-products-table tr td:nth-child(1) {
   display: flex;
   align-items: center;
   text-align: left;
+  padding-inline: 20px;
 }
 
 .manage-products-table img {
@@ -452,6 +455,10 @@ input:checked + .slider:before {
   justify-content: space-between;
   align-items: center;
 }
+
+td:has(.order-top) {
+  display: table-cell !important  ;
+}
 .order-top div {
   display: flex;
   align-items: center;
@@ -471,6 +478,7 @@ input:checked + .slider:before {
 }
 
 .order-top-row {
+  display: table-row;
   translate: 0 9px;
 }
 .order-top-row td {
@@ -486,7 +494,7 @@ input:checked + .slider:before {
   background-color: white;
   padding: 20px;
   box-shadow: 0 0 3px #0003;
-  padding: 10px;
+  /* padding: 10px; */
   text-align: center;
 }
 
@@ -503,11 +511,12 @@ input:checked + .slider:before {
   border-radius: 0 3px 3px 0;
 }
 
-.order-table tr:not(:first-child) td:nth-child(1) {
+.order-table tr td:nth-child(1) {
   display: flex;
   align-items: center;
   text-align: left;
   margin-left: 20px;
+  width: 100%;
 }
 
 .order-table img {
@@ -696,6 +705,7 @@ oduct-variants th:nth-child(1),
   text-align: center !important;
 } */
 
+.view-product,
 .delete-product,
 .delete-variant-btn,
 #add-variant-btn {
@@ -704,6 +714,16 @@ oduct-variants th:nth-child(1),
   margin: auto;
   display: block;
   color: white;
+  width: 70px;
+  margin-block: 5px;
+  transition: 150ms;
+}
+
+.view-product:hover,
+.delete-product:hover,
+.delete-variant-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
 }
 #add-variant-btn {
   margin-block: 10px;
@@ -720,6 +740,7 @@ oduct-variants th:nth-child(1),
   border-radius: 3px;
   overflow: hidden;
   /* text-align: center; */
+  transition: 150ms;
 }
 .variant-gallery-preview {
   margin: auto !important;
@@ -728,6 +749,11 @@ oduct-variants th:nth-child(1),
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.variant-gallery-preview:hover {
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
 }
 .variant-image {
   position: absolute;
@@ -791,4 +817,20 @@ label[for="maxOrders"] {
 
 #product-variants tbody tr {
   border: 1px solid var(--secondary-color);
+}
+
+.fullwidth {
+  display: table-cell !important;
+  text-align: center !important;
+  padding-inline: 20px;
+  border-radius: 3px !important;
+}
+
+thead {
+  height: 50px;
+}
+
+.pack-btn.packed {
+  opacity: 50%;
+  pointer-events: none;
 }

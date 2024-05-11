@@ -28,8 +28,8 @@
         <th>Action</th>
       </tr>
     </thead>
-    <tbody>
-      <tr class="order-top-row">
+    <tbody id="order-table-body">
+      <!-- <tr class="order-top-row">
         <td colspan="6">
           <div class="order-top">
             <div>
@@ -60,7 +60,7 @@
         </td>
         <td>Pending</td>
         <td><button class="pack-btn">Pack</button></td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
   <!-- <div class="pagination_section">
@@ -71,74 +71,141 @@
 </div>
 
 <script>
-  (function () {
+  (async function () {
     // Function to fetch seller details and orders
     async function fetchOrders(sellerId) {
       try {
-        const response = await fetch(`/api/v1/seller/${sellerId}`);
+        const response = await fetch(`/api/v1/seller/${sellerId}/orders`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const seller = await response.json();
-        console.log("Seller details:", seller);
+        const OrderList = await response.json();
+        console.log("Seller order list:", OrderList);
+
+        // Create order rows
+        const orderTableBody = document.getElementById("order-table-body");
+
+        if (OrderList.length == 0) {
+          orderTableBody.innerHTML = "";
+          const orderTopRow = document.createElement("tr");
+          orderTopRow.innerHTML = `
+                                    <td colspan="6" class="fullwidth">No orders yet</td>
+                                  `;
+          orderTableBody.appendChild(orderTopRow);
+          return;
+        }
 
         // Loop through the orders and fetch order details
-        for (const orderId of seller.orders) {
-          const orderResponse = await fetch(`/api/v1/order/${orderId}`);
+        for (const orderId of OrderList) {
+          const orderResponse = await fetch(`/api/v1/order/${orderId._id}`);
           if (!orderResponse.ok) {
             throw new Error(`HTTP error! Status: ${orderResponse.status}`);
           }
           const order = await orderResponse.json();
           console.log("Order details:", order);
 
-          // Create order rows
-          const orderTopRow = document.createElement("tr");
-          orderTopRow.classList.add("order-top-row");
-          orderTopRow.innerHTML = `
-        <td colspan="6">
-          <div class="order-top">
-            <div>
-              <img src="/assets/images/user.svg" alt="user" class="user-icon" />
-              <span class="order-user">${order.userId.name}</span>
-              <span class="order-item-count">(${order.orderItems.length} item${
-            order.orderItems.length === 1 ? "" : "s"
-          })</span>
-            </div>
-            <div>
-              <span class="order-number">Order Number:</span>
-              <span class="order-date">${new Date(
-                order.dateOrdered
-              ).toLocaleDateString()}</span>
-            </div>
-          </div>
-        </td>
-      `;
-          document.getElementById("orderTableBody").appendChild(orderTopRow);
+          // <span class="order-item-count">(${
+          //                                   order.orderItems.length
+          //                                 } item${
+          //     order.orderItems.length === 1 ? "" : "s"
+          //   })</span>
 
           for (const item of order.orderItems) {
+            const orderTopRow = document.createElement("tr");
+            orderTopRow.classList.add("order-top-row");
+            orderTopRow.innerHTML = `
+                                    <td colspan="6">
+                                      <div class="order-top">
+                                        <div>
+                                          <img src="/assets/images/user.svg" alt="user" class="user-icon" />
+                                          <span class="order-user">${
+                                            order.userName
+                                          }</span>
+
+                                        </div>
+                                        <div>
+                                          <span class="order-number">Order: ${
+                                            order.orderNumber
+                                          }</span>
+                                          <span class="order-date">${new Date(
+                                            order.dateOrdered
+                                          ).toLocaleDateString()}</span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                  `;
+            orderTableBody.appendChild(orderTopRow);
             const orderRow = document.createElement("tr");
             orderRow.innerHTML = `
-          <td>
-            <img src="/assets/images/products/${
-              item.productId.images[0]
-            }" alt="product" />
-            <div>
-              <div>${item.productId.name}</div>
-              <div>${item.productId.variants[item.variant].variantName}</div>
-            </div>
-          </td>
-          <td>x ${item.quantity}</td>
-          <td>₱${(
-            item.productId.variants[item.variant].price * item.quantity
-          ).toFixed(2)}</td>
-          <td>
-            <div>${order.shippingAddress}</div>
-            <div>${order.paymentMethod}</div>
-          </td>
-          <td>${order.status}</td>
-          <td><button class="pack-btn">Pack</button></td>
-        `;
-            document.getElementById("orderTableBody").appendChild(orderRow);
+                                    <td>
+                                      <img src="/${
+                                        item.productId.images[0]
+                                      }" alt="product" />
+                                      <div>
+                                        <div>${item.productId.name}</div>
+                                        <div>${
+                                          item.productId.variants[item.variant]
+                                            .variantName
+                                        }</div>
+                                      </div>
+                                    </td>
+                                    <td>x ${item.quantity}</td>
+                                    <td>₱${(
+                                      item.productId.variants[item.variant]
+                                        .price * item.quantity
+                                    ).toFixed(2)}</td>
+                                    <td>
+                                      <div>${order.shippingAddress}</div>
+                                      <div>${order.paymentMethod}</div>
+                                    </td>
+                                    <td>${
+                                      order.status === "Pending"
+                                        ? "Seller To Pack"
+                                        : order.status === "Delivered"
+                                        ? "Delivered"
+                                        : "Out for delivery"
+                                    }</td>
+                                    <td><button class="pack-btn ${
+                                      order.status === "Packed"
+                                        ? "packed"
+                                        : order.status === "Delivered"
+                                        ? "packed"
+                                        : ""
+                                    }" id="pack-btn-${
+              item._id
+            }">Pack</button></td>
+                                  `;
+            orderTableBody.appendChild(orderRow);
+
+            const packBtn = document.getElementById(`pack-btn-${item._id}`);
+            packBtn.addEventListener("click", () => {
+              if (confirm("Pack Item?")) {
+                // packBtn.classList.add("packed");
+                const updatedStatus = "Packed";
+
+                fetch(`/api/v1/order/${orderId._id}`, {
+                  method: "PATCH",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ status: updatedStatus }),
+                })
+                  .then((response) => {
+                    if (!response.ok) {
+                      throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                  })
+                  .then((data) => {
+                    console.log("Order updated successfully:", data);
+                    // Perform actions based on the updated order, such as updating UI, etc.
+                  })
+                  .catch((error) => {
+                    console.error("Error updating order:", error);
+                    // Handle errors, show error message, etc.
+                  });
+              }
+            });
           }
         }
       } catch (error) {
@@ -148,7 +215,33 @@
     }
 
     // Usage: Call fetchOrders with the seller ID
-    const sellerId = "your_seller_id_here";
-    fetchOrders(sellerId);
+    // const userId = localStorage.getItem("userId");
+    // const sellerId = await getSellerById(userId);
+
+    const userId = localStorage.getItem("userId");
+    var sellerId = null;
+
+    // Fetch request to get the seller data based on the user ID
+    await fetch(`/api/v1/seller/${userId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Handle the data containing the seller name and ID
+        const sellerName = data.name;
+        sellerId = data._id;
+        console.log("Seller Name:", sellerName);
+        console.log("Seller ID:", sellerId);
+        // Further processing with the seller name and ID, if needed
+      })
+      .catch((error) => {
+        console.error("Error fetching seller data:", error);
+        // Handle errors, show error message, etc.
+      });
+
+    await fetchOrders(sellerId);
   })();
 </script>

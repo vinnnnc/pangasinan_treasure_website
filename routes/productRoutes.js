@@ -48,13 +48,18 @@ router.get("/:userId/products", async (req, res) => {
   }
 });
 
-// Get product by ID
+// Get product by ID and increment views
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
+    // Increment views and save the product
+    product.views += 1;
+    await product.save();
+
     res.json(product);
   } catch (err) {
     res.status(500).json({ message: err.message });

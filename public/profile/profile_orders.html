@@ -1,5 +1,5 @@
 <div class="my-orders">
-  <div class="order-card">
+  <!-- <div class="order-card">
     <div class="order-card-top">
       <span class="order-shop-name">Juan's Shop</span>
       <span class="order-status">Received</span>
@@ -12,4 +12,143 @@
       <div class="order-quantity">Qty: 1</div>
     </div>
   </div>
+  <div class="order-card">
+    <div class="order-card-top">
+      <span class="order-shop-name">Juan's Shop</span>
+      <span class="order-status">Received</span>
+    </div>
+    <div class="order-item">
+      <img src="/assets/images/products/Picture1.jpg" alt="product" />
+      <div class="order-name">JB Bagoong</div>
+      <div class="order-variant">Class A</div>
+      <div class="order-price">540.00</div>
+      <div class="order-quantity">Qty: 1</div>
+    </div>
+  </div> -->
 </div>
+
+<script>
+  function initOrders() {
+    // Assuming you have a function to fetch the order items for a user
+    async function fetchOrderItems(userId) {
+      try {
+        const response = await fetch(`/api/v1/order/user/${userId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        return data; // Assuming the API response contains an 'orderItems' array
+      } catch (error) {
+        console.error("Error fetching order items:", error);
+        // Handle errors, show error message, etc.
+      }
+    }
+
+    // Function to create and append order cards to .my-orders
+    async function displayOrderItems(userId) {
+      const orders = await fetchOrderItems(userId);
+      const myOrdersContainer = document.querySelector(".my-orders");
+      myOrdersContainer.innerHTML = "";
+      if (orders.length > 0) {
+        orders.forEach((item) => {
+          console.log(item.orderItems);
+          const orderCard = document.createElement("div");
+          orderCard.classList.add("order-card");
+
+          const orderCardTop = document.createElement("div");
+          orderCardTop.classList.add("order-card-top");
+          orderCardTop.innerHTML = `
+                    <span class="order-shop-name">${
+                      item.orderItems[0].productId.seller.name
+                    }</span>
+                    <span class="order-status order-status-btn ${
+                      item.status === "Pending"
+                        ? "pending"
+                        : item.status === "Packed"
+                        ? "receive"
+                        : "pending"
+                    }" id="status-btn-${item._id}">${
+            item.status === "Pending"
+              ? "Pending"
+              : item.status === "Packed"
+              ? "Receive"
+              : "Delivered"
+          }</span>
+                  `;
+          orderCard.appendChild(orderCardTop);
+
+          const orderItemContent = document.createElement("div");
+          orderItemContent.classList.add("order-item");
+          orderItemContent.innerHTML = `
+                            <img src="/${
+                              item.orderItems[0].productId.images[0]
+                            }" alt="product" />
+                            <div class="order-name">${
+                              item.orderItems[0].productId.name
+                            }</div>
+                            <div class="order-variant">${item.orderItems
+                              .map(
+                                (orderItem) =>
+                                  orderItem.productId.variants[
+                                    orderItem.variant
+                                  ].variantName
+                              )
+                              .join("<br>")}</div>
+                            <div class="order-price">${item.totalPrice}</div>
+                            <div class="order-quantity">Qty: ${
+                              item.orderItems.length
+                            }</div>
+                          `;
+          orderCard.appendChild(orderItemContent);
+
+          myOrdersContainer.appendChild(orderCard);
+          console.log(item._id);
+          const statusBtn = document.getElementById(`status-btn-${item._id}`);
+          statusBtn.addEventListener("click", () => {
+            if (confirm("Receive Order?")) {
+              // packBtn.classList.add("packed");
+              const updatedStatus = "Delivered";
+
+              fetch(`/api/v1/order/${item._id}`, {
+                method: "PATCH",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ status: updatedStatus }),
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  const userId = localStorage.getItem("userId"); // Replace 'your-user-id' with the actual user ID
+                  displayOrderItems(userId);
+                  return response.json();
+                })
+                .then((data) => {
+                  console.log("Order updated successfully:", data);
+                  // Perform actions based on the updated order, such as updating UI, etc.
+                })
+                .catch((error) => {
+                  console.error("Error updating order:", error);
+                  // Handle errors, show error message, etc.
+                });
+            }
+          });
+        });
+      } else {
+        // Display a message if there are no order items
+        const noOrdersMessage = document.createElement("div");
+        noOrdersMessage.classList.add("no-orders-message");
+        noOrdersMessage.textContent = "No orders found.";
+        myOrdersContainer.appendChild(noOrdersMessage);
+      }
+    }
+
+    // Call the function to display order items for a specific user
+
+    const userId = localStorage.getItem("userId"); // Replace 'your-user-id' with the actual user ID
+    displayOrderItems(userId);
+  }
+  initOrders();
+</script>

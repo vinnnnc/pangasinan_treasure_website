@@ -182,15 +182,14 @@ productViewQuantity.addEventListener("focusout", () => {
 const productGalleryImages = document.querySelectorAll(".gallery-img");
 const productImage = document.getElementById("product-view-image");
 
-
 productGalleryImages.forEach((element) => {
   element.addEventListener("mouseover", () => {
     productImage.src = element.src;
-    console.log(element.firstChild);
+    // console.log(element.firstChild);
   });
   element.addEventListener("mouseout", () => {
     productImage.src = mainImage;
-    console.log(element.firstChild);
+    // console.log(element.firstChild);
   });
   element.addEventListener("click", () => {
     productImage.src = element.src;
@@ -199,8 +198,6 @@ productGalleryImages.forEach((element) => {
       element.parentElement.classList.remove("gallery-active");
     });
     element.parentElement.classList.add("gallery-active");
-    console.log(element.firstChild);
+    // console.log(element.firstChild);
   });
 });
-
-

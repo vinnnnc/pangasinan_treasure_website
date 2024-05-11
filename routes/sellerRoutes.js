@@ -49,6 +49,26 @@ router.get("/:id", getSeller, (req, res) => {
   res.json(res.seller);
 });
 
+// Get order list for a seller
+router.get("/:sellerId/orders", async (req, res) => {
+  const { sellerId } = req.params;
+
+  try {
+    // Find the seller by ID and populate their orders
+    const seller = await Seller.findById(sellerId).populate("orders");
+
+    if (!seller) {
+      return res.status(404).json({ message: "Seller not found" });
+    }
+
+    // Extract and return the order list
+    const orderList = seller.orders;
+    res.json(orderList);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Update seller by ID
 router.patch("/:id", getSeller, async (req, res) => {
   if (req.body.name != null) {

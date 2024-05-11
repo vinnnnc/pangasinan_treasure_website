@@ -319,6 +319,7 @@ main input {
 
 .order-card {
   background-color: white;
+  margin: 10px;
 }
 
 .right-section:has(.my-orders) {
@@ -378,4 +379,20 @@ main input {
   color: white;
   padding-inline: 5px;
   margin-bottom: 2px;
+}
+
+.order-status.pending {
+  opacity: 50%;
+  pointer-events: none;
+}
+
+.order-status {
+  pointer-events: all;
+  cursor: pointer;
+  transition: 150ms;
+}
+
+.order-status:hover {
+  color: var(--secondary-color);
+  background-color: var(--accent-color);
 }

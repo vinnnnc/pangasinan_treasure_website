@@ -9,6 +9,7 @@ const addressBookSchema = new mongoose.Schema({
   isDefault: { type: Boolean, default: true },
 });
 
+
 const userSchema = new mongoose.Schema({
   fullname: { type: String, required: true },
   username: { type: String, required: true },
@@ -19,15 +20,10 @@ const userSchema = new mongoose.Schema({
   gender: { type: String, enum: ["male", "female", "other"], required: true },
   password: { type: String, required: true },
   avatar: { type: String, default: "/assets/images/default-avatar.png" },
-  // address: {
-  //   street: { type: String },
-  //   apartment: { type: String },
-  //   city: { type: String },
-  //   zip: { type: String },
-  // },
   addressbook: [addressBookSchema],
   userWallet: { type: mongoose.Schema.Types.ObjectId, ref: "UserWallet" },
   isadmin: { type: Boolean, default: false },
+  dateJoined: { type: Date, default: Date.now },
   // other user fields
 });
 

@@ -36,11 +36,11 @@
   <table class="manage-products-table" id="manage-products-table">
     <thead>
       <tr>
-        <th>select</th>
+        <!-- <th>select</th> -->
         <th>Product</th>
         <th>Price</th>
         <th>Stock</th>
-        <th>Delete</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody class="manage-products-tbody"></tbody>
@@ -86,12 +86,12 @@
       products.forEach((product) => {
         const tr = document.createElement("tr");
         tr.classList.add(`${product.category}`);
+        // <td>
+        //   <input type="checkbox" id="select-product-${
+        //     product._id
+        //   }" />
+        // </td>
         tr.innerHTML = `
-                        <td>
-                          <input type="checkbox" id="select-product-${
-                            product._id
-                          }" />
-                        </td>
                         <td>
                           <img src="/${product.images[0]}" alt="${
           product.name
@@ -105,6 +105,9 @@
                             <button class="delete-product" id="delete-${
                               product._id
                             }">Delete</button>
+                            <button class="view-product" id="view-${
+                              product._id
+                            }">Details</button>
                         </td>
                       `;
         // <span class="slider round"></span>
@@ -154,7 +157,7 @@
           if (products.length == 0) {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                      <td colspan="5" style="height: 50px">No products yet.</td>
+                      <td colspan="4" style="height: 50px" class="fullwidth">No products yet</td>
                     `;
             // <span class="slider round"></span>
             tableBody.appendChild(tr);
