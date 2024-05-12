@@ -18,9 +18,30 @@ buyBtn.addEventListener("click", async () => {
     "Adding " + productId + " x " + quantity + ", Variant: " + variantNumber
   );
   await addItemToCart(productId, quantity, variantNumber, true);
-  console.log(buyItem._id);
-  window.location.href = `/cart?id=${buyItem._id}`;
+  console.log(buyItem);
+  const cartItemId = findCartItemById(productId);
+  // if (cartItemId) {
+  //   console.log("Product ID found in cart:", cartItemId);
+  //   // Now you can use the cartItemId as needed
+  //   // window.location.href = `/cart?id=${cartItemId}`;
+  // } else {
+  //   console.error("Product ID not found in cart");
+  //   // Handle the case where the product ID is not found in the cart
+  // }
+  window.location.href = `/cart?id=${cartItemId}`;
 });
+
+function findCartItemById(productId) {
+  if (buyItem && buyItem.items && buyItem.items.length > 0) {
+    const foundItem = buyItem.items.find(
+      (item) => item.productId === productId
+    );
+    if (foundItem) {
+      return foundItem._id;
+    }
+  }
+  return null; // Return null if the product ID is not found in the cart
+}
 
 addCartBtn.addEventListener("click", () => {
   const token = localStorage.getItem("token");

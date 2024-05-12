@@ -10,17 +10,16 @@ const checkAll = document.getElementById("cart-select-all");
 const checkedItems = [];
 const checkedShops = {};
 
-const urlParams = new URLSearchParams(window.location.search);
-const productId = urlParams.get("id");
-
 // checkAll.addEventListener("change", () => {
 //   checkboxes = document.getElementsByClassName("checkbox");
 //   for (var i = 0, n = checkboxes.length; i < n; i++) {
 //     checkboxes[i].checked = checkAll.checked;
 //   }
 // });
+const urlParams = new URLSearchParams(window.location.search);
+const cartItemId = urlParams.get("id");
 
-checkoutBtn.addEventListener("click", () => {
+function checkout() {
   const checkoutSubtotal1 = document.getElementById("checkout-subtotal-1");
   const checkoutSubtotal2 = document.getElementById("checkout-subtotal-2");
   const checkoutShippingFee = document.getElementById("checkout-shipping-fee");
@@ -29,8 +28,11 @@ checkoutBtn.addEventListener("click", () => {
   checkoutShippingFee.innerText = shippingfeeText.innerText;
   console.log();
   hidePanel();
-  // let totalPrice = 0;
+}
 
+checkoutBtn.addEventListener("click", () => {
+  checkout();
+  // let totalPrice = 0;
   // checkedItems.forEach((item) => {
   //   totalPrice += item.productId.variants[item.variant].price * item.quantity;
   //   totalPrice += 40;
@@ -73,6 +75,7 @@ const fetchCartItems = async () => {
       throw new Error("Failed to fetch cart items");
     }
     const cart = await response.json();
+
     const cartItems = cart.items; // Array of cart items
     if (cartItems.length > 0) {
       document.getElementById("empty-cart").style.display = "none";
@@ -275,6 +278,15 @@ const fetchCartItems = async () => {
       deletebtn.addEventListener("click", () => {
         deleteCartItem(cartItem._id);
       });
+
+      if (cartItemId == cartItem._id) {
+        checkedItems.push(cartItem);
+        checkbox.checked = true;
+        updateSummary();
+        console.log("Cart " + cartItemId + " found:" + cartItem);
+        console.log(checkedItems);
+        checkout();
+      }
     });
   } catch (error) {
     console.error("Error fetching cart items:", error);
