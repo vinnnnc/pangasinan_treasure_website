@@ -37,18 +37,18 @@ loadUsers.addEventListener("click", () => {
   $(".dashboard").load("/admin/users.html");
   loadScripts();
 });
-loadHomepage.addEventListener("click", () => {
-  $(".dashboard").load("/admin/homepage.html");
-  loadScripts();
-});
-loadAccountSettings.addEventListener("click", () => {
-  $(".dashboard").load("/admin/accountsettings.html");
-  loadScripts();
-});
-loadAdmins.addEventListener("click", () => {
-  $(".dashboard").load("/admin/administrators.html");
-  loadScripts();
-});
+// loadHomepage.addEventListener("click", () => {
+//   $(".dashboard").load("/admin/homepage.html");
+//   loadScripts();
+// });
+// loadAccountSettings.addEventListener("click", () => {
+//   $(".dashboard").load("/admin/accountsettings.html");
+//   loadScripts();
+// });
+// loadAdmins.addEventListener("click", () => {
+//   $(".dashboard").load("/admin/administrators.html");
+//   loadScripts();
+// });
 
 function loadScripts() {
   const scripts = document
@@ -58,3 +58,11 @@ function loadScripts() {
     eval(scripts[i].innerHTML); // Execute the script
   }
 }
+
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn.addEventListener("click", () => {
+  localStorage.clear();
+  localStorage.removeItem("isAdmin");
+  console.log("Logged out successfully");
+  window.location.href = "/login"; // Redirect to Login
+});

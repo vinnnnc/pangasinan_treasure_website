@@ -22,6 +22,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/assets/script/adminAuth.js"></script>
     <script>
+      const isAdmin = localStorage.getItem("isAdmin");
+      if (!isAdmin) window.location.href = "/";
       $(function () {
         $("#header").load("header.html");
         $("#footer").load("footer.html");
@@ -55,7 +57,7 @@
             <div class="dropdown-option" id="option-users">Users</div>
             <div class="collapse-btn">&#8249;</div>
           </div>
-          <div class="dropdown" id="homepage-dropdown">
+          <!-- <div class="dropdown" id="homepage-dropdown">
             <div class="dropdown-option dropdown-title">
               <img
                 src="/assets/images/icons/house-solid.svg"
@@ -77,8 +79,14 @@
             </div>
             <div class="dropdown-option" id="option-admins">Administrators</div>
             <div class="collapse-btn">&#8249;</div>
-          </div>
+          </div> -->
         </div>
+        <button type="button" id="logout-btn">
+          <img
+            src="/assets/images/icons/right-from-bracket-solid.svg"
+            alt=""
+          />Logout
+        </button>
       </section>
       <section class="dashboard"></section>
     </main>

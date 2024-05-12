@@ -435,3 +435,32 @@ main {
 .data-title {
   text-align: center;
 }
+
+#monthly-chart {
+  min-height: 90%;
+}
+
+#logout-btn {
+  background-color: #0000;
+  border: none;
+  position: absolute;
+  left: 5px;
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  transition: 150ms;
+}
+#logout-btn img {
+  height: 20px;
+  width: 20px;
+  margin: 5px;
+  filter: var(--filter-secondary);
+  transition: 150ms;
+}
+
+#logout-btn:hover {
+  color: var(--accent-color);
+}
+#logout-btn:hover img {
+  filter: var(--filter-accent);
+}

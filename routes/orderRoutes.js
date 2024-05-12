@@ -248,4 +248,62 @@ router.get("/seller/analytics", async (req, res) => {
   }
 });
 
+// Route to collect total daily revenues of all sellers
+router.get("/analytics/totalDailyRevenues", async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // January is 0 in JavaScript
+
+    // Calculate the start and end date of the current month
+    const startDate = new Date(currentYear, currentMonth - 1, 1);
+    const endDate = new Date(currentYear, currentMonth, 0, 23, 59, 59, 999);
+
+    // Generate an array of days in the current month
+    const daysInMonth = Array.from(
+      { length: new Date(currentYear, currentMonth, 0).getDate() },
+      (_, i) => i + 1
+    );
+
+    // Fetch total daily revenues for all orders in the current month
+    const dailyRevenues = await Order.aggregate([
+      {
+        $match: {
+          dateOrdered: { $gte: startDate, $lte: endDate },
+          status: "Delivered",
+        },
+      },
+      {
+        $group: {
+          _id: { $dayOfMonth: "$dateOrdered" },
+          revenue: { $sum: "$totalPrice" }, // Assuming totalPrice field holds the revenue amount
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          day: "$_id",
+          revenue: 1,
+        },
+      },
+      { $sort: { day: 1 } }, // Sort by day in ascending order
+    ]);
+
+    // Fill in missing days with 0 revenue
+    const completeDailyRevenues = daysInMonth.map((day) => {
+      const foundDay = dailyRevenues.find((item) => item.day === day);
+      return { day, revenue: foundDay ? foundDay.revenue : 0 };
+    });
+
+    return res.json({
+      year: currentYear,
+      month: currentMonth,
+      dailyRevenues: completeDailyRevenues,
+    });
+  } catch (error) {
+    console.error("Error collecting total daily revenues:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 module.exports = router;

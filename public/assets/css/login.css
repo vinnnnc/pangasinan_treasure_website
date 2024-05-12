@@ -186,3 +186,8 @@ span.psw {
     width: 100%;
   }
 } */
+
+.disabled {
+  opacity: 50%;
+  pointer-events: none;
+}

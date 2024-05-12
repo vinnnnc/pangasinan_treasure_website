@@ -78,3 +78,11 @@ loadAccountSettings.addEventListener("click", () => {
 //       // Handle errors, show error message, etc.
 //     });
 // }
+
+const logoutBtn = document.getElementById("logout-btn");
+logoutBtn.addEventListener("click", () => {
+  localStorage.clear();
+  localStorage.removeItem("isAdmin");
+  console.log("Logged out successfully");
+  window.location.href = "/login"; // Redirect to Login
+});

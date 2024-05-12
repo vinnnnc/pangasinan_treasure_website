@@ -1,5 +1,5 @@
 // Function to Create new user
-function registerUser(
+async function registerUser(
   fullname,
   username,
   phone,
@@ -9,7 +9,7 @@ function registerUser(
   gender,
   password
 ) {
-  fetch("/api/v1/users/register", {
+  await fetch("/api/v1/users/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -29,12 +29,15 @@ function registerUser(
       if (response.ok) {
         console.log("User registered successfully");
         login(username, password);
+        return true;
         // Optionally, redirect or perform other actions after registration
       } else {
         response.json().then((json) => {
           alert(json["message"]);
+
           throw new Error(json["message"]);
         });
+        return false;
         // throw new Error("Error registering user");
       }
     })

@@ -20,6 +20,13 @@ var isPasswordStrong = false;
 var isNameEmpty = true;
 var isPassEmpty = true;
 
+$("body").on("submit", "form", function () {
+  $(this).submit(function () {
+    return false;
+  });
+  return true;
+});
+
 loginBtn.addEventListener("click", () => {
   login(loginNameField.value, loginPassField.value);
   console.log(loginNameField.value, loginPassField.value);
@@ -30,7 +37,7 @@ signupPassField.addEventListener("input", () => {
   loginPassField.style.borderColor = "var(--secondary-color)";
 });
 
-signupForm.addEventListener("submit", function (event) {
+signupForm.addEventListener("submit", async function (event) {
   event.preventDefault(); // Prevent form submission
   const formData = new FormData(event.target);
   const fullname = formData.get("fullname");
@@ -41,13 +48,12 @@ signupForm.addEventListener("submit", function (event) {
   const address = formData.get("address");
   const gender = formData.get("gender");
   const password = formData.get("password");
-
+  signupBtn.classList.add("disabled");
   // if (!isPasswordStrong) {
   //   alert(checkPasswordStrength(password));
   //   return;
   // }
-
-  registerUser(
+  const result = await registerUser(
     fullname,
     username,
     phonenumber,
@@ -57,6 +63,7 @@ signupForm.addEventListener("submit", function (event) {
     gender,
     password
   );
+  if (!result) signupBtn.classList.remove("disabled");
 });
 
 function checkPasswordStrength(password) {

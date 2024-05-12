@@ -8,18 +8,18 @@
           <span>Monthly Sales</span><span id="monthly-sales"></span>
         </div>
         <div class="data-line">
-          <span>Monthly Revenue</span><span id="monthly-revenue"></span>
+          <span>Monthly Sales Revenue</span><span id="monthly-revenue"></span>
         </div>
         <div class="data-line">
           <span>Estimated Share</span><span id="monthly-share"></span>
         </div>
       </div>
       <div class="div2">
-        <div>Daily Sales</div>
+        <div>Daily Sales Revenue</div>
         <canvas id="monthly-chart"></canvas>
       </div>
       <div class="div3">
-        <div class="table-title">Revenue by Products</div>
+        <div class="table-title">Top Revenue by Sellers</div>
         <table id="sellerTable">
           <thead>
             <tr>
@@ -27,8 +27,8 @@
               <th data-sortby="totalSales" class="sort-selected">
                 Monthly Sales
               </th>
-              <th data-sortby="totalRevenue">Monthly Revenue</th>
-              <th data-sortby="totalViews">Commision (3%)</th>
+              <th data-sortby="totalRevenue">Monthly Sales Revenue</th>
+              <th data-sortby="totalRevenue">Commision (3%)</th>
             </tr>
           </thead>
           <tbody>
@@ -61,20 +61,20 @@
     // Call the fetch function to retrieve seller sales and revenue data
     const sellerData = await fetchSellerSalesRevenue();
 
-    const fetchProductMetrics = async (userId) => {
-      try {
-        const userId = localStorage.getItem("userId");
-        const response = await fetch(`/api/v1/product/analytics/${userId}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch product metrics");
-        }
-        const productMetrics = await response.json();
-        return productMetrics;
-      } catch (error) {
-        console.error("Error fetching product metrics:", error);
-        return null;
-      }
-    };
+    // const fetchProductMetrics = async (userId) => {
+    //   try {
+    //     const userId = localStorage.getItem("userId");
+    //     const response = await fetch(`/api/v1/product/analytics/${userId}`);
+    //     if (!response.ok) {
+    //       throw new Error("Failed to fetch product metrics");
+    //     }
+    //     const productMetrics = await response.json();
+    //     return productMetrics;
+    //   } catch (error) {
+    //     console.error("Error fetching product metrics:", error);
+    //     return null;
+    //   }
+    // };
     const productsData = sellerData;
 
     function setMonthlyData() {
@@ -187,6 +187,18 @@
     function populateProductTable(data) {
       const tableBody = document.querySelector("#sellerTable tbody");
       tableBody.innerHTML = "";
+
+      const maxBarSales = data.reduce(
+        (max, item) => (item.totalSales > max ? item.totalSales : max),
+        0
+      );
+      const maxBarRevenue = data.reduce(
+        (max, item) => (item.totalRevenue > max ? item.totalRevenue : max),
+        0
+      );
+      const maxBarCommission = maxBarRevenue * 0.03;
+
+      console.log(maxBarSales + " " + maxBarRevenue + " " + maxBarCommission);
       for (i = 0; i < 10; i++) {
         const seller = data[i];
         if (!seller) break;
@@ -196,9 +208,17 @@
               <td><span class="table-numbering">${i + 1}.</span>${
           seller._id
         }</td>
-              <td>${generateBarGraph(seller.totalSales, 200)}</td>
-              <td>${generateBarGraph(seller.totalRevenue, 10000, true)}</td>
-              <td>${generateBarGraph(seller.totalRevenue * 0.03, 50, true)}</td>
+              <td>${generateBarGraph(seller.totalSales, maxBarSales * 1.5)}</td>
+              <td>${generateBarGraph(
+                seller.totalRevenue,
+                maxBarRevenue * 1.5,
+                true
+              )}</td>
+              <td>${generateBarGraph(
+                seller.totalRevenue * 0.03,
+                maxBarCommission * 1.5,
+                true
+              )}</td>
           `;
         tableBody.appendChild(row);
       }
@@ -223,8 +243,10 @@
     // Fetch monthly sales and revenue data
     const fetchMonthlyData = async () => {
       try {
-        const userId = localStorage.getItem("userId");
-        const response = await fetch(`/api/v1/seller/${userId}/monthlySales`);
+        // const userId = localStorage.getItem("userId");
+        const response = await fetch(
+          `/api/v1/order/analytics/totalDailyRevenues`
+        );
         const data = await response.json();
         return data;
       } catch (error) {
@@ -243,20 +265,19 @@
         return;
       }
 
-      const { dailySales, month, year } = monthlyData;
-
-      const labels = dailySales.map(
+      const { month, year, dailyRevenues } = monthlyData;
+      console.log(dailyRevenues);
+      const labels = dailyRevenues.map(
         (dayData) => `${month}-${dayData.day}-${year.toString().slice(-2)}`
       );
-      const salesData = dailySales.map((dayData) => dayData.sales);
-
+      const salesData = dailyRevenues.map((dayData) => dayData.revenue);
       let monthlySalesChart = new Chart(monthlyChart, {
         type: "bar",
         data: {
           labels,
           datasets: [
             {
-              label: "Sales",
+              label: "Total Sales Revenue",
               data: salesData,
               backgroundColor: "#ff2454",
               // borderColor: "rgba(75, 192, 192, 1)",
@@ -268,7 +289,10 @@
           scales: {
             y: {
               // beginAtZero: true,
-              max: Math.ceil(Math.max(...salesData) / 5) * 5 + 5,
+              max: Math.ceil(Math.max(...salesData) / 5) * 5 * 1.1,
+              ticks: {
+                callback: (label) => `₱ ${label}`,
+              },
             },
           },
           plugins: {

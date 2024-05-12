@@ -193,13 +193,27 @@ router.patch("/list/:id", async (req, res) => {
 });
 
 // Delete a user
+// Delete a user
 router.delete("/list/:id", async (req, res) => {
   try {
+    // Fetch the user from the database
     const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    await user.remove();
+
+    // Fetch the list of users from wherever it's stored (e.g., a database or an array)
+    let userList = await User.find(); // Fetch all users for simplicity; you may fetch only what's needed
+
+    // Filter out the user to be deleted from the userList
+    userList = userList.filter((u) => u._id.toString() !== req.params.id);
+
+    // Save the updated userList back to the database
+    await User.deleteMany({}); // Clear the existing user data (you may want to handle this differently)
+    await User.insertMany(userList); // Insert the updated userList
+    // userList.save;
+
+    console.log("User deleted successfully");
     res.json({ message: "User deleted" });
   } catch (err) {
     res.status(500).json({ message: err.message });

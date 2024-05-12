@@ -20,7 +20,7 @@
         <canvas id="monthly-chart"></canvas>
       </div>
       <div class="div3">
-        <div class="table-title">Revenue by Products</div>
+        <div class="table-title">Top Revenue by Products</div>
         <table id="productTable">
           <thead>
             <tr>
@@ -152,6 +152,21 @@
     function populateProductTable(data) {
       const tableBody = document.querySelector("#productTable tbody");
       tableBody.innerHTML = "";
+
+      const maxBarSales = data.reduce(
+        (max, item) => (item.totalSales > max ? item.totalSales : max),
+        0
+      );
+      const maxBarRevenue = data.reduce(
+        (max, item) => (item.totalRevenue > max ? item.totalRevenue : max),
+        0
+      );
+      const maxBarViews = data.reduce(
+        (max, item) => (item.totalViews > max ? item.totalViews : max),
+        0
+      );
+      console.log(maxBarSales + " " + maxBarRevenue + " " + maxBarViews);
+
       for (i = 0; i < 10; i++) {
         const product = data[i];
         if (!product) break;
@@ -161,9 +176,13 @@
             <td><span class="table-numbering">${i + 1}.</span>${
           product.productName
         }</td>
-            <td>${generateBarGraph(product.totalSales, 200)}</td>
-            <td>${generateBarGraph(product.totalRevenue, 10000, true)}</td>
-            <td>${generateBarGraph(product.totalViews, 50)}</td>
+            <td>${generateBarGraph(product.totalSales, maxBarSales * 1.5)}</td>
+            <td>${generateBarGraph(
+              product.totalRevenue,
+              maxBarRevenue * 1.5,
+              true
+            )}</td>
+            <td>${generateBarGraph(product.totalViews, maxBarViews * 1.5)}</td>
         `;
         tableBody.appendChild(row);
       }
