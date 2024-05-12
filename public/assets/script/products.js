@@ -2,14 +2,24 @@ const addCartBtn = document.getElementById("add-cart-btn");
 const addCartQuantity = document.getElementById("quantity-num");
 const buyBtn = document.getElementById("buy-now-btn");
 var mainImage = "";
+var buyItem = {};
 
-buyBtn.addEventListener("click", () => {
+buyBtn.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
   if (!token) {
     window.location.href = "/login";
     return;
   }
-  window.location.href = "/cart";
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get("id");
+  const quantity = parseInt(addCartQuantity.value, 10);
+  const variantNumber = getSelectedVariant();
+  console.log(
+    "Adding " + productId + " x " + quantity + ", Variant: " + variantNumber
+  );
+  await addItemToCart(productId, quantity, variantNumber, true);
+  console.log(buyItem._id);
+  window.location.href = `/cart?id=${buyItem._id}`;
 });
 
 addCartBtn.addEventListener("click", () => {
@@ -40,10 +50,10 @@ function getSelectedVariant() {
 }
 
 // Function to add item to cart
-function addItemToCart(productId, quantity, variant) {
+async function addItemToCart(productId, quantity, variant, checkout = false) {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  fetch(`/api/v1/cart/add/${userId}/${productId}`, {
+  await fetch(`/api/v1/cart/add/${userId}/${productId}`, {
     method: "POST",
     headers: {
       Authorization: `${token}`,
@@ -51,13 +61,15 @@ function addItemToCart(productId, quantity, variant) {
     },
     body: JSON.stringify({ quantity, variant }),
   })
-    .then((response) => {
+    .then(async (response) => {
       if (!response.ok) {
         throw new Error("Error adding item to cart");
       }
-      console.log({ userId, productId, quantity, variant });
+      buyItem = await response.json();
+      // console.log(cart._id);
       // Item added to cart successfully
-      alert("Item added to cart.");
+      if (!checkout) alert("Item added to cart.");
+      // return cart;
       // You can redirect to the cart page or update cart UI as needed
     })
     .catch((error) => {

@@ -10,6 +10,9 @@ const checkAll = document.getElementById("cart-select-all");
 const checkedItems = [];
 const checkedShops = {};
 
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get("id");
+
 // checkAll.addEventListener("change", () => {
 //   checkboxes = document.getElementsByClassName("checkbox");
 //   for (var i = 0, n = checkboxes.length; i < n; i++) {
