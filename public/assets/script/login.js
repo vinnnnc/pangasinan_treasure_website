@@ -33,8 +33,10 @@ loginBtn.addEventListener("click", () => {
 });
 
 signupPassField.addEventListener("input", () => {
-  console.log(checkPasswordStrength(loginPassField.value));
-  loginPassField.style.borderColor = "var(--secondary-color)";
+  isPasswordStrong = checkPasswordStrength(signupPassField.value);
+  console.log(isPasswordStrong);
+  console.log(signupPassField.value);
+  signupPassField.style.borderColor = "var(--secondary-color)";
 });
 
 signupForm.addEventListener("submit", async function (event) {
@@ -48,11 +50,12 @@ signupForm.addEventListener("submit", async function (event) {
   const address = formData.get("address");
   const gender = formData.get("gender");
   const password = formData.get("password");
+  if (!isPasswordStrong) {
+    alert(checkPasswordStrength(password));
+    return;
+  }
   signupBtn.classList.add("disabled");
-  // if (!isPasswordStrong) {
-  //   alert(checkPasswordStrength(password));
-  //   return;
-  // }
+
   const result = await registerUser(
     fullname,
     username,
@@ -69,38 +72,49 @@ signupForm.addEventListener("submit", async function (event) {
 function checkPasswordStrength(password) {
   // Define regular expressions for password requirements
   const minLength = 8; // Minimum length
+  const maxLength = 20; // Maximum length
   const uppercaseRegex = /[A-Z]/; // At least one uppercase letter
   const lowercaseRegex = /[a-z]/; // At least one lowercase letter
   const digitRegex = /\d/; // At least one digit
+  const forbiddenCharsRegex = /[ :;,'\"\/|]/; // Forbidden characters and spaces
 
   // Check password length
   if (password.length < minLength) {
-    isPasswordStrong = false;
     return "Password should be at least " + minLength + " characters long.";
+  }
+
+  if (password.length > maxLength) {
+    return "Password should be no more than " + maxLength + " characters long.";
   }
 
   // Check uppercase letter
   if (!uppercaseRegex.test(password)) {
-    isPasswordStrong = false;
     return "Password should contain at least one uppercase letter.";
   }
 
   // Check lowercase letter
   if (!lowercaseRegex.test(password)) {
-    isPasswordStrong = false;
     return "Password should contain at least one lowercase letter.";
   }
 
   // Check digit
   if (!digitRegex.test(password)) {
-    isPasswordStrong = false;
     return "Password should contain at least one digit.";
   }
 
+  // Check for forbidden characters and spaces
+  if (forbiddenCharsRegex.test(password)) {
+    return "Password should not contain spaces or any of the following characters: :;,'\"/|.";
+  }
+
   // Password meets all requirements
-  isPasswordStrong = true;
   return "Password is strong.";
 }
+
+// Example usage:
+// const password = "YourPassword123";
+// const result = checkPasswordStrength(password);
+// console.log(result);
 
 function changeLogin() {
   const signupWindow = document.querySelector(".login-window");
