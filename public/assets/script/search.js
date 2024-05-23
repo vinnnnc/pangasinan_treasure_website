@@ -1,4 +1,4 @@
-// const filterCategory = document.getElementById("filter-category");
+const filterCategory = document.getElementById("filter-category");
 
 // const filterMinPrice = document.getElementById("filter-minprice");
 // const filterMaxPrice = document.getElementById("filter-maxprice");
@@ -14,22 +14,24 @@ const form = document.getElementById("filter-form");
 form.addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent form submission
 
-  const formData = new FormData(form);
-  const queryParams = new URLSearchParams(formData).toString();
+  window.location.href = `/search?category=${filterCategory.value}`;
 
-  try {
-    const response = await fetch(`/api/v1/product/search?${queryParams}`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+  // const formData = new FormData(form);
+  // const queryParams = new URLSearchParams(formData).toString();
 
-    const data = await response.json();
-    // console.log(data);
-    createProductCards(data);
-  } catch (error) {
-    console.error("Error:", error.message);
-    // Handle error (e.g., display error message)
-  }
+  // try {
+  //   const response = await fetch(`/api/v1/product/search?${queryParams}`);
+  //   if (!response.ok) {
+  //     throw new Error(`HTTP error! Status: ${response.status}`);
+  //   }
+
+  //   const data = await response.json();
+  //   // console.log(data);
+  //   createProductCards(data);
+  // } catch (error) {
+  //   console.error("Error:", error.message);
+  //   // Handle error (e.g., display error message)
+  // }
 });
 
 // Fetch products from the server
