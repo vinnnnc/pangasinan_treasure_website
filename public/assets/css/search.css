@@ -35,7 +35,7 @@
 .search-filter-input {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .search-filter-input label,
@@ -57,6 +57,7 @@
   border: none;
   background-color: var(--secondary-color);
   transition: 150ms;
+  margin: 5px;
 }
 .set-btn img,
 .reset-btn img {
