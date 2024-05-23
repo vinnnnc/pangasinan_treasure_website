@@ -13,11 +13,14 @@ const form = document.getElementById("filter-form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent form submission
+  const urlParams = new URLSearchParams(window.location.search);
+  const productName = urlParams.get("productName");
 
-  window.location.href = `/search?category=${filterCategory.value}`;
-
-  // const formData = new FormData(form);
-  // const queryParams = new URLSearchParams(formData).toString();
+  if (productName) {
+    window.location.href = `/search?productName=${productName}&category=${filterCategory.value}`;
+  } else {
+    window.location.href = `/search?category=${filterCategory.value}`;
+  }
 
   // try {
   //   const response = await fetch(`/api/v1/product/search?${queryParams}`);
